@@ -1,7 +1,7 @@
 {
-  "schema": "convergence-approved-guild-registry-v1",
-  "source": "Approved Guild Halls and Outposts workbook",
-  "note": "IDs, locations, and Gate statuses transcribed from approved registry. Coordinates intentionally absent until audited. Footprints and strategy descriptions retained in source workbook for future import.",
+  "schema": "convergence-approved-guild-registry-v2",
+  "source": "CONVERGENCE_Approved_Guild_Halls_and_Outposts.xlsx · Guild Halls and Guild Outposts sheets",
+  "note": "All 82 approved footprint names, strategic roles, restrictions and Gate statuses transcribed from the approved source workbook. These identify canon sites or districts; they do not assert surveyed parcels, venue ownership or exact Gate apertures. No coordinates invented.",
   "summary": {
     "halls": 34,
     "outposts": 48,
@@ -14,7 +14,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Climate Pledge Arena / Seattle Center",
+      "strategic_value": "Cascadia Grand coordination; Puget Sound maritime, Pacific rail, Japan Gate access; climate and rescue logistics",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-02",
@@ -22,7 +26,11 @@
       "type": "Major Guild Hall",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Canada Place",
+      "strategic_value": "Canadian Pacific maritime and aviation interchange; Alaska and British Columbia expeditions; Seattle-linked conventional access",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-03",
@@ -30,7 +38,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Palace of Fine Arts + Presidio / Crissy Field / Fort Mason",
+      "strategic_value": "Pacific Gate interchange; coastal defense, research, seismic response and Bay maritime connections",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-04",
@@ -38,7 +50,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Exposition Park / LA Memorial Coliseum",
+      "strategic_value": "Pacific Gate and Southern California expedition staging; ports, aerospace, desert routes and large-scale logistics",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-05",
@@ -46,7 +62,11 @@
       "type": "Major Guild Hall",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Cashman Complex / Downtown Guild Territory",
+      "strategic_value": "Mojave desert operations; arid-zone supply, inland route coordination and salvage expeditions",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-06",
@@ -54,7 +74,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Monumento a la Revolución / Plaza de la República",
+      "strategic_value": "Mexican national coordination; highland road/rail, civic contracts and Gate links north and to Panama",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-07",
@@ -62,7 +86,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Liberty Island / New York Harbor Division",
+      "strategic_value": "Grand Gate Hub; transatlantic and North American junction; harbor, finance, emergency specialists and diplomatic interchange",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-08",
@@ -70,7 +98,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "City Park Cultural Core",
+      "strategic_value": "Mississippi–Gulf junction; river freight, wetlands, hurricane response, Caribbean Gate connections",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "H-09",
@@ -78,7 +110,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Navy Pier",
+      "strategic_value": "Great Lakes and continental rail interchange; inland industrial distribution and cross-Atlantic Gate bridge",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-10",
@@ -86,7 +122,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Fortaleza de San Carlos de la Cabaña",
+      "strategic_value": "Caribbean maritime/heritage stronghold; island logistics, Gulf access and Gate links to New Orleans/Miami/San Juan",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-11",
@@ -94,7 +134,11 @@
       "type": "Major Guild Hall",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Gran Museo del Mundo Maya",
+      "strategic_value": "Yucatán heritage and peninsula field operations; Maya archaeological stewardship, cave systems, tropical logistics",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-12",
@@ -102,7 +146,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Plaza de Toros de Acho",
+      "strategic_value": "Pacific Andean interchange; coastal shipping, Peru rail/road and Gate support for highland expeditions",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-13",
@@ -110,7 +158,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Maracanã",
+      "strategic_value": "Brazilian Atlantic Gate interchange; metropolitan logistics, regional response and transatlantic Dakar link",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-14",
@@ -118,7 +170,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Palacio Libertad / Former Central Post Office",
+      "strategic_value": "Río de la Plata agricultural/freight interchange; South Atlantic links to Cape Town and southern expeditions",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-15",
@@ -126,7 +182,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Alexandra Palace",
+      "strategic_value": "Grand Gate Hub; North Atlantic, European and Mediterranean coordination; rail/aviation, diplomacy and high-value transport",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-16",
@@ -134,7 +194,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Permanently No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Royal Highland Centre / Ingliston",
+      "strategic_value": "Northern Britain and island expedition support; ferries, aviation, highland rescue; deliberately Gate-less",
+      "restrictions": "Permanently Gate-less by approved canon.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-17",
@@ -142,7 +206,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Grand Palais",
+      "strategic_value": "Continental cultural/heritage and rail coordination; transatlantic Gate links and West African Dakar access",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-18",
@@ -150,7 +218,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Permanently No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Výstaviště Praha / Industrial Palace",
+      "strategic_value": "Central European rail and Danube-facing logistics; heritage-sensitive expeditions; deliberately Gate-less",
+      "restrictions": "Permanently Gate-less by approved canon.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-19",
@@ -158,7 +230,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Tempelhof Airport",
+      "strategic_value": "Continental Gate and aviation/rail interchange; industrial engineering; strategic Beijing long-haul link",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-20",
@@ -166,7 +242,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Palazzo dei Congressi / EUR",
+      "strategic_value": "Mediterranean heritage coordination, Italian freight and Gate access to Cairo and Istanbul",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-21",
@@ -174,7 +254,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Permanently No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Zappeion Megaron",
+      "strategic_value": "Aegean maritime/archaeological coordination, ferries and island expeditions; deliberately Gate-less",
+      "restrictions": "Permanently Gate-less by approved canon.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-22",
@@ -182,7 +266,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Lütfi Kırdar Complex",
+      "strategic_value": "Eurasian Major Gate Hub; Bosphorus transit, Black Sea/Mediterranean shipping and Europe–Asia interchange",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-23",
@@ -190,7 +278,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Gezira Fair Grounds / Cultural Guild District",
+      "strategic_value": "Nile and Suez/Mediterranean interface; northern African Gate interchange, engineering and heritage response",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "H-24",
@@ -198,7 +290,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "UNECA / UN Conference Centre (Africa Hall protected)",
+      "strategic_value": "Highland diplomatic and emergency coordination; Djibouti freight corridor and Gate links Cairo/Cape Town/Delhi",
+      "restrictions": "Africa Hall protected; institutional/cultural safeguards.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-25",
@@ -206,7 +302,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Good Hope Centre",
+      "strategic_value": "Southern Atlantic/Indian Ocean maritime interchange; Cape Gate routes to Africa, South America and Singapore",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-26",
@@ -214,7 +314,11 @@
       "type": "Major Guild Hall",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "International Convention Center / Binyanei HaUma",
+      "strategic_value": "Sensitive heritage and civic coordination; humanitarian logistics with jurisdictional and custodial safeguards",
+      "restrictions": "Respect jurisdiction, heritage custodians and access controls.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-27",
@@ -222,7 +326,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Pragati Maidan / Bharat Mandapam",
+      "strategic_value": "South Asian Major Gate Hub; national rail/road/aviation and links toward Africa, Europe and East Asia",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-28",
@@ -230,7 +338,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Sassoon Docks Fortified Guild District",
+      "strategic_value": "Indian Ocean maritime operations; port/industry, monsoon resilience and Cape Town/Singapore Gate links",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "H-29",
@@ -238,7 +350,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Tokyo International Forum",
+      "strategic_value": "Pacific Grand Gate Hub; advanced engineering, high-density rail, international emergency personnel movement",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-30",
@@ -246,7 +362,11 @@
       "type": "Major Guild Hall",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Dongdaemun Design Plaza + Workshop District",
+      "strategic_value": "Korean Peninsula advanced manufacturing, metropolitan rail and research; exports expertise without a Gate",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "H-31",
@@ -254,7 +374,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Beijing Exhibition Center",
+      "strategic_value": "Continental Chinese rail/industry; Gate routes to Tokyo/Delhi/Berlin/Bangkok and Eurasian coordination",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-32",
@@ -262,7 +386,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Hua Lamphong Railway Station",
+      "strategic_value": "Mainland Southeast Asia rail and river interchange; Chao Phraya flood logistics and regional Gate links",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "H-33",
@@ -270,7 +398,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Tanjong Pagar Railway Station + Distributed Network",
+      "strategic_value": "Major global maritime and Gate Hub; Malacca shipping, urgent international cargo and Southeast Asian coordination",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "H-34",
@@ -278,7 +410,11 @@
       "type": "Major Guild Hall",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Royal Randwick Racecourse",
+      "strategic_value": "Southern Pacific Gate anchor; eastern Australian aviation, maritime and expedition staging",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-01",
@@ -286,7 +422,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Bellingham Cruise Terminal / Fairhaven; Squalicum partner",
+      "strategic_value": "Salish Sea coastal rescue, border-adjacent shipping and Cascadia support",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-02",
@@ -294,7 +434,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Tideflats / Port of Tacoma Road–SR509 Compound",
+      "strategic_value": "Heavy freight, port-industrial staging and Puget Sound supply redundancy; port stays civilian",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-03",
@@ -302,7 +446,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Union Station / North Broadway; Terminal 2 support",
+      "strategic_value": "Columbia River and I-5 rail/freight interchange; Cascadia inland-waterway support",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-04",
@@ -310,7 +458,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Spokane County Fair & Expo Center",
+      "strategic_value": "Inland Northwest rail, agriculture, mountain passes and winter logistics",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-05",
@@ -318,7 +470,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Cal Expo Internal Campus",
+      "strategic_value": "Central Valley agricultural and state logistics; flood/fire response; fair continues",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-06",
@@ -326,7 +482,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Former Army Base / Gateway Industrial District",
+      "strategic_value": "Bay Area port/rail freight, industrial storage and San Francisco Gate supply support",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-07",
@@ -334,7 +494,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Chula Vista / South San Diego Bay Waterfront Corridor",
+      "strategic_value": "Southern California maritime, border and coastal expedition staging; exact parcel pending",
+      "restrictions": "Exact parcel not finalized.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-08",
@@ -342,7 +506,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Casa del Desierto / Harvey House + Rail Compound",
+      "strategic_value": "Mojave rail crossroads; desert rescue, water/fuel planning and long-haul convoys",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-09",
@@ -350,7 +518,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Bureau of Reclamation Date Street Complex",
+      "strategic_value": "Colorado River water/energy infrastructure liaison; desert logistics; dam stays with agencies",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-10",
@@ -358,7 +530,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "El Paso County Coliseum / Equestrian–Livestock Core + Juárez liaison",
+      "strategic_value": "Binational border freight, Chihuahuan Desert routes and crossing coordination",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-11",
@@ -366,7 +542,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Industrial/Rail Corridor outside Santa Catarina Flood Channel",
+      "strategic_value": "Northern Mexican industry and rail; machinery fabrication and cross-border supply",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-12",
@@ -374,7 +554,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "ZAL / Port Logistics Corridor",
+      "strategic_value": "Gulf of Mexico maritime freight, Mexican inland routes and coastal response; fortress protected",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-13",
@@ -382,7 +566,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Raymond L. Flynn Marine Park / Drydock Corridor",
+      "strategic_value": "New England maritime industry, coastal rescue and Northeast Corridor connections",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-14",
@@ -390,7 +578,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Buffalo Central Terminal District + Hardened Compound",
+      "strategic_value": "Great Lakes border/rail interchange, winter logistics and industrial recovery",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-15",
@@ -398,7 +590,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Hazelwood Green / Monongahela Corridor",
+      "strategic_value": "Steel/engineering heritage, inland rivers and specialist fabrication for repairs",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-16",
@@ -406,7 +602,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "RFK–Reservation 13 / Eastern Institutional Corridor",
+      "strategic_value": "Federal liaison, emergency coordination, regulated archives and institutional access",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-17",
@@ -414,7 +614,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Lakewood / South Atlanta Fairground–Industrial–Rail Corridor",
+      "strategic_value": "Southeastern distribution, aviation, rail and regional disaster response",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-18",
@@ -422,7 +626,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Upland Bluff / Industrial–Rail Core; President’s Island operations",
+      "strategic_value": "Mississippi River freight, rail and inland supply resilience with flood separation",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-19",
@@ -430,7 +638,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Ellington / Southeast Houston Inland Core + Galveston station",
+      "strategic_value": "Gulf industrial/energy logistics, hurricanes, port/aviation and maritime rescue",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-20",
@@ -438,7 +650,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Homestead–Florida City Inland Core + Miami network",
+      "strategic_value": "Caribbean Gate staging, hurricane logistics, Keys/Atlantic maritime and aviation",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-21",
@@ -446,7 +662,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Cataño–Bayamón Core + Port/Isla Grande offices",
+      "strategic_value": "Caribbean island Gate and maritime interchange; regional relief and shipping",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-22",
@@ -454,7 +674,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Newport West Core + Port/Civic/Spanish Town fallback",
+      "strategic_value": "Jamaican maritime freight, Caribbean island operations and storm preparedness",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-23",
@@ -462,7 +686,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Belmopan Core + Belize City Coastal Center",
+      "strategic_value": "Government/heritage liaison, reef/coastal access and inland tropical expeditions",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-24",
@@ -470,7 +698,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Northern/Northeastern Logistics Core + La Aurora network",
+      "strategic_value": "Central American highland transport, volcanic/weather response and regional freight",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-25",
@@ -478,7 +710,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Panamá Pacífico Core + Balboa/Colón/Cristóbal network",
+      "strategic_value": "Interoceanic Gate interchange and Canal logistics liaison; Canal independently operated",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-26",
@@ -486,7 +722,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Western Bogotá / Fontibón Core + El Dorado network",
+      "strategic_value": "Northern Andes aviation/highland freight and Gate links Panama/Lima/Brasília",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-27",
@@ -494,7 +734,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "South Quito / Quitumbe Core",
+      "strategic_value": "Andean high-altitude roads, Ecuador regional support and mountain response",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-28",
@@ -502,7 +746,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Ship Creek / Alaska Railroad Corridor",
+      "strategic_value": "Alaska rail, aviation and maritime lifelines; remote-community logistics and cold-weather rescue",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-29",
@@ -510,7 +758,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "San Jerónimo / Southeast Corridor",
+      "strategic_value": "Andean archaeological stewardship, high-altitude expeditions and heritage access",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-30",
@@ -518,7 +770,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Operational — Restricted",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "El Alto Industrial/Logistics Belt",
+      "strategic_value": "Restricted high-altitude Gate; Andean freight and specialized acclimatization/medical control",
+      "restrictions": "Altitude/medical restrictions; no normal through-ticketing.",
+      "site_precision": "approved_named_venue_or_footprint"
     },
     {
       "id": "O-31",
@@ -526,7 +782,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Southern Industrial/Logistics Corridor + River Network",
+      "strategic_value": "Amazon river transport, rainforest field access, industrial supplies and hydrology",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-32",
@@ -534,7 +794,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Aratu–Candeias Core + Waterfront Network",
+      "strategic_value": "Bahian port/industrial freight, coastal heritage and Atlantic response",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-33",
@@ -542,7 +806,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "SIA / Western Brasília Core + Federal Liaison",
+      "strategic_value": "Brazilian inland Gate interchange, national institutions and long-distance aviation",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-34",
@@ -550,7 +818,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Eastern Metro / Gravataí Upland Core",
+      "strategic_value": "Southern Brazilian industry, inland waterways and flood-resilient freight",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-35",
@@ -558,7 +830,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Permanently No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Quilicura Core + Los Andes/Mendoza Stations",
+      "strategic_value": "Chile–Argentina Andes crossing, Pacific rail/road and seismic response; no Gate by design",
+      "restrictions": "Permanently Gate-less by approved canon.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-36",
@@ -566,7 +842,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Eastern Industrial/Logistics Core + Port/Airport",
+      "strategic_value": "Tierra del Fuego maritime and polar expedition staging; extreme-weather preparedness",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-37",
@@ -574,7 +854,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Under Construction",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Sundahöfn / Eastern Reykjavík Core + Separate Gate Campus",
+      "strategic_value": "North Atlantic port/aviation; active Gate engineering project with no human crossing",
+      "restrictions": "Anchoring → stabilization; NO human transit; possible future routes not guaranteed.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-38",
@@ -582,7 +866,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Elevated Eastern Jakarta–Bekasi Logistics Core",
+      "strategic_value": "Indonesian archipelago Gate interchange, island aviation/shipping and flood resilience",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-39",
@@ -590,7 +878,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Eastern Industrial/Logistics Core + Tangier Station",
+      "strategic_value": "Moroccan Atlantic/Mediterranean port and rail interchange; North African industrial support",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-40",
@@ -598,7 +890,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Operational",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Diamniadio Core + Port/Civic/Aviation Network",
+      "strategic_value": "West African Atlantic Gate junction to Paris/Cairo/Rio/Cape Town; Sahel/coastal logistics",
+      "restrictions": "Gate at supporting site; not necessarily iconic building.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-41",
@@ -606,7 +902,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Embakasi / Eastern Industrial–Logistics Core + Mombasa Station",
+      "strategic_value": "East African inland–coast freight, aviation and regional engineering response",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-42",
@@ -614,7 +914,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Germiston–Boksburg / Western Ekurhuleni Core",
+      "strategic_value": "Southern African industrial fabrication, rail and mining freight; Durban/OR Tambo network",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-43",
@@ -622,7 +926,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Southern Industrial/Logistics Belt + Tigris Network",
+      "strategic_value": "Mesopotamian river/water infrastructure, heritage and overland freight",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-44",
@@ -630,7 +938,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "Proposed / Surveyed",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Northern Industrial/Rail–Logistics Core + Tian Shan Network",
+      "strategic_value": "Central Asian rail/aviation and mountain expeditions; proposed Beijing/Istanbul Gate study",
+      "restrictions": "Proposal only; project may be cancelled; no active Gate.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-45",
@@ -638,7 +950,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Flood-Resilient Eastern/Northeastern Metro Logistics Core",
+      "strategic_value": "Eastern India river/rail freight, Bangladesh liaison, delta resilience and Hooghly ports",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-46",
@@ -646,7 +962,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Flood-Resilient Metro Industrial–Logistics Core",
+      "strategic_value": "Red River rail/road, Hải Phòng maritime freight and northern Vietnam coordination",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-47",
@@ -654,7 +974,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Inland Darwin–Palmerston Logistics Core + East Arm Network",
+      "strategic_value": "Northern Australia maritime/aviation, tropical weather and inland rail/road access",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     },
     {
       "id": "O-48",
@@ -662,7 +986,11 @@
       "type": "Permanent Guild Outpost",
       "gate_status": "No Gate",
       "coordinate_status": "not_audited",
-      "coordinates": null
+      "coordinates": null,
+      "approved_footprint": "Resilient Hutt Valley Industrial Core + Inter-Island Network",
+      "strategic_value": "New Zealand ferries, port/aviation, earthquake resilience and South Island links",
+      "restrictions": "Retain conventional transport importance; no routine Gate transit.",
+      "site_precision": "approved_area_or_multi_site"
     }
   ]
 }
