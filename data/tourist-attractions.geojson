@@ -1,0 +1,691 @@
+{
+  "type": "FeatureCollection",
+  "name": "CONVERGENCE Tourist Attractions and Landmarks",
+  "metadata": {
+    "status": "reference_layer",
+    "coordinate_precision": "approximate",
+    "notes": "Tourism and heritage points only; no CONVERGENCE Relic, dungeon, Guild or ownership claims. Smithsonian is represented by individual museums, Grand Canyon and parks by representative visitor-area points."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3376,
+          48.8606
+        ]
+      },
+      "properties": {
+        "id": "T-001",
+        "name": "Louvre Museum",
+        "location": "Paris, France",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0261,
+          38.8913
+        ]
+      },
+      "properties": {
+        "id": "T-002",
+        "name": "Smithsonian National Museum of Natural History",
+        "location": "Washington, DC, USA",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0199,
+          38.8882
+        ]
+      },
+      "properties": {
+        "id": "T-003",
+        "name": "Smithsonian National Air and Space Museum",
+        "location": "Washington, DC, USA",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.03,
+          38.8913
+        ]
+      },
+      "properties": {
+        "id": "T-004",
+        "name": "Smithsonian National Museum of American History",
+        "location": "Washington, DC, USA",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.143,
+          36.057
+        ]
+      },
+      "properties": {
+        "id": "T-005",
+        "name": "Grand Canyon National Park — South Rim",
+        "location": "Arizona, USA",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0502,
+          38.8893
+        ]
+      },
+      "properties": {
+        "id": "T-006",
+        "name": "Lincoln Memorial",
+        "location": "Washington, DC, USA",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0353,
+          38.8895
+        ]
+      },
+      "properties": {
+        "id": "T-007",
+        "name": "Washington Monument",
+        "location": "Washington, DC, USA",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0091,
+          38.8899
+        ]
+      },
+      "properties": {
+        "id": "T-008",
+        "name": "United States Capitol",
+        "location": "Washington, DC, USA",
+        "category": "civic_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0445,
+          40.6892
+        ]
+      },
+      "properties": {
+        "id": "T-009",
+        "name": "Statue of Liberty",
+        "location": "New York, USA",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9654,
+          40.7829
+        ]
+      },
+      "properties": {
+        "id": "T-010",
+        "name": "Central Park",
+        "location": "New York, USA",
+        "category": "park",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.4783,
+          37.8199
+        ]
+      },
+      "properties": {
+        "id": "T-011",
+        "name": "Golden Gate Bridge",
+        "location": "San Francisco, USA",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3493,
+          47.6205
+        ]
+      },
+      "properties": {
+        "id": "T-012",
+        "name": "Space Needle",
+        "location": "Seattle, USA",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.8281,
+          44.4605
+        ]
+      },
+      "properties": {
+        "id": "T-013",
+        "name": "Yellowstone National Park — Old Faithful",
+        "location": "Wyoming, USA",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.5936,
+          37.7456
+        ]
+      },
+      "properties": {
+        "id": "T-014",
+        "name": "Yosemite Valley",
+        "location": "California, USA",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.0747,
+          43.0799
+        ]
+      },
+      "properties": {
+        "id": "T-015",
+        "name": "Niagara Falls",
+        "location": "New York / Ontario",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.4591,
+          43.8791
+        ]
+      },
+      "properties": {
+        "id": "T-016",
+        "name": "Mount Rushmore",
+        "location": "South Dakota, USA",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2945,
+          48.8584
+        ]
+      },
+      "properties": {
+        "id": "T-017",
+        "name": "Eiffel Tower",
+        "location": "Paris, France",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3499,
+          48.853
+        ]
+      },
+      "properties": {
+        "id": "T-018",
+        "name": "Notre-Dame Cathedral",
+        "location": "Paris, France",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1204,
+          48.8049
+        ]
+      },
+      "properties": {
+        "id": "T-019",
+        "name": "Palace of Versailles",
+        "location": "Versailles, France",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1269,
+          51.5194
+        ]
+      },
+      "properties": {
+        "id": "T-020",
+        "name": "British Museum",
+        "location": "London, UK",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0759,
+          51.5081
+        ]
+      },
+      "properties": {
+        "id": "T-021",
+        "name": "Tower of London",
+        "location": "London, UK",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.8262,
+          51.1789
+        ]
+      },
+      "properties": {
+        "id": "T-022",
+        "name": "Stonehenge",
+        "location": "Wiltshire, UK",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1744,
+          41.4036
+        ]
+      },
+      "properties": {
+        "id": "T-023",
+        "name": "Sagrada Família",
+        "location": "Barcelona, Spain",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.5881,
+          37.1761
+        ]
+      },
+      "properties": {
+        "id": "T-024",
+        "name": "Alhambra",
+        "location": "Granada, Spain",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.7267,
+          37.9715
+        ]
+      },
+      "properties": {
+        "id": "T-025",
+        "name": "Acropolis of Athens",
+        "location": "Athens, Greece",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.1342,
+          29.9792
+        ]
+      },
+      "properties": {
+        "id": "T-026",
+        "name": "Pyramids of Giza",
+        "location": "Giza, Egypt",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.6014,
+          25.7402
+        ]
+      },
+      "properties": {
+        "id": "T-027",
+        "name": "Valley of the Kings",
+        "location": "Luxor, Egypt",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.2814,
+          25.192
+        ]
+      },
+      "properties": {
+        "id": "T-028",
+        "name": "Burj Khalifa",
+        "location": "Dubai, UAE",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.867,
+          13.4125
+        ]
+      },
+      "properties": {
+        "id": "T-029",
+        "name": "Angkor Wat",
+        "location": "Siem Reap, Cambodia",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3972,
+          39.9163
+        ]
+      },
+      "properties": {
+        "id": "T-030",
+        "name": "Forbidden City",
+        "location": "Beijing, China",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.7274,
+          35.3606
+        ]
+      },
+      "properties": {
+        "id": "T-031",
+        "name": "Mount Fuji",
+        "location": "Japan",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          135.7727,
+          34.9671
+        ]
+      },
+      "properties": {
+        "id": "T-032",
+        "name": "Fushimi Inari Taisha",
+        "location": "Kyoto, Japan",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          151.2153,
+          -33.8568
+        ]
+      },
+      "properties": {
+        "id": "T-033",
+        "name": "Sydney Opera House",
+        "location": "Sydney, Australia",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.0369,
+          -25.3444
+        ]
+      },
+      "properties": {
+        "id": "T-034",
+        "name": "Uluru",
+        "location": "Northern Territory, Australia",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          167.9257,
+          -44.6715
+        ]
+      },
+      "properties": {
+        "id": "T-035",
+        "name": "Milford Sound / Piopiotahi",
+        "location": "New Zealand",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.4367,
+          -25.6953
+        ]
+      },
+      "properties": {
+        "id": "T-036",
+        "name": "Iguazú Falls",
+        "location": "Argentina / Brazil",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.4891,
+          -20.1338
+        ]
+      },
+      "properties": {
+        "id": "T-037",
+        "name": "Salar de Uyuni",
+        "location": "Bolivia",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4098,
+          -33.9628
+        ]
+      },
+      "properties": {
+        "id": "T-038",
+        "name": "Table Mountain",
+        "location": "Cape Town, South Africa",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.8572,
+          -17.9243
+        ]
+      },
+      "properties": {
+        "id": "T-039",
+        "name": "Victoria Falls",
+        "location": "Zambia / Zimbabwe",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.8333,
+          -2.3333
+        ]
+      },
+      "properties": {
+        "id": "T-040",
+        "name": "Serengeti National Park — Central Reference",
+        "location": "Tanzania",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    }
+  ]
+}
