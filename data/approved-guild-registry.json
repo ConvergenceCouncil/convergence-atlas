@@ -1,7 +1,7 @@
 {
   "schema": "convergence-approved-guild-registry-v2",
   "source": "CONVERGENCE_Approved_Guild_Halls_and_Outposts.xlsx · Guild Halls and Guild Outposts sheets",
-  "note": "All 82 approved footprint names, strategic roles, restrictions and Gate statuses transcribed from the approved source workbook. These identify canon sites or districts; they do not assert surveyed parcels, venue ownership or exact Gate apertures. No coordinates invented.",
+  "note": "All 82 approved footprint names, strategic roles, restrictions and Gate statuses transcribed from the approved source workbook. These identify canon sites or districts; they do not assert surveyed parcels, venue ownership or exact Gate apertures. No coordinates invented. All 82 sites now have approximate geographic map references. These may be city centers or nearby public landmarks and must NOT be described as audited venue, parcel, or Gate coordinates.",
   "summary": {
     "halls": 34,
     "outposts": 48,
@@ -18,7 +18,13 @@
       "approved_footprint": "Climate Pledge Arena / Seattle Center",
       "strategic_value": "Cascadia Grand coordination; Puget Sound maritime, Pacific rail, Japan Gate access; climate and rescue logistics",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 47.6219,
+        "longitude": -122.3539,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-02",
@@ -30,7 +36,13 @@
       "approved_footprint": "Canada Place",
       "strategic_value": "Canadian Pacific maritime and aviation interchange; Alaska and British Columbia expeditions; Seattle-linked conventional access",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 49.2888,
+        "longitude": -123.1111,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-03",
@@ -42,7 +54,13 @@
       "approved_footprint": "Palace of Fine Arts + Presidio / Crissy Field / Fort Mason",
       "strategic_value": "Pacific Gate interchange; coastal defense, research, seismic response and Bay maritime connections",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 37.8029,
+        "longitude": -122.4484,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-04",
@@ -54,7 +72,13 @@
       "approved_footprint": "Exposition Park / LA Memorial Coliseum",
       "strategic_value": "Pacific Gate and Southern California expedition staging; ports, aerospace, desert routes and large-scale logistics",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 34.0141,
+        "longitude": -118.2879,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-05",
@@ -66,7 +90,13 @@
       "approved_footprint": "Cashman Complex / Downtown Guild Territory",
       "strategic_value": "Mojave desert operations; arid-zone supply, inland route coordination and salvage expeditions",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 36.1699,
+        "longitude": -115.1398,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-06",
@@ -78,7 +108,13 @@
       "approved_footprint": "Monumento a la Revolución / Plaza de la República",
       "strategic_value": "Mexican national coordination; highland road/rail, civic contracts and Gate links north and to Panama",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 19.4326,
+        "longitude": -99.1332,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-07",
@@ -90,7 +126,13 @@
       "approved_footprint": "Liberty Island / New York Harbor Division",
       "strategic_value": "Grand Gate Hub; transatlantic and North American junction; harbor, finance, emergency specialists and diplomatic interchange",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 40.6892,
+        "longitude": -74.0445,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-08",
@@ -102,7 +144,13 @@
       "approved_footprint": "City Park Cultural Core",
       "strategic_value": "Mississippi–Gulf junction; river freight, wetlands, hurricane response, Caribbean Gate connections",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 29.9511,
+        "longitude": -90.0715,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-09",
@@ -114,7 +162,13 @@
       "approved_footprint": "Navy Pier",
       "strategic_value": "Great Lakes and continental rail interchange; inland industrial distribution and cross-Atlantic Gate bridge",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 41.8917,
+        "longitude": -87.6078,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-10",
@@ -126,7 +180,13 @@
       "approved_footprint": "Fortaleza de San Carlos de la Cabaña",
       "strategic_value": "Caribbean maritime/heritage stronghold; island logistics, Gulf access and Gate links to New Orleans/Miami/San Juan",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 23.135,
+        "longitude": -82.359,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-11",
@@ -138,7 +198,13 @@
       "approved_footprint": "Gran Museo del Mundo Maya",
       "strategic_value": "Yucatán heritage and peninsula field operations; Maya archaeological stewardship, cave systems, tropical logistics",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 20.9674,
+        "longitude": -89.5926,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-12",
@@ -150,7 +216,13 @@
       "approved_footprint": "Plaza de Toros de Acho",
       "strategic_value": "Pacific Andean interchange; coastal shipping, Peru rail/road and Gate support for highland expeditions",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": -12.0464,
+        "longitude": -77.0428,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-13",
@@ -162,7 +234,13 @@
       "approved_footprint": "Maracanã",
       "strategic_value": "Brazilian Atlantic Gate interchange; metropolitan logistics, regional response and transatlantic Dakar link",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": -22.9068,
+        "longitude": -43.1729,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-14",
@@ -174,7 +252,13 @@
       "approved_footprint": "Palacio Libertad / Former Central Post Office",
       "strategic_value": "Río de la Plata agricultural/freight interchange; South Atlantic links to Cape Town and southern expeditions",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": -34.6037,
+        "longitude": -58.3816,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-15",
@@ -186,7 +270,13 @@
       "approved_footprint": "Alexandra Palace",
       "strategic_value": "Grand Gate Hub; North Atlantic, European and Mediterranean coordination; rail/aviation, diplomacy and high-value transport",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 51.5945,
+        "longitude": -0.1306,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-16",
@@ -198,7 +288,13 @@
       "approved_footprint": "Royal Highland Centre / Ingliston",
       "strategic_value": "Northern Britain and island expedition support; ferries, aviation, highland rescue; deliberately Gate-less",
       "restrictions": "Permanently Gate-less by approved canon.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 55.9533,
+        "longitude": -3.1883,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-17",
@@ -210,7 +306,13 @@
       "approved_footprint": "Grand Palais",
       "strategic_value": "Continental cultural/heritage and rail coordination; transatlantic Gate links and West African Dakar access",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 48.8661,
+        "longitude": 2.3125,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-18",
@@ -222,7 +324,13 @@
       "approved_footprint": "Výstaviště Praha / Industrial Palace",
       "strategic_value": "Central European rail and Danube-facing logistics; heritage-sensitive expeditions; deliberately Gate-less",
       "restrictions": "Permanently Gate-less by approved canon.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 50.0755,
+        "longitude": 14.4378,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-19",
@@ -234,7 +342,13 @@
       "approved_footprint": "Tempelhof Airport",
       "strategic_value": "Continental Gate and aviation/rail interchange; industrial engineering; strategic Beijing long-haul link",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 52.473,
+        "longitude": 13.403,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-20",
@@ -246,7 +360,13 @@
       "approved_footprint": "Palazzo dei Congressi / EUR",
       "strategic_value": "Mediterranean heritage coordination, Italian freight and Gate access to Cairo and Istanbul",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 41.835,
+        "longitude": 12.47,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-21",
@@ -258,7 +378,13 @@
       "approved_footprint": "Zappeion Megaron",
       "strategic_value": "Aegean maritime/archaeological coordination, ferries and island expeditions; deliberately Gate-less",
       "restrictions": "Permanently Gate-less by approved canon.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 37.9707,
+        "longitude": 23.7367,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-22",
@@ -270,7 +396,13 @@
       "approved_footprint": "Lütfi Kırdar Complex",
       "strategic_value": "Eurasian Major Gate Hub; Bosphorus transit, Black Sea/Mediterranean shipping and Europe–Asia interchange",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 41.048,
+        "longitude": 28.987,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-23",
@@ -282,7 +414,13 @@
       "approved_footprint": "Gezira Fair Grounds / Cultural Guild District",
       "strategic_value": "Nile and Suez/Mediterranean interface; northern African Gate interchange, engineering and heritage response",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 30.0444,
+        "longitude": 31.2357,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-24",
@@ -294,7 +432,13 @@
       "approved_footprint": "UNECA / UN Conference Centre (Africa Hall protected)",
       "strategic_value": "Highland diplomatic and emergency coordination; Djibouti freight corridor and Gate links Cairo/Cape Town/Delhi",
       "restrictions": "Africa Hall protected; institutional/cultural safeguards.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 9.03,
+        "longitude": 38.74,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-25",
@@ -306,7 +450,13 @@
       "approved_footprint": "Good Hope Centre",
       "strategic_value": "Southern Atlantic/Indian Ocean maritime interchange; Cape Gate routes to Africa, South America and Singapore",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": -33.9249,
+        "longitude": 18.4241,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-26",
@@ -318,7 +468,13 @@
       "approved_footprint": "International Convention Center / Binyanei HaUma",
       "strategic_value": "Sensitive heritage and civic coordination; humanitarian logistics with jurisdictional and custodial safeguards",
       "restrictions": "Respect jurisdiction, heritage custodians and access controls.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 31.785,
+        "longitude": 35.204,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-27",
@@ -330,7 +486,13 @@
       "approved_footprint": "Pragati Maidan / Bharat Mandapam",
       "strategic_value": "South Asian Major Gate Hub; national rail/road/aviation and links toward Africa, Europe and East Asia",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 28.6139,
+        "longitude": 77.209,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-28",
@@ -342,7 +504,13 @@
       "approved_footprint": "Sassoon Docks Fortified Guild District",
       "strategic_value": "Indian Ocean maritime operations; port/industry, monsoon resilience and Cape Town/Singapore Gate links",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 18.922,
+        "longitude": 72.834,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-29",
@@ -354,7 +522,13 @@
       "approved_footprint": "Tokyo International Forum",
       "strategic_value": "Pacific Grand Gate Hub; advanced engineering, high-density rail, international emergency personnel movement",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 35.6769,
+        "longitude": 139.7639,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-30",
@@ -366,7 +540,13 @@
       "approved_footprint": "Dongdaemun Design Plaza + Workshop District",
       "strategic_value": "Korean Peninsula advanced manufacturing, metropolitan rail and research; exports expertise without a Gate",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 37.5665,
+        "longitude": 126.978,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-31",
@@ -378,7 +558,13 @@
       "approved_footprint": "Beijing Exhibition Center",
       "strategic_value": "Continental Chinese rail/industry; Gate routes to Tokyo/Delhi/Berlin/Bangkok and Eurasian coordination",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 39.9042,
+        "longitude": 116.4074,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-32",
@@ -390,7 +576,13 @@
       "approved_footprint": "Hua Lamphong Railway Station",
       "strategic_value": "Mainland Southeast Asia rail and river interchange; Chao Phraya flood logistics and regional Gate links",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 13.737,
+        "longitude": 100.516,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-33",
@@ -402,7 +594,13 @@
       "approved_footprint": "Tanjong Pagar Railway Station + Distributed Network",
       "strategic_value": "Major global maritime and Gate Hub; Malacca shipping, urgent international cargo and Southeast Asian coordination",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 1.276,
+        "longitude": 103.846,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "H-34",
@@ -414,7 +612,13 @@
       "approved_footprint": "Royal Randwick Racecourse",
       "strategic_value": "Southern Pacific Gate anchor; eastern Australian aviation, maritime and expedition staging",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": -33.913,
+        "longitude": 151.242,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-01",
@@ -426,7 +630,13 @@
       "approved_footprint": "Bellingham Cruise Terminal / Fairhaven; Squalicum partner",
       "strategic_value": "Salish Sea coastal rescue, border-adjacent shipping and Cascadia support",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 48.719,
+        "longitude": -122.513,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-02",
@@ -438,7 +648,13 @@
       "approved_footprint": "Tideflats / Port of Tacoma Road–SR509 Compound",
       "strategic_value": "Heavy freight, port-industrial staging and Puget Sound supply redundancy; port stays civilian",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 47.2529,
+        "longitude": -122.4443,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-03",
@@ -450,7 +666,13 @@
       "approved_footprint": "Union Station / North Broadway; Terminal 2 support",
       "strategic_value": "Columbia River and I-5 rail/freight interchange; Cascadia inland-waterway support",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 45.529,
+        "longitude": -122.676,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-04",
@@ -462,7 +684,13 @@
       "approved_footprint": "Spokane County Fair & Expo Center",
       "strategic_value": "Inland Northwest rail, agriculture, mountain passes and winter logistics",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 47.6588,
+        "longitude": -117.426,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-05",
@@ -474,7 +702,13 @@
       "approved_footprint": "Cal Expo Internal Campus",
       "strategic_value": "Central Valley agricultural and state logistics; flood/fire response; fair continues",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 38.5816,
+        "longitude": -121.4944,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-06",
@@ -486,7 +720,13 @@
       "approved_footprint": "Former Army Base / Gateway Industrial District",
       "strategic_value": "Bay Area port/rail freight, industrial storage and San Francisco Gate supply support",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 37.8044,
+        "longitude": -122.2712,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-07",
@@ -498,7 +738,13 @@
       "approved_footprint": "Chula Vista / South San Diego Bay Waterfront Corridor",
       "strategic_value": "Southern California maritime, border and coastal expedition staging; exact parcel pending",
       "restrictions": "Exact parcel not finalized.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 32.6401,
+        "longitude": -117.0842,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-08",
@@ -510,7 +756,13 @@
       "approved_footprint": "Casa del Desierto / Harvey House + Rail Compound",
       "strategic_value": "Mojave rail crossroads; desert rescue, water/fuel planning and long-haul convoys",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 34.8958,
+        "longitude": -117.0173,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-09",
@@ -522,7 +774,13 @@
       "approved_footprint": "Bureau of Reclamation Date Street Complex",
       "strategic_value": "Colorado River water/energy infrastructure liaison; desert logistics; dam stays with agencies",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": 35.9782,
+        "longitude": -114.8345,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-10",
@@ -534,7 +792,13 @@
       "approved_footprint": "El Paso County Coliseum / Equestrian–Livestock Core + Juárez liaison",
       "strategic_value": "Binational border freight, Chihuahuan Desert routes and crossing coordination",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 31.7619,
+        "longitude": -106.485,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-11",
@@ -546,7 +810,13 @@
       "approved_footprint": "Industrial/Rail Corridor outside Santa Catarina Flood Channel",
       "strategic_value": "Northern Mexican industry and rail; machinery fabrication and cross-border supply",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 25.6866,
+        "longitude": -100.3161,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-12",
@@ -558,7 +828,13 @@
       "approved_footprint": "ZAL / Port Logistics Corridor",
       "strategic_value": "Gulf of Mexico maritime freight, Mexican inland routes and coastal response; fortress protected",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 19.1738,
+        "longitude": -96.1342,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-13",
@@ -570,7 +846,13 @@
       "approved_footprint": "Raymond L. Flynn Marine Park / Drydock Corridor",
       "strategic_value": "New England maritime industry, coastal rescue and Northeast Corridor connections",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 42.3601,
+        "longitude": -71.0589,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-14",
@@ -582,7 +864,13 @@
       "approved_footprint": "Buffalo Central Terminal District + Hardened Compound",
       "strategic_value": "Great Lakes border/rail interchange, winter logistics and industrial recovery",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 42.8864,
+        "longitude": -78.8784,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-15",
@@ -594,7 +882,13 @@
       "approved_footprint": "Hazelwood Green / Monongahela Corridor",
       "strategic_value": "Steel/engineering heritage, inland rivers and specialist fabrication for repairs",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 40.4406,
+        "longitude": -79.9959,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-16",
@@ -606,7 +900,13 @@
       "approved_footprint": "RFK–Reservation 13 / Eastern Institutional Corridor",
       "strategic_value": "Federal liaison, emergency coordination, regulated archives and institutional access",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 38.9072,
+        "longitude": -77.0369,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-17",
@@ -618,7 +918,13 @@
       "approved_footprint": "Lakewood / South Atlanta Fairground–Industrial–Rail Corridor",
       "strategic_value": "Southeastern distribution, aviation, rail and regional disaster response",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 33.749,
+        "longitude": -84.388,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-18",
@@ -630,7 +936,13 @@
       "approved_footprint": "Upland Bluff / Industrial–Rail Core; President’s Island operations",
       "strategic_value": "Mississippi River freight, rail and inland supply resilience with flood separation",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 35.1495,
+        "longitude": -90.049,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-19",
@@ -642,7 +954,13 @@
       "approved_footprint": "Ellington / Southeast Houston Inland Core + Galveston station",
       "strategic_value": "Gulf industrial/energy logistics, hurricanes, port/aviation and maritime rescue",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 29.7604,
+        "longitude": -95.3698,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-20",
@@ -654,7 +972,13 @@
       "approved_footprint": "Homestead–Florida City Inland Core + Miami network",
       "strategic_value": "Caribbean Gate staging, hurricane logistics, Keys/Atlantic maritime and aviation",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 25.4687,
+        "longitude": -80.4776,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-21",
@@ -666,7 +990,13 @@
       "approved_footprint": "Cataño–Bayamón Core + Port/Isla Grande offices",
       "strategic_value": "Caribbean island Gate and maritime interchange; regional relief and shipping",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 18.4655,
+        "longitude": -66.1057,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-22",
@@ -678,7 +1008,13 @@
       "approved_footprint": "Newport West Core + Port/Civic/Spanish Town fallback",
       "strategic_value": "Jamaican maritime freight, Caribbean island operations and storm preparedness",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 17.9712,
+        "longitude": -76.7936,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-23",
@@ -690,7 +1026,13 @@
       "approved_footprint": "Belmopan Core + Belize City Coastal Center",
       "strategic_value": "Government/heritage liaison, reef/coastal access and inland tropical expeditions",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 17.251,
+        "longitude": -88.759,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-24",
@@ -702,7 +1044,13 @@
       "approved_footprint": "Northern/Northeastern Logistics Core + La Aurora network",
       "strategic_value": "Central American highland transport, volcanic/weather response and regional freight",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 14.6349,
+        "longitude": -90.5069,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-25",
@@ -714,7 +1062,13 @@
       "approved_footprint": "Panamá Pacífico Core + Balboa/Colón/Cristóbal network",
       "strategic_value": "Interoceanic Gate interchange and Canal logistics liaison; Canal independently operated",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 8.951,
+        "longitude": -79.56,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-26",
@@ -726,7 +1080,13 @@
       "approved_footprint": "Western Bogotá / Fontibón Core + El Dorado network",
       "strategic_value": "Northern Andes aviation/highland freight and Gate links Panama/Lima/Brasília",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 4.711,
+        "longitude": -74.0721,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-27",
@@ -738,7 +1098,13 @@
       "approved_footprint": "South Quito / Quitumbe Core",
       "strategic_value": "Andean high-altitude roads, Ecuador regional support and mountain response",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -0.1807,
+        "longitude": -78.4678,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-28",
@@ -750,7 +1116,13 @@
       "approved_footprint": "Ship Creek / Alaska Railroad Corridor",
       "strategic_value": "Alaska rail, aviation and maritime lifelines; remote-community logistics and cold-weather rescue",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 61.2181,
+        "longitude": -149.9003,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-29",
@@ -762,7 +1134,13 @@
       "approved_footprint": "San Jerónimo / Southeast Corridor",
       "strategic_value": "Andean archaeological stewardship, high-altitude expeditions and heritage access",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -13.5319,
+        "longitude": -71.9675,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-30",
@@ -774,7 +1152,13 @@
       "approved_footprint": "El Alto Industrial/Logistics Belt",
       "strategic_value": "Restricted high-altitude Gate; Andean freight and specialized acclimatization/medical control",
       "restrictions": "Altitude/medical restrictions; no normal through-ticketing.",
-      "site_precision": "approved_named_venue_or_footprint"
+      "site_precision": "approved_named_venue_or_footprint",
+      "map_reference": {
+        "latitude": -16.5,
+        "longitude": -68.15,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-31",
@@ -786,7 +1170,13 @@
       "approved_footprint": "Southern Industrial/Logistics Corridor + River Network",
       "strategic_value": "Amazon river transport, rainforest field access, industrial supplies and hydrology",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -3.119,
+        "longitude": -60.0217,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-32",
@@ -798,7 +1188,13 @@
       "approved_footprint": "Aratu–Candeias Core + Waterfront Network",
       "strategic_value": "Bahian port/industrial freight, coastal heritage and Atlantic response",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -12.9777,
+        "longitude": -38.5016,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-33",
@@ -810,7 +1206,13 @@
       "approved_footprint": "SIA / Western Brasília Core + Federal Liaison",
       "strategic_value": "Brazilian inland Gate interchange, national institutions and long-distance aviation",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -15.7939,
+        "longitude": -47.8828,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-34",
@@ -822,7 +1224,13 @@
       "approved_footprint": "Eastern Metro / Gravataí Upland Core",
       "strategic_value": "Southern Brazilian industry, inland waterways and flood-resilient freight",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -30.0346,
+        "longitude": -51.2177,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-35",
@@ -834,7 +1242,13 @@
       "approved_footprint": "Quilicura Core + Los Andes/Mendoza Stations",
       "strategic_value": "Chile–Argentina Andes crossing, Pacific rail/road and seismic response; no Gate by design",
       "restrictions": "Permanently Gate-less by approved canon.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -33.4489,
+        "longitude": -70.6693,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-36",
@@ -846,7 +1260,13 @@
       "approved_footprint": "Eastern Industrial/Logistics Core + Port/Airport",
       "strategic_value": "Tierra del Fuego maritime and polar expedition staging; extreme-weather preparedness",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -54.8019,
+        "longitude": -68.303,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-37",
@@ -858,7 +1278,13 @@
       "approved_footprint": "Sundahöfn / Eastern Reykjavík Core + Separate Gate Campus",
       "strategic_value": "North Atlantic port/aviation; active Gate engineering project with no human crossing",
       "restrictions": "Anchoring → stabilization; NO human transit; possible future routes not guaranteed.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 64.1466,
+        "longitude": -21.9426,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-38",
@@ -870,7 +1296,13 @@
       "approved_footprint": "Elevated Eastern Jakarta–Bekasi Logistics Core",
       "strategic_value": "Indonesian archipelago Gate interchange, island aviation/shipping and flood resilience",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -6.2088,
+        "longitude": 106.8456,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-39",
@@ -882,7 +1314,13 @@
       "approved_footprint": "Eastern Industrial/Logistics Core + Tangier Station",
       "strategic_value": "Moroccan Atlantic/Mediterranean port and rail interchange; North African industrial support",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 33.5731,
+        "longitude": -7.5898,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-40",
@@ -894,7 +1332,13 @@
       "approved_footprint": "Diamniadio Core + Port/Civic/Aviation Network",
       "strategic_value": "West African Atlantic Gate junction to Paris/Cairo/Rio/Cape Town; Sahel/coastal logistics",
       "restrictions": "Gate at supporting site; not necessarily iconic building.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 14.7167,
+        "longitude": -17.4677,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-41",
@@ -906,7 +1350,13 @@
       "approved_footprint": "Embakasi / Eastern Industrial–Logistics Core + Mombasa Station",
       "strategic_value": "East African inland–coast freight, aviation and regional engineering response",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -1.2921,
+        "longitude": 36.8219,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-42",
@@ -918,7 +1368,13 @@
       "approved_footprint": "Germiston–Boksburg / Western Ekurhuleni Core",
       "strategic_value": "Southern African industrial fabrication, rail and mining freight; Durban/OR Tambo network",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -26.2041,
+        "longitude": 28.0473,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-43",
@@ -930,7 +1386,13 @@
       "approved_footprint": "Southern Industrial/Logistics Belt + Tigris Network",
       "strategic_value": "Mesopotamian river/water infrastructure, heritage and overland freight",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 33.3152,
+        "longitude": 44.3661,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-44",
@@ -942,7 +1404,13 @@
       "approved_footprint": "Northern Industrial/Rail–Logistics Core + Tian Shan Network",
       "strategic_value": "Central Asian rail/aviation and mountain expeditions; proposed Beijing/Istanbul Gate study",
       "restrictions": "Proposal only; project may be cancelled; no active Gate.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 43.222,
+        "longitude": 76.8512,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-45",
@@ -954,7 +1422,13 @@
       "approved_footprint": "Flood-Resilient Eastern/Northeastern Metro Logistics Core",
       "strategic_value": "Eastern India river/rail freight, Bangladesh liaison, delta resilience and Hooghly ports",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 22.5726,
+        "longitude": 88.3639,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-46",
@@ -966,7 +1440,13 @@
       "approved_footprint": "Flood-Resilient Metro Industrial–Logistics Core",
       "strategic_value": "Red River rail/road, Hải Phòng maritime freight and northern Vietnam coordination",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": 21.0278,
+        "longitude": 105.8342,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-47",
@@ -978,7 +1458,13 @@
       "approved_footprint": "Inland Darwin–Palmerston Logistics Core + East Arm Network",
       "strategic_value": "Northern Australia maritime/aviation, tropical weather and inland rail/road access",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -12.4634,
+        "longitude": 130.8456,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     },
     {
       "id": "O-48",
@@ -990,7 +1476,13 @@
       "approved_footprint": "Resilient Hutt Valley Industrial Core + Inter-Island Network",
       "strategic_value": "New Zealand ferries, port/aviation, earthquake resilience and South Island links",
       "restrictions": "Retain conventional transport importance; no routine Gate transit.",
-      "site_precision": "approved_area_or_multi_site"
+      "site_precision": "approved_area_or_multi_site",
+      "map_reference": {
+        "latitude": -41.2866,
+        "longitude": 174.7756,
+        "precision": "approximate_reference",
+        "verified_facility": false
+      }
     }
   ]
 }
