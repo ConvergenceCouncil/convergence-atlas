@@ -1,0 +1,668 @@
+{
+  "schema": "convergence-approved-guild-registry-v1",
+  "source": "Approved Guild Halls and Outposts workbook",
+  "note": "IDs, locations, and Gate statuses transcribed from approved registry. Coordinates intentionally absent until audited. Footprints and strategy descriptions retained in source workbook for future import.",
+  "summary": {
+    "halls": 34,
+    "outposts": 48,
+    "operational": 34
+  },
+  "sites": [
+    {
+      "id": "H-01",
+      "location": "Seattle",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-02",
+      "location": "Vancouver",
+      "type": "Major Guild Hall",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-03",
+      "location": "San Francisco",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-04",
+      "location": "Los Angeles",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-05",
+      "location": "Las Vegas",
+      "type": "Major Guild Hall",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-06",
+      "location": "Mexico City",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-07",
+      "location": "New York",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-08",
+      "location": "New Orleans",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-09",
+      "location": "Chicago",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-10",
+      "location": "Havana",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-11",
+      "location": "Mérida / Yucatán",
+      "type": "Major Guild Hall",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-12",
+      "location": "Lima",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-13",
+      "location": "Rio de Janeiro",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-14",
+      "location": "Buenos Aires",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-15",
+      "location": "London",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-16",
+      "location": "Edinburgh",
+      "type": "Major Guild Hall",
+      "gate_status": "Permanently No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-17",
+      "location": "Paris",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-18",
+      "location": "Prague",
+      "type": "Major Guild Hall",
+      "gate_status": "Permanently No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-19",
+      "location": "Berlin",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-20",
+      "location": "Rome",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-21",
+      "location": "Athens",
+      "type": "Major Guild Hall",
+      "gate_status": "Permanently No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-22",
+      "location": "Istanbul",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-23",
+      "location": "Cairo",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-24",
+      "location": "Addis Ababa",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-25",
+      "location": "Cape Town",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-26",
+      "location": "Jerusalem Area",
+      "type": "Major Guild Hall",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-27",
+      "location": "Delhi",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-28",
+      "location": "Mumbai",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-29",
+      "location": "Tokyo",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-30",
+      "location": "Seoul",
+      "type": "Major Guild Hall",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-31",
+      "location": "Beijing",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-32",
+      "location": "Bangkok",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-33",
+      "location": "Singapore",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "H-34",
+      "location": "Sydney",
+      "type": "Major Guild Hall",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-01",
+      "location": "Bellingham",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-02",
+      "location": "Tacoma",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-03",
+      "location": "Portland",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-04",
+      "location": "Spokane",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-05",
+      "location": "Sacramento",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-06",
+      "location": "Oakland",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-07",
+      "location": "San Diego",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-08",
+      "location": "Barstow",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-09",
+      "location": "Boulder City / Hoover Dam",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-10",
+      "location": "El Paso / Ciudad Juárez",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-11",
+      "location": "Monterrey",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-12",
+      "location": "Veracruz",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-13",
+      "location": "Boston",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-14",
+      "location": "Buffalo",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-15",
+      "location": "Pittsburgh",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-16",
+      "location": "Washington, DC",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-17",
+      "location": "Atlanta",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-18",
+      "location": "Memphis",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-19",
+      "location": "Houston / Galveston",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-20",
+      "location": "Miami / Homestead",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-21",
+      "location": "San Juan",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-22",
+      "location": "Kingston",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-23",
+      "location": "Belize",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-24",
+      "location": "Guatemala City",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-25",
+      "location": "Panama Canal",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-26",
+      "location": "Bogotá",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-27",
+      "location": "Quito",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-28",
+      "location": "Anchorage",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-29",
+      "location": "Cusco",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-30",
+      "location": "La Paz / El Alto",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Operational — Restricted",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-31",
+      "location": "Manaus",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-32",
+      "location": "Salvador, Bahia",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-33",
+      "location": "Brasília",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-34",
+      "location": "Porto Alegre",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-35",
+      "location": "Santiago",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Permanently No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-36",
+      "location": "Ushuaia",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-37",
+      "location": "Reykjavík",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Under Construction",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-38",
+      "location": "Jakarta",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-39",
+      "location": "Casablanca",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-40",
+      "location": "Dakar",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Operational",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-41",
+      "location": "Nairobi",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-42",
+      "location": "Johannesburg / Gauteng",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-43",
+      "location": "Baghdad",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-44",
+      "location": "Almaty",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "Proposed / Surveyed",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-45",
+      "location": "Kolkata",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-46",
+      "location": "Hanoi",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-47",
+      "location": "Darwin",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    },
+    {
+      "id": "O-48",
+      "location": "Wellington",
+      "type": "Permanent Guild Outpost",
+      "gate_status": "No Gate",
+      "coordinate_status": "not_audited",
+      "coordinates": null
+    }
+  ]
+}
