@@ -1,0 +1,137 @@
+{
+  "type": "FeatureCollection",
+  "name": "CONVERGENCE Ancient Relic Cities",
+  "metadata": {
+    "canon": "approved_city_roster",
+    "coordinate_accuracy": "approximate_geographic_reference",
+    "note": "These pins do not assert exact historical boundaries, relocated Relic locations, dungeon entrances or generated geography. Dwarka and the Library of Alexandria require special historical uncertainty handling."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.9187,
+          31.2001
+        ]
+      },
+      "properties": {
+        "id": "ARC-01",
+        "name": "Library of Alexandria",
+        "location": "Alexandria, Egypt",
+        "category": "ancient_relic_city",
+        "coordinate_status": "approximate_reference",
+        "note": "Historic library location uncertain; city reference only"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.2389,
+          39.9575
+        ]
+      },
+      "properties": {
+        "id": "ARC-02",
+        "name": "Troy",
+        "location": "Hisarlik, Türkiye",
+        "category": "ancient_relic_city",
+        "coordinate_status": "approximate_reference",
+        "note": "Approximate archaeological site reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.163,
+          35.298
+        ]
+      },
+      "properties": {
+        "id": "ARC-03",
+        "name": "Knossos",
+        "location": "Crete, Greece",
+        "category": "ancient_relic_city",
+        "coordinate_status": "approximate_reference",
+        "note": "Approximate palace archaeological site reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.075,
+          40.816
+        ]
+      },
+      "properties": {
+        "id": "ARC-04",
+        "name": "Baiae",
+        "location": "Campania, Italy",
+        "category": "ancient_relic_city",
+        "coordinate_status": "approximate_reference",
+        "note": "Approximate submerged archaeological area reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          68.9685,
+          22.2442
+        ]
+      },
+      "properties": {
+        "id": "ARC-05",
+        "name": "Dwarka",
+        "location": "Gujarat, India",
+        "category": "ancient_relic_city",
+        "coordinate_status": "approximate_reference",
+        "note": "Modern Dwarka reference; legendary/submerged city location is disputed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.4444,
+          30.3285
+        ]
+      },
+      "properties": {
+        "id": "ARC-06",
+        "name": "Petra",
+        "location": "Jordan",
+        "category": "ancient_relic_city",
+        "coordinate_status": "approximate_reference",
+        "note": "Approximate archaeological site reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.7347,
+          38.3736
+        ]
+      },
+      "properties": {
+        "id": "ARC-07",
+        "name": "Derinkuyu",
+        "location": "Cappadocia, Türkiye",
+        "category": "ancient_relic_city",
+        "coordinate_status": "approximate_reference",
+        "note": "Approximate underground city entrance area reference"
+      }
+    }
+  ]
+}
