@@ -1,0 +1,109 @@
+{
+  "type": "FeatureCollection",
+  "name": "convergence-cascadia-pilot",
+  "metadata": {
+    "status": "provisional",
+    "description": "Starter reference points only. These are geographic anchors, not verified Guild facility sites. No operational Gate assertions are made.",
+    "coordinate_system": "WGS84",
+    "source": "Approximate public city-center reference coordinates; site placement requires audit."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "REF-SEA",
+        "name": "Seattle Center",
+        "kind": "geographic_reference",
+        "audit_status": "approximate",
+        "notes": "Seattle Center vicinity; not a verified Guild Hall or Gate entrance"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3539,
+          47.6219
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "REF-TAC",
+        "name": "Tacoma",
+        "kind": "geographic_reference",
+        "audit_status": "approximate"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.4443,
+          47.2529
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "REF-BEL",
+        "name": "Bellingham",
+        "kind": "geographic_reference",
+        "audit_status": "approximate"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.4787,
+          48.7519
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "REF-VAN",
+        "name": "Vancouver, BC",
+        "kind": "geographic_reference",
+        "audit_status": "approximate"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -123.1207,
+          49.2827
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "REF-PDX",
+        "name": "Portland",
+        "kind": "geographic_reference",
+        "audit_status": "approximate"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6765,
+          45.5231
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "REF-GEG",
+        "name": "Spokane",
+        "kind": "geographic_reference",
+        "audit_status": "approximate"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.426,
+          47.6588
+        ]
+      }
+    }
+  ]
+}
