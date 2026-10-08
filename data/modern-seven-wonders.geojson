@@ -1,0 +1,130 @@
+{
+  "type": "FeatureCollection",
+  "name": "CONVERGENCE New Seven Wonders",
+  "metadata": {
+    "category": "modern_seven_wonders",
+    "coordinate_status": "approximate_reference",
+    "note": "Landmark reference points, not approved Guild/Gate entrances or final gameplay boundaries. Great Wall marker represents one section only."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.5704,
+          40.4319
+        ]
+      },
+      "properties": {
+        "id": "W-01",
+        "name": "Great Wall of China",
+        "location": "Mutianyu section, China",
+        "note": "Representative section; the Great Wall extends across many regions",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.4444,
+          30.3285
+        ]
+      },
+      "properties": {
+        "id": "W-02",
+        "name": "Petra",
+        "location": "Jordan",
+        "note": "Shares geographic anchor with approved Ancient Relic City Petra",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4922,
+          41.8902
+        ]
+      },
+      "properties": {
+        "id": "W-03",
+        "name": "Colosseum",
+        "location": "Rome, Italy",
+        "note": "Amphitheatre landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.5678,
+          20.6843
+        ]
+      },
+      "properties": {
+        "id": "W-04",
+        "name": "Chichén Itzá",
+        "location": "Yucatán, Mexico",
+        "note": "Archaeological complex",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.545,
+          -13.1631
+        ]
+      },
+      "properties": {
+        "id": "W-05",
+        "name": "Machu Picchu",
+        "location": "Cusco Region, Peru",
+        "note": "Archaeological sanctuary",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.0421,
+          27.1751
+        ]
+      },
+      "properties": {
+        "id": "W-06",
+        "name": "Taj Mahal",
+        "location": "Agra, India",
+        "note": "Mausoleum complex",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -43.2105,
+          -22.9519
+        ]
+      },
+      "properties": {
+        "id": "W-07",
+        "name": "Christ the Redeemer",
+        "location": "Rio de Janeiro, Brazil",
+        "note": "Corcovado monument",
+        "coordinate_status": "approximate_reference"
+      }
+    }
+  ]
+}
