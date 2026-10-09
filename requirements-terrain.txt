@@ -1,0 +1,4 @@
+numpy>=1.26,<3
+requests>=2.31,<3
+rasterio>=1.3,<2
+pillow>=10,<12
