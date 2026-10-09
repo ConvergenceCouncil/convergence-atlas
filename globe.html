@@ -316,7 +316,7 @@ async function loadApprovedArchitecture(){
   const manifest=await response.json();
   const entries=(manifest.models||[]).filter(model=>
    model.status==='approved'&&typeof model.uri==='string'&&
-   /^(\\.\\/|assets\\/|models\\/|https:\\/\\/)/.test(model.uri)&&
+   (model.uri.startsWith('./')||model.uri.startsWith('assets/')||model.uri.startsWith('models/')||model.uri.startsWith('https://'))&&
    Number.isFinite(model.longitude)&&Number.isFinite(model.latitude)&&
    Math.abs(model.latitude)<=90&&Math.abs(model.longitude)<=180&&
    model.license&&model.credit&&model.name);
