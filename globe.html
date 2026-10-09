@@ -294,6 +294,26 @@ document.getElementById('buildings').onclick=async()=>{
  }catch(e){status.textContent='Building data unavailable: '+e.message+'. Try again later.';}
  finally{button.disabled=false;}
 };
+// Approved architectural asset pipeline. Only load explicitly registered,
+// licensed GLB models; procedural prototypes do not enter this production layer.
+const approvedModels=[];
+async function loadApprovedArchitecture(){
+ try{
+  const response=await fetch('data/architectural-models.json',{cache:'no-cache'});
+  if(!response.ok)throw Error('Model registry HTTP '+response.status);
+  const manifest=await response.json();
+  for(const model of manifest.models||[]){
+   if(model.status!=='approved'||!model.uri||!Number.isFinite(model.longitude)||!Number.isFinite(model.latitude))continue;
+   const position=Cesium.Cartesian3.fromDegrees(model.longitude,model.latitude,Number(model.heightMeters)||0);
+   const heading=Cesium.Math.toRadians(Number(model.headingDegrees)||0);
+   const orientation=Cesium.Transforms.headingPitchRollQuaternion(position,new Cesium.HeadingPitchRoll(heading,0,0));
+   const entity=viewer.entities.add({name:model.name||'Approved architectural model',position,orientation,model:{uri:model.uri,scale:Number(model.scale)||1,minimumPixelSize:0,maximumScale:1,shadows:Cesium.ShadowMode.ENABLED},description:'Approved architectural asset · '+(model.credit||'Source documented in registry')});
+   approvedModels.push(entity);
+  }
+  if(approvedModels.length)console.info('Approved architectural GLB models registered:',approvedModels.length);
+ }catch(e){console.warn('Architectural model manifest unavailable',e);}
+}
+loadApprovedArchitecture();
 // Shared Atlas registry: Guild Hall/Outpost reference points and New Seven Wonders.
 document.getElementById('orbit').onclick=async()=>{
  const button=document.getElementById('orbit');
