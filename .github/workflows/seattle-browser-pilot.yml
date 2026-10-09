@@ -25,6 +25,8 @@ jobs:
         run: |
           bash scripts/process_osm_pilot.sh
           python scripts/make_browser_pilot.py --input staging/processed --output staging/browser/seattle-osm-pilot.geojson
+      - name: Validate Seattle preview before publishing
+        run: python scripts/validate_browser_pilot.py staging/browser/seattle-osm-pilot.geojson
       - name: Publish bounded preview to Atlas
         run: |
           mkdir -p data/imports
