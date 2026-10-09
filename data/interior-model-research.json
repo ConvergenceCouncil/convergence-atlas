@@ -157,5 +157,21 @@
       "status": "priority-interaction-prototype",
       "triangles": 9700
     }
-  ]
+  ],
+  "pipeline": {
+    "pilot": "Carnegie Mansion",
+    "source": "https://www.cooperhewitt.org/open-source-at-cooper-hewitt/mansionmodel/",
+    "license": "CC0 confirmed by museum",
+    "format": "FBX with floor-by-floor interiors and color textures",
+    "download": "Smithsonian X 3D linked from museum page",
+    "steps": [
+      "Download full FBX package; do not use print-only STL",
+      "Verify texture references, floor coverage, scale and coordinate system",
+      "Convert FBX to glTF/GLB, retaining per-floor hierarchy",
+      "Build and test collision meshes and door/stair connectivity",
+      "Create reduced mobile LODs and tiled streaming for globe",
+      "Add to architectural-models.json only after rights, geometry, scale and runtime QA"
+    ],
+    "status": "source-confirmed; package not downloaded or inspected"
+  }
 }
