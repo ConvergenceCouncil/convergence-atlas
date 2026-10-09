@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;max-height:45vh;overflow-y:auto;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}</style></head>
-<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><button id="terrain">Enable 3D terrain</button> <button id="buildings">Load Seattle 3D buildings</button> <button id="imagery">Imagery: World</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="status">Loading globe…</div></div>
+<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><button id="terrain">Enable 3D terrain</button> <button id="buildings">Load nearby 3D buildings</button> <button id="imagery">Imagery: World</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="status">Loading globe…</div></div>
 <script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
 (async function(){'use strict';const status=document.getElementById('status');if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
 const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false});
@@ -18,13 +18,13 @@ try{
  status.textContent='Native quantized-mesh terrain provider connected (Re:Earth / Mapterhorn).';
 }catch(e){status.textContent='Native terrain unavailable: '+e.message+'. Smooth globe fallback.';}
 // OSM building footprints extruded into actual 3D polygon geometry; limited downtown pilot.
-let buildingCollection=null;
+let buildingCollection=null;let currentTarget={lat:47.604,lon:-122.334,name:'Downtown Seattle'};
 document.getElementById('buildings').onclick=async()=>{
  const button=document.getElementById('buildings');
  if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;button.textContent='Load Seattle 3D buildings';status.textContent='Seattle buildings hidden.';return;}
- button.disabled=true;status.textContent='Fetching downtown Seattle OpenStreetMap building footprints…';
+ button.disabled=true;status.textContent='Fetching OpenStreetMap building footprints near '+currentTarget.name+'…';
  try{
-  const q='[out:json][timeout:25];way["building"](47.596,-122.345,47.613,-122.326);out geom;';
+  const {lat,lon}=currentTarget;const delta=.006;const bbox=[lat-delta,lon-delta,lat+delta,lon+delta].join(',');const q='[out:json][timeout:25];way["building"]('+bbox+');out geom;';
   let response;let lastError;
   for(const endpoint of ['https://overpass.kumi.systems/api/interpreter','https://overpass.nchc.org.tw/api/interpreter','https://overpass-api.de/api/interpreter']){
    try{const candidate=await fetch(endpoint+'?data='+encodeURIComponent(q),{signal:AbortSignal.timeout(18000)});if(candidate.ok){response=candidate;break;}lastError=Error('HTTP '+candidate.status);}catch(e){lastError=e;}
@@ -58,10 +58,31 @@ document.getElementById('buildings').onclick=async()=>{
   }
   viewer.dataSources.add(buildingCollection);
   button.textContent='Hide Seattle 3D buildings';
-  status.textContent=features.length+' downtown Seattle building footprints extruded relative to ground. Height estimates used where missing; geometry is schematic, not photogrammetry.';
-  viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(-122.334,47.604,2600),orientation:{heading:0,pitch:Cesium.Math.toRadians(-45),roll:0},duration:1.8});
+  status.textContent=features.length+' building footprints near '+currentTarget.name+' extruded relative to ground. Height estimates used where missing; geometry is schematic, not photogrammetry.';
+  viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(currentTarget.lon,currentTarget.lat,2600),orientation:{heading:0,pitch:Cesium.Math.toRadians(-45),roll:0},duration:1.8});
  }catch(e){status.textContent='Building data unavailable: '+e.message+'. Try again later.';}
  finally{button.disabled=false;}
+};
+// Shared Atlas registry: Guild Hall/Outpost reference points and New Seven Wonders.
+const destinationSelect=document.getElementById('destinations');
+const destinations=[];
+try{
+ const [guildRes,wonderRes]=await Promise.all([fetch('data/approved-guild-registry.json'),fetch('data/modern-seven-wonders.geojson')]);
+ if(!guildRes.ok||!wonderRes.ok)throw Error('Atlas registry unavailable');
+ const guildData=await guildRes.json(),wonderData=await wonderRes.json();
+ for(const site of guildData.sites||[]){const p=site.map_reference;if(p&&Number.isFinite(p.latitude)&&Number.isFinite(p.longitude))destinations.push({id:site.id,name:site.id+' · '+site.location,lat:p.latitude,lon:p.longitude,type:'guild',note:'Approximate site reference; approved building placement not surveyed'});}
+ for(const feature of wonderData.features||[]){const c=feature.geometry?.coordinates;if(c?.length>=2)destinations.push({id:feature.properties.id,name:feature.properties.name,lat:c[1],lon:c[0],type:'wonder',note:feature.properties.note||'Landmark reference point'});}
+ for(const type of ['guild','wonder']){const group=document.createElement('optgroup');group.label=type==='guild'?'Guild Halls and Outposts':'Seven Wonders';for(const d of destinations.filter(d=>d.type===type)){const o=document.createElement('option');o.value=d.id;o.textContent=d.name;group.appendChild(o);}destinationSelect.appendChild(group);}
+ const markers=viewer.entities;
+ for(const d of destinations){markers.add({name:d.name,position:Cesium.Cartesian3.fromDegrees(d.lon,d.lat,0),point:{pixelSize:d.type==='wonder'?10:7,color:d.type==='wonder'?Cesium.Color.GOLD:Cesium.Color.CYAN,outlineColor:Cesium.Color.BLACK,outlineWidth:2,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:300000},label:{text:d.type==='wonder'?d.name:'',font:'12px sans-serif',fillColor:Cesium.Color.WHITE,pixelOffset:new Cesium.Cartesian2(0,-16),distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,150000)}});}
+ status.textContent='Atlas destinations ready: '+destinations.length+' Guild/Wonder reference points. Choose one to inspect.';
+}catch(e){status.textContent='Destination registry failed: '+e.message;}
+document.getElementById('inspect').onclick=()=>{
+ const d=destinations.find(x=>x.id===destinationSelect.value);if(!d){status.textContent='Choose a destination first.';return;}
+ currentTarget=d;
+ if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;document.getElementById('buildings').textContent='Load nearby 3D buildings';}
+ viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(d.lon,d.lat,d.type==='wonder'?5000:2200),orientation:{heading:0,pitch:Cesium.Math.toRadians(-48),roll:0},duration:2});
+ status.textContent=d.name+' · '+d.note+'. Use Load nearby 3D buildings for schematic OSM extrusions. Canon Guild Hall architecture is not modeled yet.';
 };
 const imageryButton=document.getElementById('imagery');
 let usgsImagery=false;
