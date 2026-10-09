@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;max-height:45vh;overflow-y:auto;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}</style></head>
-<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><div style="margin:6px 0"><button data-inspect-height="4500">Aerial</button> <button data-inspect-height="800">Building</button> <button data-inspect-height="90">Ground</button></div><button id="terrain">Enable 3D terrain</button> <button id="orbit">Orbit selected site</button> <button id="buildings">Load nearby 3D buildings</button> <button id="global-buildings">Enable global 3D buildings</button> <button id="needle-model">Show Space Needle 3D prototype</button> <button id="imagery">Imagery: World</button> <button id="quality">Quality: Balanced</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="lod-status" style="font-size:11px;color:#b8c9d9;margin-top:5px">Detail: initializing…</div><div id="imagery-detail" style="font-size:11px;color:#b8c9d9;margin-top:4px">Imagery: world satellite</div><div id="status">Loading globe…</div></div>
+<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><div style="margin:6px 0"><button data-inspect-height="4500">Aerial</button> <button data-inspect-height="800">Building</button> <button data-inspect-height="90">Ground</button></div><button id="terrain">Enable 3D terrain</button> <button id="orbit">Orbit selected site</button> <button id="buildings">Load nearby 3D buildings</button> <button id="global-buildings">Enable global 3D buildings</button> <button id="needle-model">Show Space Needle 3D prototype</button> <button id="landmark-models">Show Wonder 3D prototypes</button> <button id="imagery">Imagery: World</button> <button id="quality">Quality: Balanced</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="lod-status" style="font-size:11px;color:#b8c9d9;margin-top:5px">Detail: initializing…</div><div id="imagery-detail" style="font-size:11px;color:#b8c9d9;margin-top:4px">Imagery: world satellite</div><div id="status">Loading globe…</div></div>
 <script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
 (async function(){'use strict';const status=document.getElementById('status');if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
 const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false});
@@ -115,6 +115,63 @@ needleButton.onclick=async()=>{
   status.textContent='Seattle Space Needle: simplified 3D architectural prototype at its approximate location. This is NOT a licensed high-fidelity model; detailed geometry and textures still required.';
  }catch(e){needleEntities.forEach(entity=>viewer.entities.remove(entity));needleEntities=[];status.textContent='Space Needle prototype unavailable: '+e.message;}
  finally{needleButton.disabled=false;}
+};
+// Reusable procedural landmark layer. Geometry is illustrative and deliberately
+// separate from approved/photogrammetric assets; no invented provenance.
+let wonderModels=[];
+const wonderButton=document.getElementById('landmark-models');
+wonderButton.onclick=async()=>{
+ if(wonderModels.length){
+  wonderModels.forEach(e=>viewer.entities.remove(e));wonderModels=[];
+  wonderButton.textContent='Show Wonder 3D prototypes';
+  status.textContent='Wonder architectural prototypes hidden.';
+  return;
+ }
+ wonderButton.disabled=true;
+ const add=spec=>{const e=viewer.entities.add(spec);wonderModels.push(e);return e;};
+ try{
+  const place=async(lon,lat)=>{
+   let elevation=0;
+   if(terrainEnabled&&terrainProvider){
+    try{const v=await Cesium.sampleTerrainMostDetailed(viewer.terrainProvider,[Cesium.Cartographic.fromDegrees(lon,lat)]);elevation=Number.isFinite(v[0]?.height)?v[0].height:0;}catch(e){console.warn('Landmark elevation unavailable',e);}
+   }
+   const transform=Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(lon,lat,elevation));
+   return (x,y,z)=>Cesium.Matrix4.multiplyByPoint(transform,new Cesium.Cartesian3(x,y,z),new Cesium.Cartesian3());
+  };
+  // Colosseum: concentric elliptical colonnades, not a surveyed mesh.
+  {
+   const p=await place(12.49223,41.89021);
+   const stone=Cesium.Color.fromCssColorString('#c4ac89');
+   for(const radius of [1,.78]){
+    for(let i=0;i<72;i++){
+     const a=2*Math.PI*i/72, x=Math.cos(a)*94*radius,y=Math.sin(a)*78*radius;
+     add({name:'Colosseum illustrative arcade column',position:p(x,y,18),cylinder:{length:36,topRadius:1.8,bottomRadius:2.2,material:stone}});
+    }
+   }
+   for(const z of [9,23,36]){
+    const points=[];for(let i=0;i<=144;i++){const a=2*Math.PI*i/144;points.push(p(Math.cos(a)*94,Math.sin(a)*78,z));}
+    add({name:'Colosseum illustrative ring',polyline:{positions:points,width:5,material:stone}});
+   }
+  }
+  // Taj Mahal: symmetric base, domed central mass, and four minarets.
+  {
+   const p=await place(78.0421,27.1751);
+   const ivory=Cesium.Color.fromCssColorString('#eee7da');
+   add({name:'Taj Mahal illustrative plinth',position:p(0,0,4),box:{dimensions:new Cesium.Cartesian3(110,110,8),material:ivory}});
+   add({name:'Taj Mahal illustrative central chamber',position:p(0,0,27),box:{dimensions:new Cesium.Cartesian3(57,57,39),material:ivory}});
+   add({name:'Taj Mahal illustrative main dome',position:p(0,0,56),ellipsoid:{radii:new Cesium.Cartesian3(22,22,22),material:ivory}});
+   add({name:'Taj Mahal illustrative finial',position:p(0,0,82),cylinder:{length:12,topRadius:.3,bottomRadius:1.4,material:Cesium.Color.GOLD}});
+   for(const x of [-46,46])for(const y of [-46,46]){
+    add({name:'Taj Mahal illustrative minaret',position:p(x,y,29),cylinder:{length:50,topRadius:2.5,bottomRadius:3.4,material:ivory}});
+    add({name:'Taj Mahal illustrative minaret crown',position:p(x,y,56),ellipsoid:{radii:new Cesium.Cartesian3(4,4,4),material:ivory}});
+   }
+  }
+  wonderButton.textContent='Hide Wonder 3D prototypes';
+  status.textContent='Colosseum and Taj Mahal: early procedural architectural geometry at approximate coordinates. Not photorealistic, surveyed, or final CONVERGENCE models.';
+ }catch(e){
+  wonderModels.forEach(entity=>viewer.entities.remove(entity));wonderModels=[];
+  status.textContent='Wonder prototypes unavailable: '+e.message;
+ }finally{wonderButton.disabled=false;}
 };
 // OSM building footprints extruded into actual 3D polygon geometry; limited downtown pilot.
 let buildingCollection=null;let orbitHandler=null;let currentTarget={lat:47.604,lon:-122.334,name:'Downtown Seattle'};
