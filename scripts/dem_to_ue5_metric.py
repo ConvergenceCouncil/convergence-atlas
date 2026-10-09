@@ -26,7 +26,12 @@ def main():
   # Fit projected rectangular extent into a square vertex grid. Keep X and Y
   # scales separate to preserve real geographic distances without blank corners.
   west,south,east,north=array_bounds(height,width,transform)
-  metric_bounds=(west,south,east,north)
+  # Reprojected rectangular bounding boxes contain empty corner wedges because
+  # a geographic raster is rotated in UTM. Use a conservative central crop
+  # inside the source footprint; never invent elevations in empty corners.
+  inset=0.20
+  dx=(east-west)*inset;dy=(north-south)*inset
+  metric_bounds=(west+dx,south+dy,east-dx,north-dy)
   dst_transform=rasterio.transform.from_bounds(*metric_bounds,a.size,a.size)
   target=np.full((a.size,a.size),np.nan,dtype=np.float32)
   reproject(source=rasterio.band(src,1),destination=target,src_transform=src.transform,src_crs=src.crs,dst_transform=dst_transform,dst_crs=crs,src_nodata=src.nodata,dst_nodata=np.nan,resampling=Resampling.bilinear)
@@ -39,7 +44,7 @@ def main():
  Image.fromarray(encoded).save(a.output)
  zscale=(high-low)*100*128/65535
  meta={'input':str(a.input),'output':str(a.output),'crs':str(crs),'size':[a.size,a.size],
- 'metric_bounds_projected':metric_bounds,'horizontal_meters_per_vertex_x':(east-west)/(a.size-1),'horizontal_meters_per_vertex_y':(north-south)/(a.size-1),
+ 'metric_bounds_projected':metric_bounds,'crop_note':'Conservative 20% projected bounding-box inset to avoid uncovered reprojection corners; smaller geographic area than original DEM','horizontal_meters_per_vertex_x':(east-west)/(a.size-1),'horizontal_meters_per_vertex_y':(north-south)/(a.size-1),
  'unreal_x_scale_percent':(east-west)/(a.size-1)*100,'unreal_y_scale_percent':(north-south)/(a.size-1)*100,'unreal_z_scale_percent':zscale,
  'unreal_actor_z_offset_cm':(low+high)*50,
  'min_elevation_m':minimum,'max_elevation_m':maximum,
