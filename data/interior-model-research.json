@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-10-09",
+  "policy": "Research only; no candidate is approved as a fully traversable game asset until its license, downloaded mesh, connectivity, collision and performance are checked.",
+  "candidates": [
+    {
+      "site": "Hallwyl Museum Great Drawing Room",
+      "url": "https://sketchfab.com/3d-models/the-great-drawing-room-feb9ad17e042418c8e759b81e3b2e5d7",
+      "license": "CC BY",
+      "interior": "individual scanned room; walkability unverified",
+      "status": "interior-reference"
+    },
+    {
+      "site": "Hallwyl Museum Serving Room",
+      "url": "https://sketchfab.com/3d-models/the-serving-room-a36db9b3d15a44b1a9c7f1675efd9a06",
+      "license": "CC BY",
+      "interior": "individual scanned room; connected circulation not verified",
+      "status": "interior-reference"
+    },
+    {
+      "site": "Petra Obelisk Tomb",
+      "url": "https://sketchfab.com/3d-models/obelisk-tomb-bab-as-siq-petra-jordan-e9ebb094b8bd4541999160d6ae283349",
+      "license": "CC BY-NC",
+      "interior": "chambers described; geometry unverified",
+      "status": "commercial-license-block"
+    },
+    {
+      "site": "Petra Ad-Deir",
+      "url": "https://sketchfab.com/3d-models/ad-deir-monastery-petra-jordan-b1bb4d6d9bfa4bd2a85621186016734e",
+      "license": "CC BY-NC",
+      "interior": "chamber described; geometry unverified",
+      "status": "commercial-license-block"
+    },
+    {
+      "site": "Petra Royal Tombs",
+      "url": "https://sketchfab.com/3d-models/the-royal-tombs-petra-jordan-61213892f70544f192c1d6fa29a19e98",
+      "license": "CC BY-NC",
+      "interior": "unverified",
+      "status": "commercial-license-block"
+    }
+  ]
+}
