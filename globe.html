@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}</style></head>
-<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe reference. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><button id="terrain">Enable 3D terrain</button><div id="status">Loading globe…</div></div>
+<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe reference. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><button id="terrain">Enable 3D terrain</button> <button id="imagery">Imagery: World</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="status">Loading globe…</div></div>
 <script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
 (async function(){'use strict';const status=document.getElementById('status');if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
 const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false});
 viewer.scene.globe.baseColor=Cesium.Color.fromCssColorString('#28516b');
 viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(-122.33,47.61,12500000)});
 try{const imagery=new Cesium.UrlTemplateImageryProvider({url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',credit:'Esri, Vantor, Earthstar Geographics and the GIS User Community',maximumLevel:19});viewer.imageryLayers.addImageryProvider(imagery);}catch(e){console.warn('Imagery unavailable:',e);}
-status.textContent='3D globe ready. Enable real-world elevation to turn the smooth globe into mountainous 3D terrain.';
+status.textContent='3D globe ready. Enable elevation and fly toward Rainier or the Olympics.';
 try{const resource=await fetch('data/earth/ne110-countries.geojson');if(!resource.ok)throw Error('HTTP '+resource.status);const data=await resource.json();const ds=await Cesium.GeoJsonDataSource.load(data,{stroke:Cesium.Color.fromCssColorString('#d6bc78'),strokeWidth:1,fill:Cesium.Color.fromCssColorString('#16354c').withAlpha(.08),clampToGround:false});viewer.dataSources.add(ds);status.textContent='3D globe with Natural Earth country boundaries. Tap Enable 3D terrain to load elevation.';}catch(e){status.textContent='Globe loaded; country overlay unavailable: '+e.message;}
 let terrainEnabled=false;
 const terrainButton=document.getElementById('terrain');
@@ -17,7 +17,7 @@ const terrainProvider=new Cesium.CustomHeightmapTerrainProvider({
  callback:async(x,y,level)=>{
   // Terrarium tiles share Web Mercator x/y/zoom indexing with this tiling scheme.
   // Limit the DEM sampling level to reduce mobile network and decoding costs.
-  const zoom=Math.min(level,12),shift=level-zoom,tx=x>>shift,ty=y>>shift;
+  const zoom=Math.min(level,12),shift=level-zoom,tx=Math.floor(x/Math.pow(2,shift)),ty=Math.floor(y/Math.pow(2,shift));
   const url='https://s3.amazonaws.com/elevation-tiles-prod/terrarium/'+zoom+'/'+tx+'/'+ty+'.png';
   try{
    const response=await fetch(url,{mode:'cors'});
@@ -32,8 +32,8 @@ const terrainProvider=new Cesium.CustomHeightmapTerrainProvider({
    const localX=(x-tx*tilesAcross)/tilesAcross;
    const localY=(y-ty*tilesAcross)/tilesAcross;
    for(let row=0;row<65;row++)for(let col=0;col<65;col++){
-    const px=Math.max(0,Math.min(255,Math.floor((localX+col/64/tilesAcross)*255)));
-    const py=Math.max(0,Math.min(255,Math.floor((localY+row/64/tilesAcross)*255)));
+    const px=Math.max(0,Math.min(255,Math.floor((localX+col/64/tilesAcross)*256)));
+    const py=Math.max(0,Math.min(255,Math.floor((localY+row/64/tilesAcross)*256)));
     const i=(py*256+px)*4;
     heights[row*65+col]=rgba[i]*256+rgba[i+1]+rgba[i+2]/256-32768;
    }
@@ -41,6 +41,14 @@ const terrainProvider=new Cesium.CustomHeightmapTerrainProvider({
   }catch(err){console.warn('Terrain tile unavailable',url,err);return new Float32Array(65*65);}
  }
 });
+const imageryButton=document.getElementById('imagery');
+let usgsImagery=false;
+imageryButton.onclick=()=>{
+ usgsImagery=!usgsImagery;
+ const url=usgsImagery?'https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}':'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+ try{viewer.imageryLayers.removeAll();viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({url,maximumLevel:19,credit:usgsImagery?'USGS National Map imagery (US coverage only)':'Esri and imagery contributors'}));imageryButton.textContent=usgsImagery?'Imagery: USGS USA':'Imagery: World';status.textContent=usgsImagery?'USGS aerial imagery enabled. Switch to World outside US coverage.':'Worldwide imagery enabled.';}catch(e){status.textContent='Imagery switch failed: '+e.message;}
+};
+document.querySelectorAll('[data-fly]').forEach(button=>button.onclick=()=>{const [lon,lat,alt]=button.dataset.fly.split(',').map(Number);viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(lon,lat,alt),duration:1.8});});
 terrainButton.onclick=()=>{
  terrainEnabled=!terrainEnabled;
  viewer.terrainProvider=terrainEnabled?terrainProvider:new Cesium.EllipsoidTerrainProvider();
