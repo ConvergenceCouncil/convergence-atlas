@@ -1,0 +1,32 @@
+name: Seattle browser overlay pilot
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y gdal-bin
+      - name: Acquire Washington extract
+        run: |
+          python scripts/acquire_region.py --url 'https://download.geofabrik.de/north-america/us/washington-latest.osm.pbf' --output staging/cascadia.osm.pbf --source 'Geofabrik / OpenStreetMap contributors' --license 'ODbL 1.0' --region 'Seattle pilot' --max-gb 5 --accept-license
+      - name: Process bounded Seattle data
+        env:
+          SOURCE_PBF: staging/cascadia.osm.pbf
+          OUTPUT_DIR: staging/processed
+          BBOX: '-122.46,47.48,-122.22,47.74'
+          MAX_FEATURES: '10000'
+        run: |
+          bash scripts/process_osm_pilot.sh
+          python scripts/make_browser_pilot.py --input staging/processed --output staging/browser/seattle-osm-pilot.geojson
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seattle-browser-geojson
+          path: staging/browser/seattle-osm-pilot.geojson
+          retention-days: 7
