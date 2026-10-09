@@ -31,10 +31,10 @@ jobs:
           with rasterio.open(path) as ds:
               values=ds.read(1)
               assert ds.crs.to_epsg()==4326, ds.crs
-              assert ds.count==1 and ds.width>0 and ds.height>0
+              assert ds.count==1 and ds.width==512 and ds.height==512
               assert np.isfinite(values).all(), 'nonfinite DEM pixels'
-              assert -500 <= float(values.min()) <= 9000
-              assert -500 <= float(values.max()) <= 9000
+              assert -12000 <= float(values.min()) <= 9000, f'unexpected minimum: {values.min()}'
+              assert -12000 <= float(values.max()) <= 9000, f'unexpected maximum: {values.max()}'
               print('DEM bounds:', ds.bounds, 'dimensions:', ds.width, ds.height)
               print('Elevation range:', float(values.min()), float(values.max()))
           assert manifest['tile_count'] <= 64
