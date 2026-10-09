@@ -1,0 +1,26 @@
+name: Earth baseline validation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/earth/**'
+      - 'scripts/validate_earth.py'
+      - '.github/workflows/earth-baseline.yml'
+  schedule:
+    - cron: '15 9 * * 1'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate geographic baseline and produce inventory
+        run: python scripts/validate_earth.py --root data/earth --output earth-inventory.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: earth-inventory
+          path: earth-inventory.json
