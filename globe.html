@@ -110,6 +110,7 @@ needleButton.onclick=async()=>{
    add({name:'Space Needle tripod leg',polyline:{positions:[p(ex,ny,2),p(ex*.65,ny*.65,65),p(ex*.19,ny*.19,147)],width:7,material:silver,clampToGround:false}});
    add({name:'Space Needle diagonal support',polyline:{positions:[p(ex,ny,9),p(-ex*.12,-ny*.12,91)],width:3,material:dark,clampToGround:false}});
   }
+  updateLandmarkVisibility();
   needleButton.textContent='Hide Space Needle prototype';
   currentTarget={name:'Space Needle 3D prototype',lon,lat,type:'landmark'};
   viewer.camera.flyTo({destination:p(0,-420,240),orientation:{heading:0,pitch:Cesium.Math.toRadians(-25),roll:0},duration:2});
@@ -141,6 +142,7 @@ wonderButton.onclick=async()=>{
   };
   // Colosseum: concentric elliptical colonnades, not a surveyed mesh.
   {
+   modelLon=12.49223;modelLat=41.89021;
    const p=await place(12.49223,41.89021);
    const stone=Cesium.Color.fromCssColorString('#c4ac89');
    for(const radius of [1,.78]){
@@ -156,6 +158,7 @@ wonderButton.onclick=async()=>{
   }
   // Taj Mahal: symmetric base, domed central mass, and four minarets.
   {
+   modelLon=78.0421;modelLat=27.1751;
    const p=await place(78.0421,27.1751);
    const ivory=Cesium.Color.fromCssColorString('#eee7da');
    add({name:'Taj Mahal illustrative plinth',position:p(0,0,4),box:{dimensions:new Cesium.Cartesian3(110,110,8),material:ivory}});
@@ -169,6 +172,7 @@ wonderButton.onclick=async()=>{
   }
   // Chichén Itzá: stepped El Castillo pyramid, simplified geometry.
   {
+   modelLon=-88.56865;modelLat=20.68429;
    const p=await place(-88.56865,20.68429);
    const limestone=Cesium.Color.fromCssColorString('#b9ad8b');
    for(let level=0;level<9;level++){
@@ -179,6 +183,7 @@ wonderButton.onclick=async()=>{
   }
   // Christ the Redeemer: simplified monumental statue silhouette on Corcovado.
   {
+   modelLon=-43.2105;modelLat=-22.9519;
    const p=await place(-43.2105,-22.9519);
    const stone=Cesium.Color.fromCssColorString('#d4d5d1');
    add({name:'Christ the Redeemer illustrative pedestal',position:p(0,0,4),box:{dimensions:new Cesium.Cartesian3(9,9,8),material:stone}});
@@ -186,6 +191,7 @@ wonderButton.onclick=async()=>{
    add({name:'Christ the Redeemer illustrative outstretched arms',position:p(0,0,27),box:{dimensions:new Cesium.Cartesian3(28,4,4.5),material:stone}});
    add({name:'Christ the Redeemer illustrative head',position:p(0,0,34),ellipsoid:{radii:new Cesium.Cartesian3(3,3,4),material:stone}});
   }
+  updateLandmarkVisibility();
   wonderButton.textContent='Hide Wonder 3D prototypes';
   status.textContent='Colosseum, Taj Mahal, El Castillo and Christ the Redeemer: early procedural architectural geometry at approximate coordinates. Not photorealistic, surveyed, or final CONVERGENCE models.';
  }catch(e){
@@ -193,6 +199,20 @@ wonderButton.onclick=async()=>{
   status.textContent='Wonder prototypes unavailable: '+e.message;
  }finally{wonderButton.disabled=false;}
 };
+// Illustrative architectural models appear only when exploring their region.
+function updateLandmarkVisibility(){
+ const camera=viewer.camera.positionWC;
+ const visibleWithin=120000;
+ const near=(lon,lat)=>Cesium.Cartesian3.distance(camera,Cesium.Cartesian3.fromDegrees(lon,lat))<visibleWithin;
+ const needleVisible=near(-122.3493,47.6205);
+ for(const e of needleEntities)e.show=needleVisible;
+ for(const e of wonderModels){
+  const lon=e.properties?.prototypeLongitude?.getValue();
+  const lat=e.properties?.prototypeLatitude?.getValue();
+  if(Number.isFinite(lon)&&Number.isFinite(lat))e.show=near(lon,lat);
+ }
+}
+viewer.camera.changed.addEventListener(updateLandmarkVisibility);
 // OSM building footprints extruded into actual 3D polygon geometry; limited downtown pilot.
 let buildingCollection=null;let orbitHandler=null;let currentTarget={lat:47.604,lon:-122.334,name:'Downtown Seattle'};
 document.getElementById('buildings').onclick=async()=>{
@@ -295,6 +315,7 @@ document.getElementById('inspect').onclick=()=>{
  if(orbitHandler){viewer.clock.onTick.removeEventListener(orbitHandler);orbitHandler=null;document.getElementById('orbit').textContent='Orbit selected site';viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);}
  if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;document.getElementById('buildings').textContent='Load nearby 3D buildings';}
  inspectAtHeight(d.type==='wonder'?4500:800);
+ document.getElementById('panel').classList.add('collapsed');document.getElementById('panel-toggle').setAttribute('aria-expanded','false');
  status.textContent=d.name+' · '+d.note+'. Use Load nearby 3D buildings for schematic OSM extrusions. Canon Guild Hall architecture is not modeled yet.';
 };
 // Adaptive imagery: global coverage remains the base; high-detail USGS aerial
