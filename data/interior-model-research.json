@@ -100,6 +100,34 @@
       "interior": "single historic cloister section, not full building",
       "status": "heritage-reference",
       "triangles": 1000000
+    },
+    {
+      "site": "Medieval Building with Interior — 3 floors",
+      "url": "https://sketchfab.com/3d-models/medieval-building-with-interior-2d995df46dd4420093925736f411077b",
+      "source": "Pedro de Santi",
+      "license": "CC BY (listing)",
+      "triangles": 12800,
+      "interior": "three floors, separated interior objects, windows, doors, stairs per creator",
+      "status": "priority-traversal-test",
+      "notes": "Strong practical pipeline test; stylized, not a replacement for canonical historical buildings."
+    },
+    {
+      "site": "Duplex — realistic interior",
+      "url": "https://sketchfab.com/3d-models/duplex-70ab4f4164b54afbad87f174f8b285c1",
+      "source": "SrMonteiro",
+      "license": "CC BY (listing)",
+      "triangles": 8100,
+      "interior": "realistic apartment interior with mezzanine, kitchen and living area; collision unverified",
+      "status": "priority-visual-quality-test"
+    },
+    {
+      "site": "Low Poly House Interior — two floors",
+      "url": "https://sketchfab.com/3d-models/low-poly-house-interior-62b1714ef66f4e0d9f42dcd12efb3f52",
+      "source": "Paolo Mercogliano",
+      "license": "CC BY (listing)",
+      "triangles": 72900,
+      "interior": "furnished two floors, stairs, bedrooms, bathrooms, living room, kitchen",
+      "status": "priority-traversal-test"
     }
   ]
 }
