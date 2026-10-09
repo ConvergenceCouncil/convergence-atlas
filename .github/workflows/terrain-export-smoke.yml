@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/export_terrarium_dem.py'
+      - 'scripts/dem_to_ue5.py'
       - '.github/workflows/terrain-export-smoke.yml'
   workflow_dispatch:
 permissions:
@@ -41,10 +42,31 @@ jobs:
           assert manifest['output_sha256']==hashlib.sha256(path.read_bytes()).hexdigest()
           print('DEM validation passed')
           PY
+      - name: Export UE5 landscape heightmap
+        run: python scripts/dem_to_ue5.py --input output/seattle-dem.tif --output output/seattle-ue5.png --size 505
+      - name: Validate UE5 heightmap
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib
+          import numpy as np
+          from PIL import Image
+          path=pathlib.Path('output/seattle-ue5.png')
+          with Image.open(path) as img:
+              arr=np.asarray(img)
+              assert img.size==(505,505), img.size
+              assert arr.dtype==np.uint16, arr.dtype
+              assert arr.max()>arr.min(), 'flat heightmap'
+          meta=json.loads(path.with_suffix('.json').read_text())
+          assert meta['png_sha256']==hashlib.sha256(path.read_bytes()).hexdigest()
+          assert meta['unreal_z_scale_percent']>0
+          print('UE5 16-bit PNG validated; Z scale:',meta['unreal_z_scale_percent'])
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: seattle-dem-smoke
           path: |
             output/seattle-dem.tif
             output/seattle-dem.manifest.json
+            output/seattle-ue5.png
+            output/seattle-ue5.json
           retention-days: 7
