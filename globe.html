@@ -377,13 +377,33 @@ globalBuildingsButton.click();
 // substitutes for the high-fidelity architectural assets requested for canon.
 // The existing prototypes remain in code for later reference, but are not shown.
 // Tap a 3D building to inspect its Overture metadata where present.
+// Minimal on-map inspector: tapping a real 3D building reveals its metadata
+// without reopening the destination menu or obscuring the globe.
+const inspector=document.createElement('div');
+inspector.id='building-inspector';
+inspector.style.cssText='position:absolute;z-index:6;left:12px;right:12px;bottom:38px;max-width:340px;background:rgba(9,21,38,.88);border:1px solid rgba(181,160,102,.65);border-radius:10px;padding:10px 36px 10px 12px;color:#f1f3f5;font:13px system-ui;display:none;pointer-events:auto';
+const inspectorClose=document.createElement('button');
+inspectorClose.textContent='×';inspectorClose.setAttribute('aria-label','Close building details');
+inspectorClose.style.cssText='position:absolute;right:5px;top:4px;border:0;background:transparent;color:white;font-size:23px;padding:1px 8px';
+inspectorClose.onclick=()=>inspector.style.display='none';
+const inspectorText=document.createElement('div');inspector.append(inspectorText,inspectorClose);document.body.appendChild(inspector);
 const picking=new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 picking.setInputAction(event=>{
  const picked=viewer.scene.pick(event.position);
- if(!Cesium.defined(picked)||typeof picked.getProperty!=='function')return;
- const read=k=>{try{return picked.getProperty(k);}catch(e){return undefined;}};
- const name=read('name')||'3D building',height=read('height'),method=read('height_method'),floors=read('num_floors');
- status.textContent=name+(Number.isFinite(Number(height))?' · '+Number(height).toFixed(1)+' m high':'')+(floors?' · '+floors+' floors':'')+(method?' · height source: '+method:'')+'. Source: Overture Maps; heights may be estimated.';
+ if(!Cesium.defined(picked)){inspector.style.display='none';return;}
+ const feature=typeof picked.getProperty==='function'?picked:null;
+ const entity=picked.id?.properties?picked.id:null;
+ if(!feature&&!entity){inspector.style.display='none';return;}
+ const read=k=>{try{return feature?feature.getProperty(k):entity.properties[k]?.getValue();}catch(e){return undefined;}};
+ const name=read('name')||picked.id?.name||'3D building';
+ const height=read('height'),floors=read('num_floors'),method=read('height_method'),osm=read('osm_id');
+ const pieces=[String(name)];
+ if(height!==undefined&&height!==null&&Number.isFinite(Number(height)))pieces.push(Number(height).toFixed(1)+' m height');
+ if(floors)pieces.push(String(floors)+' floors');
+ if(method)pieces.push('Height method: '+method);
+ if(osm)pieces.push('OSM #'+osm);
+ inspectorText.textContent=pieces.join(' · ')+' · Building data may be approximate.';
+ inspector.style.display='block';
 },Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
 }catch(e){status.textContent='Unable to initialize 3D globe: '+e.message;}})();
