@@ -1,0 +1,50 @@
+name: Terrain DEM export smoke test
+on:
+  push:
+    paths:
+      - 'scripts/export_terrarium_dem.py'
+      - '.github/workflows/terrain-export-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  seattle-dem:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: 'requirements-terrain.txt'
+      - name: Install terrain dependencies
+        run: pip install -r requirements-terrain.txt
+      - name: Export bounded Seattle DEM
+        run: python scripts/export_terrarium_dem.py --bbox=-122.45,47.50,-122.20,47.72 --zoom 10 --output output/seattle-dem.tif
+      - name: Validate raster and manifest
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, rasterio, numpy as np
+          path=pathlib.Path('output/seattle-dem.tif')
+          manifest=json.loads(path.with_suffix('.manifest.json').read_text())
+          with rasterio.open(path) as ds:
+              values=ds.read(1)
+              assert ds.crs.to_epsg()==4326, ds.crs
+              assert ds.count==1 and ds.width>0 and ds.height>0
+              assert np.isfinite(values).all(), 'nonfinite DEM pixels'
+              assert -500 <= float(values.min()) <= 9000
+              assert -500 <= float(values.max()) <= 9000
+              print('DEM bounds:', ds.bounds, 'dimensions:', ds.width, ds.height)
+              print('Elevation range:', float(values.min()), float(values.max()))
+          assert manifest['tile_count'] <= 64
+          assert manifest['output_sha256']==hashlib.sha256(path.read_bytes()).hexdigest()
+          print('DEM validation passed')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seattle-dem-smoke
+          path: |
+            output/seattle-dem.tif
+            output/seattle-dem.manifest.json
+          retention-days: 7
