@@ -26,11 +26,18 @@ const terrainProvider=new Cesium.CustomHeightmapTerrainProvider({
    const tilesAcross=Math.pow(2,level-zoom);
    const localX=(x-tx*tilesAcross)/tilesAcross;
    const localY=(y-ty*tilesAcross)/tilesAcross;
+   // Cesium heightmap rows are SOUTH-to-NORTH; PNG rows are NORTH-to-SOUTH.
+   // Bilinear interpolation prevents the nearest-neighbor elevation stair steps.
+   function sample(u,v){
+    const fx=Math.max(0,Math.min(255,(localX+u/tilesAcross)*256-0.5));
+    const fy=Math.max(0,Math.min(255,(localY+v/tilesAcross)*256-0.5));
+    const x0=Math.floor(fx),y0=Math.floor(fy),x1=Math.min(255,x0+1),y1=Math.min(255,y0+1);
+    const dx=fx-x0,dy=fy-y0;
+    const h=(xx,yy)=>{const i=(yy*256+xx)*4;return rgba[i]*256+rgba[i+1]+rgba[i+2]/256-32768;};
+    return (h(x0,y0)*(1-dx)+h(x1,y0)*dx)*(1-dy)+(h(x0,y1)*(1-dx)+h(x1,y1)*dx)*dy;
+   }
    for(let row=0;row<65;row++)for(let col=0;col<65;col++){
-    const px=Math.max(0,Math.min(255,Math.floor((localX+col/64/tilesAcross)*256)));
-    const py=Math.max(0,Math.min(255,Math.floor((localY+row/64/tilesAcross)*256)));
-    const i=(py*256+px)*4;
-    heights[row*65+col]=rgba[i]*256+rgba[i+1]+rgba[i+2]/256-32768;
+    heights[row*65+col]=sample(col/64,1-row/64);
    }
    good++;if(good===1||good%25===0)status.textContent='3D elevation tiles loaded: '+good+'; errors: '+bad+'.';return heights;
   }catch(err){bad++;console.warn('Terrain tile unavailable',url,err);status.textContent='Terrain load errors: '+bad+' ('+String(err.message||err)+'). Globe may appear flat.';return new Float32Array(65*65);}
