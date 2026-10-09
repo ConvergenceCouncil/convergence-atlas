@@ -1,0 +1,43 @@
+name: Cascadia source acquisition
+on:
+  workflow_dispatch:
+    inputs:
+      source_url:
+        description: 'Authorized HTTPS .osm.pbf extract URL'
+        required: true
+        default: 'https://download.geofabrik.de/north-america/us/washington-latest.osm.pbf'
+      region:
+        description: 'Region label'
+        required: true
+        default: 'Washington State (Cascadia pilot)'
+permissions:
+  contents: read
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download authorized OpenStreetMap extract
+        run: |
+          python scripts/acquire_region.py \
+            --url "$SOURCE_URL" \
+            --output staging/cascadia.osm.pbf \
+            --source 'Geofabrik / OpenStreetMap contributors' \
+            --license 'ODbL 1.0' \
+            --region "$REGION" \
+            --max-gb 5 \
+            --accept-license
+        env:
+          SOURCE_URL: ${{ inputs.source_url }}
+          REGION: ${{ inputs.region }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cascadia-osm-source
+          path: |
+            staging/cascadia.osm.pbf
+            staging/cascadia.osm.pbf.source.json
+          retention-days: 3
