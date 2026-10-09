@@ -1,0 +1,292 @@
+{
+  "schema": "convergence-poi-dossiers-v1",
+  "status": "initial_research_briefs_not_architectural_surveys",
+  "updated": "2026-10-08",
+  "entries": [
+    {
+      "name": "Louvre Museum",
+      "priority": "high",
+      "era": "Medieval fortress; later royal palace; public museum since 1793",
+      "geometry": "Palace wings and courtyards around the Cour Napoléon; glass pyramid entrance; complex interior galleries",
+      "materials": "Limestone masonry, stone sculpture, metal-and-glass pyramid",
+      "capture": [
+        "Louvre Palace courtyard elevations and wing-by-wing facades",
+        "Pyramid geometry and courtyard ground plan",
+        "Gallery circulation, ceiling heights and staircase references",
+        "Stone weathering, window modules and night illumination"
+      ],
+      "research_sources": [
+        {
+          "title": "Musée du Louvre — official",
+          "url": "https://www.louvre.fr/en"
+        },
+        {
+          "title": "Louvre collections",
+          "url": "https://collections.louvre.fr/en/"
+        }
+      ],
+      "cautions": "Separate medieval, royal-palace and contemporary museum periods; avoid inventing interior floor plans."
+    },
+    {
+      "name": "Smithsonian National Museum of Natural History",
+      "priority": "high",
+      "era": "Opened 1910; Smithsonian museum on the National Mall",
+      "geometry": "Monumental Beaux-Arts building with central rotunda and gallery wings",
+      "materials": "Stone exterior, masonry, glass exhibition cases and varied interior finishes",
+      "capture": [
+        "Main entrance and exterior elevations",
+        "Rotunda proportions and circulation",
+        "Exhibition hall layouts and gallery transitions",
+        "Display-case lighting and large exhibit clearances"
+      ],
+      "research_sources": [
+        {
+          "title": "Smithsonian Natural History — official",
+          "url": "https://naturalhistory.si.edu/"
+        },
+        {
+          "title": "Smithsonian Open Access",
+          "url": "https://www.si.edu/openaccess"
+        }
+      ],
+      "cautions": "Exhibitions change; document the reference year for any reconstructed gallery."
+    },
+    {
+      "name": "Smithsonian National Air and Space Museum",
+      "priority": "high",
+      "era": "National Mall museum opened 1976; major renovations in the 2020s",
+      "geometry": "Long museum frontage with large exhibition halls and aerospace display volumes",
+      "materials": "Stone and glass exterior, metal aerospace artifacts, modern gallery finishes",
+      "capture": [
+        "Exterior facade modules and main entry",
+        "Large gallery clearances for aircraft",
+        "Renovation-era gallery distinctions",
+        "Exhibit lighting and aircraft suspension"
+      ],
+      "research_sources": [
+        {
+          "title": "Air and Space Museum — official",
+          "url": "https://airandspace.si.edu/"
+        },
+        {
+          "title": "Smithsonian Open Access",
+          "url": "https://www.si.edu/openaccess"
+        }
+      ],
+      "cautions": "Renovation status and exhibit placement vary over time; verify the specific date."
+    },
+    {
+      "name": "Smithsonian National Museum of American History",
+      "priority": "high",
+      "era": "Opened 1964; museum on the National Mall",
+      "geometry": "Large modernist museum with broad public entrances and multi-level exhibit circulation",
+      "materials": "Stone and glass exterior with variable exhibit interiors",
+      "capture": [
+        "Facade bays and entrance levels",
+        "Interior circulation and atrium references",
+        "Major permanent exhibition spatial needs",
+        "Loading and back-of-house zones where publicly documented"
+      ],
+      "research_sources": [
+        {
+          "title": "American History Museum — official",
+          "url": "https://americanhistory.si.edu/"
+        },
+        {
+          "title": "Smithsonian Open Access",
+          "url": "https://www.si.edu/openaccess"
+        }
+      ],
+      "cautions": "Do not infer restricted back-of-house layouts from public visitor materials."
+    },
+    {
+      "name": "Grand Canyon National Park — South Rim",
+      "priority": "high",
+      "era": "Geological landscape shaped over immense timescales; protected US national park",
+      "geometry": "Layered canyon topography, cliffs, tributaries, rim overlooks and Colorado River corridor",
+      "materials": "Sedimentary rock strata, desert soils and variable vegetation",
+      "capture": [
+        "DEM and contour terrain at multiple scales",
+        "Rim-to-river elevation differences and geologic stratigraphy",
+        "South Rim overlook sightlines",
+        "Vegetation and seasonal atmospheric lighting",
+        "Trail and road access with park restrictions"
+      ],
+      "research_sources": [
+        {
+          "title": "National Park Service — Grand Canyon",
+          "url": "https://www.nps.gov/grca/index.htm"
+        },
+        {
+          "title": "USGS 3DEP elevation",
+          "url": "https://www.usgs.gov/3d-elevation-program"
+        }
+      ],
+      "cautions": "The South Rim point is a visitor-area reference, not a single canyon feature; terrain must use elevation data, not photos alone."
+    },
+    {
+      "name": "Lincoln Memorial",
+      "priority": "high",
+      "era": "Dedicated 1922; monument to Abraham Lincoln",
+      "geometry": "Rectangular Greek Doric temple with broad staircase and central statue chamber",
+      "materials": "Marble, limestone and granite used in different parts of the monument",
+      "capture": [
+        "Exterior column rhythm and measured elevations",
+        "Reflecting Pool alignment and monumental steps",
+        "Interior chamber, inscriptions and Lincoln statue scale",
+        "Stone jointing, weathering and day/night lighting"
+      ],
+      "research_sources": [
+        {
+          "title": "National Park Service — Lincoln Memorial",
+          "url": "https://www.nps.gov/linc/index.htm"
+        },
+        {
+          "title": "Library of Congress",
+          "url": "https://www.loc.gov/"
+        }
+      ],
+      "cautions": "Confirm material placement and precise dimensions with National Park Service or measured drawings."
+    },
+    {
+      "name": "Great Wall of China",
+      "priority": "high",
+      "era": "Fortifications built and rebuilt over many centuries; visible sections often Ming-period",
+      "geometry": "Long linear fortification adapting to mountain ridges, with watchtowers and stepped battlements",
+      "materials": "Stone, brick and rammed earth vary by region and period",
+      "capture": [
+        "Choose a specific section before modeling",
+        "Terrain-following wall alignment",
+        "Watchtower typologies and battlement modules",
+        "Regional construction material differences"
+      ],
+      "research_sources": [
+        {
+          "title": "UNESCO — Great Wall",
+          "url": "https://whc.unesco.org/en/list/438/"
+        }
+      ],
+      "cautions": "Do not represent a single wall section as typical of the entire Great Wall."
+    },
+    {
+      "name": "Petra",
+      "priority": "high",
+      "era": "Nabataean monumental city with later Roman and Byzantine history",
+      "geometry": "Rock-cut facades, narrow Siq passage, carved tombs and urban archaeological remains",
+      "materials": "Sandstone cliffs with variable erosion and color",
+      "capture": [
+        "Siq canyon width and route",
+        "Al-Khazneh facade proportions",
+        "Rock strata and weathering",
+        "Site circulation and protected areas"
+      ],
+      "research_sources": [
+        {
+          "title": "UNESCO — Petra",
+          "url": "https://whc.unesco.org/en/list/326/"
+        }
+      ],
+      "cautions": "Petra also belongs to the Ancient Relic Cities layer; use one shared geographic reference."
+    },
+    {
+      "name": "Colosseum",
+      "priority": "high",
+      "era": "Flavian amphitheatre, first century CE",
+      "geometry": "Elliptical amphitheatre with tiered seating, arcaded exterior and substructure",
+      "materials": "Travertine, tuff, brick-faced concrete and later repairs",
+      "capture": [
+        "Ellipse dimensions and radial structure",
+        "Arcade orders and facade damage",
+        "Hypogeum and circulation zones",
+        "Historic phase versus present condition"
+      ],
+      "research_sources": [
+        {
+          "title": "Parco archeologico del Colosseo",
+          "url": "https://colosseo.it/en/"
+        }
+      ],
+      "cautions": "Distinguish surviving fabric from speculative reconstructions."
+    },
+    {
+      "name": "Chichén Itzá",
+      "priority": "high",
+      "era": "Major Maya center with multiple construction periods",
+      "geometry": "Ceremonial plazas, stepped pyramids, temples and ballcourts",
+      "materials": "Carved limestone and masonry",
+      "capture": [
+        "El Castillo stair and terrace modules",
+        "Great Ball Court proportions",
+        "Carved architectural ornament",
+        "Site-wide terrain and plaza layout"
+      ],
+      "research_sources": [
+        {
+          "title": "UNESCO — Chichen-Itza",
+          "url": "https://whc.unesco.org/en/list/483/"
+        }
+      ],
+      "cautions": "Avoid conflating distinct construction periods or sacred interpretations."
+    },
+    {
+      "name": "Machu Picchu",
+      "priority": "high",
+      "era": "Fifteenth-century Inca site in the Andes",
+      "geometry": "Terraced mountain settlement with precise stone masonry and steep topography",
+      "materials": "Granite masonry and mountain vegetation",
+      "capture": [
+        "High-resolution mountain DEM",
+        "Terrace geometry and drainage",
+        "Ashlar joint patterns",
+        "Trail access and ridge sightlines"
+      ],
+      "research_sources": [
+        {
+          "title": "UNESCO — Machu Picchu",
+          "url": "https://whc.unesco.org/en/list/274/"
+        }
+      ],
+      "cautions": "Preserve the mountain setting; do not infer inaccessible interiors."
+    },
+    {
+      "name": "Taj Mahal",
+      "priority": "high",
+      "era": "Seventeenth-century Mughal mausoleum complex",
+      "geometry": "Symmetrical charbagh gardens, marble mausoleum, minarets and flanking structures",
+      "materials": "White marble, inlaid stone and red sandstone in surrounding structures",
+      "capture": [
+        "Central axis and garden geometry",
+        "Dome and minaret profiles",
+        "Marble inlay and screen details",
+        "Reflecting pool sightlines"
+      ],
+      "research_sources": [
+        {
+          "title": "UNESCO — Taj Mahal",
+          "url": "https://whc.unesco.org/en/list/252/"
+        }
+      ],
+      "cautions": "Verify decorative patterns and materials at close range before texture production."
+    },
+    {
+      "name": "Christ the Redeemer",
+      "priority": "high",
+      "era": "Completed 1931; monument on Corcovado",
+      "geometry": "Art Deco statue on a pedestal overlooking Rio de Janeiro",
+      "materials": "Reinforced concrete structure clad in soapstone mosaic",
+      "capture": [
+        "Statue silhouette and measured proportions",
+        "Pedestal and viewing platform",
+        "Corcovado terrain and access",
+        "Soapstone surface and atmospheric visibility"
+      ],
+      "research_sources": [
+        {
+          "title": "UNESCO — Rio de Janeiro cultural landscape",
+          "url": "https://whc.unesco.org/en/list/1100/"
+        }
+      ],
+      "cautions": "Account for changing cloud cover and long-distance visibility."
+    }
+  ]
+}
