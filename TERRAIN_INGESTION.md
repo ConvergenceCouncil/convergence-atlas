@@ -31,3 +31,18 @@ Each downloaded DEM tile must retain: source institution, dataset identifier, ac
 
 ## Licensing boundary
 Do not scrape protected imagery or copy restricted datasets. Licensed viewing access is not permission to redistribute raw data or bake it into commercial game assets. Use official download services, open licenses or separately negotiated rights.
+
+## Bounded DEM export prototype (2026-10-09)
+
+The committed `scripts/export_terrarium_dem.py` can reconstruct a local GeoTIFF from a **small bounded selection** of Mapzen/AWS Terrarium PNG elevation tiles. It records source URLs, tile SHA-256 hashes, requested and actual geographic bounds, and output checksum. This is an initial raster acquisition route, **not** a validated production DEM or a globally imported terrain library.
+
+Run on a machine with Python and the required packages:
+
+```bash
+python -m pip install numpy requests rasterio pillow
+python scripts/export_terrarium_dem.py --bbox -122.45 47.50 -122.20 47.72 --zoom 11 --output data/local/seattle-dem.tif
+```
+
+The script limits each request to 64 tiles to prevent accidental bulk downloads. It outputs a geographic EPSG:4326 float32 raster. The original terrain source may blend elevation datasets with differing vertical datums and resolutions; **do not treat it as survey-grade data**. Verify original provider licensing and redistribution terms before use in a commercial release. GeoTIFFs should remain out of the GitHub Pages source tree until storage, versioning, and licensing are settled.
+
+Next: execute the export on a runner, inspect GeoTIFF dimensions/CRS, compare known elevations, assess seams and no-data, and design an approved multi-region source ledger before converting any data to UE5 landscape heightfields.
