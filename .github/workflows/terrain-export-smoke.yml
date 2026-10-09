@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/export_terrarium_dem.py'
       - 'scripts/dem_to_ue5.py'
+      - 'scripts/dem_to_ue5_metric.py'
       - '.github/workflows/terrain-export-smoke.yml'
   workflow_dispatch:
 permissions:
@@ -61,6 +62,22 @@ jobs:
           assert meta['unreal_z_scale_percent']>0
           print('UE5 16-bit PNG validated; Z scale:',meta['unreal_z_scale_percent'])
           PY
+      - name: Export metric-projected UE5 heightmap
+        run: python scripts/dem_to_ue5_metric.py --input output/seattle-dem.tif --output output/seattle-metric-ue5.png --epsg 32610 --size 505
+      - name: Validate metric scale metadata
+        run: |
+          python - <<'PY'
+          import json,pathlib,numpy as np
+          from PIL import Image
+          path=pathlib.Path('output/seattle-metric-ue5.png')
+          meta=json.loads(path.with_suffix('.json').read_text())
+          with Image.open(path) as im:
+              assert im.size==(505,505)
+              assert np.asarray(im).dtype==np.uint16
+          assert meta['crs']=='EPSG:32610'
+          assert meta['unreal_x_scale_percent']>0 and meta['unreal_y_scale_percent']>0
+          print('Metric UE5 heightmap passed:',meta['unreal_x_scale_percent'],meta['unreal_y_scale_percent'])
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: seattle-dem-smoke
@@ -69,4 +86,6 @@ jobs:
             output/seattle-dem.manifest.json
             output/seattle-ue5.png
             output/seattle-ue5.json
+            output/seattle-metric-ue5.png
+            output/seattle-metric-ue5.json
           retention-days: 7
