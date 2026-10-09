@@ -1,0 +1,1030 @@
+{
+  "type": "FeatureCollection",
+  "name": "CONVERGENCE Tourist Attractions Expansion",
+  "metadata": {
+    "status": "reference_layer",
+    "note": "60 additional world landmark points. Coordinates approximate and not final playable footprints. Sensitive sites remain subject to cultural and access review."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.023,
+          38.8895
+        ]
+      },
+      "properties": {
+        "id": "T-041",
+        "name": "National Mall",
+        "location": "Washington, DC, USA",
+        "category": "park",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0365,
+          38.8814
+        ]
+      },
+      "properties": {
+        "id": "T-042",
+        "name": "Jefferson Memorial",
+        "location": "Washington, DC, USA",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0442,
+          38.8862
+        ]
+      },
+      "properties": {
+        "id": "T-043",
+        "name": "Martin Luther King Jr. Memorial",
+        "location": "Washington, DC, USA",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0477,
+          38.8913
+        ]
+      },
+      "properties": {
+        "id": "T-044",
+        "name": "Vietnam Veterans Memorial",
+        "location": "Washington, DC, USA",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0327,
+          38.8913
+        ]
+      },
+      "properties": {
+        "id": "T-045",
+        "name": "National Museum of African American History and Culture",
+        "location": "Washington, DC, USA",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.02,
+          38.8913
+        ]
+      },
+      "properties": {
+        "id": "T-046",
+        "name": "National Gallery of Art",
+        "location": "Washington, DC, USA",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0338,
+          38.8867
+        ]
+      },
+      "properties": {
+        "id": "T-047",
+        "name": "United States Holocaust Memorial Museum",
+        "location": "Washington, DC, USA",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.15,
+          39.9489
+        ]
+      },
+      "properties": {
+        "id": "T-048",
+        "name": "Independence Hall",
+        "location": "Philadelphia, USA",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.1503,
+          39.9496
+        ]
+      },
+      "properties": {
+        "id": "T-049",
+        "name": "Liberty Bell",
+        "location": "Philadelphia, USA",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9857,
+          40.7484
+        ]
+      },
+      "properties": {
+        "id": "T-050",
+        "name": "Empire State Building",
+        "location": "New York, USA",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9632,
+          40.7794
+        ]
+      },
+      "properties": {
+        "id": "T-051",
+        "name": "Metropolitan Museum of Art",
+        "location": "New York, USA",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9969,
+          40.7061
+        ]
+      },
+      "properties": {
+        "id": "T-052",
+        "name": "Brooklyn Bridge",
+        "location": "New York, USA",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.423,
+          37.8267
+        ]
+      },
+      "properties": {
+        "id": "T-053",
+        "name": "Alcatraz Island",
+        "location": "San Francisco, USA",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.3215,
+          34.1341
+        ]
+      },
+      "properties": {
+        "id": "T-054",
+        "name": "Hollywood Sign",
+        "location": "Los Angeles, USA",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.3004,
+          34.1184
+        ]
+      },
+      "properties": {
+        "id": "T-055",
+        "name": "Griffith Observatory",
+        "location": "Los Angeles, USA",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.2834,
+          19.4069
+        ]
+      },
+      "properties": {
+        "id": "T-056",
+        "name": "Hawaiʻi Volcanoes National Park — Kīlauea",
+        "location": "Hawaiʻi, USA",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -151.0074,
+          63.0695
+        ]
+      },
+      "properties": {
+        "id": "T-057",
+        "name": "Denali",
+        "location": "Alaska, USA",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.1773,
+          51.4254
+        ]
+      },
+      "properties": {
+        "id": "T-058",
+        "name": "Banff National Park — Lake Louise",
+        "location": "Alberta, Canada",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.3871,
+          43.6426
+        ]
+      },
+      "properties": {
+        "id": "T-059",
+        "name": "CN Tower",
+        "location": "Toronto, Canada",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.8438,
+          19.6925
+        ]
+      },
+      "properties": {
+        "id": "T-060",
+        "name": "Teotihuacán — Pyramid of the Sun",
+        "location": "State of Mexico, Mexico",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -99.1863,
+          19.426
+        ]
+      },
+      "properties": {
+        "id": "T-061",
+        "name": "Museo Nacional de Antropología",
+        "location": "Mexico City, Mexico",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.6237,
+          17.222
+        ]
+      },
+      "properties": {
+        "id": "T-062",
+        "name": "Tikal",
+        "location": "Petén, Guatemala",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.597,
+          9.08
+        ]
+      },
+      "properties": {
+        "id": "T-063",
+        "name": "Panama Canal — Miraflores Locks",
+        "location": "Panama",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.355,
+          -0.625
+        ]
+      },
+      "properties": {
+        "id": "T-064",
+        "name": "Galápagos National Park — Santa Cruz",
+        "location": "Ecuador",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.4068,
+          -50.9423
+        ]
+      },
+      "properties": {
+        "id": "T-065",
+        "name": "Torres del Paine — Base Area",
+        "location": "Chile",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.1377,
+          -50.4967
+        ]
+      },
+      "properties": {
+        "id": "T-066",
+        "name": "Perito Moreno Glacier",
+        "location": "Argentina",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -109.2768,
+          -27.1255
+        ]
+      },
+      "properties": {
+        "id": "T-067",
+        "name": "Moai at Ahu Tongariki",
+        "location": "Rapa Nui, Chile",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4545,
+          41.9029
+        ]
+      },
+      "properties": {
+        "id": "T-068",
+        "name": "Sistine Chapel",
+        "location": "Vatican City",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4769,
+          41.8986
+        ]
+      },
+      "properties": {
+        "id": "T-069",
+        "name": "Pantheon",
+        "location": "Rome, Italy",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4833,
+          41.9009
+        ]
+      },
+      "properties": {
+        "id": "T-070",
+        "name": "Trevi Fountain",
+        "location": "Rome, Italy",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.3966,
+          43.723
+        ]
+      },
+      "properties": {
+        "id": "T-071",
+        "name": "Leaning Tower of Pisa",
+        "location": "Pisa, Italy",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.255,
+          43.7687
+        ]
+      },
+      "properties": {
+        "id": "T-072",
+        "name": "Uffizi Gallery",
+        "location": "Florence, Italy",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.884,
+          52.3752
+        ]
+      },
+      "properties": {
+        "id": "T-073",
+        "name": "Anne Frank House",
+        "location": "Amsterdam, Netherlands",
+        "category": "museum",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3777,
+          52.5163
+        ]
+      },
+      "properties": {
+        "id": "T-074",
+        "name": "Brandenburg Gate",
+        "location": "Berlin, Germany",
+        "category": "monument",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7498,
+          47.5576
+        ]
+      },
+      "properties": {
+        "id": "T-075",
+        "name": "Neuschwanstein Castle",
+        "location": "Bavaria, Germany",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.4016,
+          50.0911
+        ]
+      },
+      "properties": {
+        "id": "T-076",
+        "name": "Prague Castle",
+        "location": "Prague, Czechia",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.9802,
+          41.0086
+        ]
+      },
+      "properties": {
+        "id": "T-077",
+        "name": "Hagia Sophia",
+        "location": "Istanbul, Türkiye",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.9226,
+          37.2231
+        ]
+      },
+      "properties": {
+        "id": "T-078",
+        "name": "Göbekli Tepe",
+        "location": "Şanlıurfa, Türkiye",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.6258,
+          22.3372
+        ]
+      },
+      "properties": {
+        "id": "T-079",
+        "name": "Abu Simbel",
+        "location": "Aswan, Egypt",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.0473,
+          12.0317
+        ]
+      },
+      "properties": {
+        "id": "T-080",
+        "name": "Lalibela Rock-Hewn Churches",
+        "location": "Lalibela, Ethiopia",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.9339,
+          -20.2675
+        ]
+      },
+      "properties": {
+        "id": "T-081",
+        "name": "Great Zimbabwe",
+        "location": "Masvingo, Zimbabwe",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.3662,
+          -33.8066
+        ]
+      },
+      "properties": {
+        "id": "T-082",
+        "name": "Robben Island",
+        "location": "Cape Town, South Africa",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.9892,
+          31.6258
+        ]
+      },
+      "properties": {
+        "id": "T-083",
+        "name": "Jemaa el-Fnaa",
+        "location": "Marrakesh, Morocco",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.6573,
+          25.7188
+        ]
+      },
+      "properties": {
+        "id": "T-084",
+        "name": "Karnak Temple Complex",
+        "location": "Luxor, Egypt",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.4736,
+          17.3604
+        ]
+      },
+      "properties": {
+        "id": "T-085",
+        "name": "Mecca Masjid",
+        "location": "Hyderabad, India",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.8513,
+          26.9855
+        ]
+      },
+      "properties": {
+        "id": "T-086",
+        "name": "Amber Fort",
+        "location": "Jaipur, India",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.8267,
+          26.9239
+        ]
+      },
+      "properties": {
+        "id": "T-087",
+        "name": "Hawa Mahal",
+        "location": "Jaipur, India",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.2038,
+          -7.6079
+        ]
+      },
+      "properties": {
+        "id": "T-088",
+        "name": "Borobudur",
+        "location": "Central Java, Indonesia",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.4915,
+          -7.752
+        ]
+      },
+      "properties": {
+        "id": "T-089",
+        "name": "Prambanan",
+        "location": "Yogyakarta, Indonesia",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8607,
+          1.2834
+        ]
+      },
+      "properties": {
+        "id": "T-090",
+        "name": "Marina Bay Sands",
+        "location": "Singapore",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8636,
+          1.2816
+        ]
+      },
+      "properties": {
+        "id": "T-091",
+        "name": "Gardens by the Bay",
+        "location": "Singapore",
+        "category": "park",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.977,
+          37.5796
+        ]
+      },
+      "properties": {
+        "id": "T-092",
+        "name": "Gyeongbokgung Palace",
+        "location": "Seoul, South Korea",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          134.6939,
+          34.8394
+        ]
+      },
+      "properties": {
+        "id": "T-093",
+        "name": "Himeji Castle",
+        "location": "Hyōgo, Japan",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.8107,
+          35.7101
+        ]
+      },
+      "properties": {
+        "id": "T-094",
+        "name": "Tokyo Skytree",
+        "location": "Tokyo, Japan",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          145.771,
+          -16.9203
+        ]
+      },
+      "properties": {
+        "id": "T-095",
+        "name": "Great Barrier Reef — Cairns Reference",
+        "location": "Queensland, Australia",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          143.104,
+          -38.665
+        ]
+      },
+      "properties": {
+        "id": "T-096",
+        "name": "Twelve Apostles",
+        "location": "Victoria, Australia",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          175.6831,
+          -37.8721
+        ]
+      },
+      "properties": {
+        "id": "T-097",
+        "name": "Hobbiton Movie Set",
+        "location": "Matamata, New Zealand",
+        "category": "landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          175.1033,
+          -38.2606
+        ]
+      },
+      "properties": {
+        "id": "T-098",
+        "name": "Waitomo Glowworm Caves",
+        "location": "Waikato, New Zealand",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          107.1839,
+          20.9101
+        ]
+      },
+      "properties": {
+        "id": "T-099",
+        "name": "Hạ Long Bay",
+        "location": "Quảng Ninh, Vietnam",
+        "category": "natural_landmark",
+        "coordinate_status": "approximate_reference"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.059,
+          16.919
+        ]
+      },
+      "properties": {
+        "id": "T-100",
+        "name": "Banaue Rice Terraces",
+        "location": "Ifugao, Philippines",
+        "category": "heritage_site",
+        "coordinate_status": "approximate_reference"
+      }
+    }
+  ]
+}
