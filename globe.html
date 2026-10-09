@@ -19,6 +19,7 @@ function applyQuality(mode){
  viewer.scene.globe.depthTestAgainstTerrain=true;
  if(globalBuildings){globalBuildings.maximumScreenSpaceError=detailed?8:16;}
  document.getElementById('quality').textContent=detailed?'Quality: High':'Quality: Balanced';
+ if(typeof updateZoomLod==='function'){currentLod='';updateZoomLod();}
 }
 
 viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(-122.33,47.61,12500000)});
@@ -35,6 +36,21 @@ try{
 }catch(e){status.textContent='Native terrain unavailable: '+e.message+'. Smooth globe fallback.';}
 // Stream tiled Overture buildings worldwide, without an account token.
 let globalBuildings=null;
+// Zoom-aware detail: finer nearby terrain and buildings, coarse distant tiles.
+// Smooth thresholds avoid rapid switching while the camera moves.
+let currentLod='far';
+function updateZoomLod(){
+ const altitude=Cesium.Cartographic.fromCartesian(viewer.camera.positionWC)?.height;
+ if(!Number.isFinite(altitude))return;
+ const next=altitude<12000?'near':altitude<180000?'regional':'far';
+ if(next===currentLod)return;
+ currentLod=next;
+ const high=quality==='high';
+ viewer.scene.globe.maximumScreenSpaceError=next==='near'?(high?1:1.6):next==='regional'?(high?2:3):(high?5:7);
+ viewer.scene.globe.tileCacheSize=next==='near'?(high?220:130):next==='regional'?110:65;
+ if(globalBuildings)globalBuildings.maximumScreenSpaceError=next==='near'?(high?5:8):next==='regional'?(high?10:14):24;
+}
+viewer.camera.changed.addEventListener(updateZoomLod);
 document.getElementById('quality').onclick=()=>{applyQuality(quality==='high'?'balanced':'high');status.textContent=quality==='high'?'High-detail mode: finer terrain and building LOD, up to 2× display resolution. May use more battery and memory.':'Balanced mode: lower GPU and memory usage.';};
 const buildingCredits=document.createElement('div');buildingCredits.style.cssText='font-size:10px;color:#b9c6d0;margin-top:5px';buildingCredits.textContent='Buildings © OpenStreetMap contributors, Overture Maps Foundation (ODbL). Terrain © Re:Earth Terrain / Mapterhorn.';document.getElementById('panel').appendChild(buildingCredits);
 const globalBuildingsButton=document.getElementById('global-buildings');
@@ -44,7 +60,7 @@ globalBuildingsButton.onclick=async()=>{
  globalBuildingsButton.disabled=true;status.textContent='Connecting to worldwide 3D building tiles…';
  try{
   const tileset=await Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:quality==='high'?8:16,dynamicScreenSpaceError:true,skipLevelOfDetail:true});
-  viewer.scene.primitives.add(tileset);globalBuildings=tileset;
+  viewer.scene.primitives.add(tileset);globalBuildings=tileset;currentLod='';updateZoomLod();
   tileset.tileFailed.addEventListener(e=>console.warn('3D building tile failed',e));
   globalBuildingsButton.textContent='Hide global 3D buildings';
   status.textContent='Worldwide Overture building geometry enabled. Zoom into a city; building tiles stream as needed. Detailed landmark models remain separate.';
