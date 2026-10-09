@@ -76,6 +76,11 @@ jobs:
               assert np.asarray(im).dtype==np.uint16
           assert meta['crs']=='EPSG:32610'
           assert meta['unreal_x_scale_percent']>0 and meta['unreal_y_scale_percent']>0
+          bounds=meta['metric_bounds_projected'];size=meta['size'][0]
+          assert abs(meta['horizontal_meters_per_vertex_x']-(bounds[2]-bounds[0])/(size-1))<1e-7
+          assert abs(meta['horizontal_meters_per_vertex_y']-(bounds[3]-bounds[1])/(size-1))<1e-7
+          assert abs(meta['unreal_x_scale_percent']-100*meta['horizontal_meters_per_vertex_x'])<1e-7
+          assert abs(meta['unreal_y_scale_percent']-100*meta['horizontal_meters_per_vertex_y'])<1e-7
           print('Metric UE5 heightmap passed:',meta['unreal_x_scale_percent'],meta['unreal_y_scale_percent'])
           PY
       - uses: actions/upload-artifact@v4
