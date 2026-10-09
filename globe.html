@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;max-height:45vh;overflow-y:auto;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}</style></head>
-<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><div style="margin:6px 0"><button data-inspect-height="4500">Aerial</button> <button data-inspect-height="800">Building</button> <button data-inspect-height="90">Ground</button></div><button id="terrain">Enable 3D terrain</button> <button id="orbit">Orbit selected site</button> <button id="buildings">Load nearby 3D buildings</button> <button id="global-buildings">Enable global 3D buildings</button> <button id="imagery">Imagery: World</button> <button id="quality">Quality: Balanced</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="status">Loading globe…</div></div>
+<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><div style="margin:6px 0"><button data-inspect-height="4500">Aerial</button> <button data-inspect-height="800">Building</button> <button data-inspect-height="90">Ground</button></div><button id="terrain">Enable 3D terrain</button> <button id="orbit">Orbit selected site</button> <button id="buildings">Load nearby 3D buildings</button> <button id="global-buildings">Enable global 3D buildings</button> <button id="imagery">Imagery: World</button> <button id="quality">Quality: Balanced</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="lod-status" style="font-size:11px;color:#b8c9d9;margin-top:5px">Detail: initializing…</div><div id="imagery-detail" style="font-size:11px;color:#b8c9d9;margin-top:4px">Imagery: world satellite</div><div id="status">Loading globe…</div></div>
 <script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
 (async function(){'use strict';const status=document.getElementById('status');if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
 const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false});
@@ -10,16 +10,17 @@ let quality='balanced';
 function applyQuality(mode){
  quality=mode;
  const detailed=mode==='high';
- viewer.resolutionScale=detailed?Math.min(window.devicePixelRatio||1,2):1;
+ viewer.resolutionScale=detailed?Math.min(window.devicePixelRatio||1,mobile?1.5:2):1;
  viewer.scene.fxaa=true;
  viewer.scene.globe.maximumScreenSpaceError=detailed?1.5:3;
  viewer.scene.globe.tileCacheSize=detailed?180:90;
  viewer.scene.globe.preloadAncestors=true;
  viewer.scene.globe.preloadSiblings=detailed;
  viewer.scene.globe.depthTestAgainstTerrain=true;
+ viewer.scene.globe.enableLighting=false;
  if(globalBuildings){globalBuildings.maximumScreenSpaceError=detailed?8:16;}
  document.getElementById('quality').textContent=detailed?'Quality: High':'Quality: Balanced';
- if(typeof updateZoomLod==='function'){currentLod='';updateZoomLod();}
+ currentLod='';updateZoomLod();
 }
 
 viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(-122.33,47.61,12500000)});
@@ -38,17 +39,22 @@ try{
 let globalBuildings=null;
 // Zoom-aware detail: finer nearby terrain and buildings, coarse distant tiles.
 // Smooth thresholds avoid rapid switching while the camera moves.
-let currentLod='far';
+let currentLod='';
 function updateZoomLod(){
- const altitude=Cesium.Cartographic.fromCartesian(viewer.camera.positionWC)?.height;
- if(!Number.isFinite(altitude))return;
- const next=altitude<12000?'near':altitude<180000?'regional':'far';
+ const cart=viewer.camera.positionCartographic;
+ if(!cart)return;
+ const altitude=Math.max(0,cart.height);
+ const next=altitude<1200?'street':altitude<12000?'near':altitude<180000?'regional':'far';
  if(next===currentLod)return;
  currentLod=next;
  const high=quality==='high';
- viewer.scene.globe.maximumScreenSpaceError=next==='near'?(high?1:1.6):next==='regional'?(high?2:3):(high?5:7);
- viewer.scene.globe.tileCacheSize=next==='near'?(high?220:130):next==='regional'?110:65;
- if(globalBuildings)globalBuildings.maximumScreenSpaceError=next==='near'?(high?5:8):next==='regional'?(high?10:14):24;
+ const terrainErrors={far:7,regional:3,near:1.6,street:1.2};
+ const buildingErrors={far:24,regional:14,near:8,street:5};
+ viewer.scene.globe.maximumScreenSpaceError=terrainErrors[next]*(high?.75:1);
+ viewer.scene.globe.tileCacheSize=next==='street'?(high?220:130):next==='near'?140:next==='regional'?100:65;
+ if(globalBuildings)globalBuildings.maximumScreenSpaceError=buildingErrors[next]*(high?.75:1);
+ const lodStatus=document.getElementById('lod-status');
+ if(lodStatus)lodStatus.textContent='Detail: '+next+' · adaptive terrain and buildings';
 }
 viewer.camera.changed.addEventListener(updateZoomLod);
 document.getElementById('quality').onclick=()=>{applyQuality(quality==='high'?'balanced':'high');status.textContent=quality==='high'?'High-detail mode: finer terrain and building LOD, up to 2× display resolution. May use more battery and memory.':'Balanced mode: lower GPU and memory usage.';};
@@ -176,6 +182,7 @@ document.getElementById('inspect').onclick=()=>{
 const imageryButton=document.getElementById('imagery');
 const usgsImageryUrl='https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}';
 let imageryMode='auto',usgsLayer=null;
+let lastImageryAlpha=-1;
 function inUsa(lon,lat){return lon>=-125&&lon<=-66&&lat>=24&&lat<=50;}
 function refreshImagery(){
  const cart=viewer.camera.positionCartographic;
@@ -189,7 +196,7 @@ function refreshImagery(){
    usgsLayer=viewer.imageryLayers.addImageryProvider(provider);
   }catch(e){console.warn('USGS aerial imagery overlay unavailable',e);return;}
  }
- if(usgsLayer)usgsLayer.alpha=alpha;
+ if(usgsLayer&&Math.abs(alpha-lastImageryAlpha)>.015){usgsLayer.alpha=alpha;lastImageryAlpha=alpha;}
  const detail=document.getElementById('imagery-detail');
  if(detail)detail.textContent='Imagery: '+(alpha>.9?'USGS aerial':alpha>.01?'blending USGS aerial':'world satellite')+' · zoom-dependent tiles';
 }
@@ -200,6 +207,7 @@ imageryButton.onclick=()=>{
  status.textContent=imageryMode==='auto'?'Automatic imagery enabled: USGS aerial tiles appear over the continental USA as you zoom closer.':'Imagery preference: '+imageryMode+'. USGS only covers the continental USA.';
 };
 viewer.camera.changed.addEventListener(refreshImagery);
+viewer.camera.moveEnd.addEventListener(()=>{refreshImagery();updateZoomLod();});
 document.querySelectorAll('[data-fly]').forEach(button=>button.onclick=()=>{const [lon,lat,alt]=button.dataset.fly.split(',').map(Number);viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(lon,lat,alt),orientation:{heading:0,pitch:Cesium.Math.toRadians(-50),roll:0},duration:1.8});});
 terrainButton.onclick=()=>{
  terrainEnabled=!terrainEnabled;
