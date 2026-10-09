@@ -74,7 +74,7 @@ globalBuildingsButton.onclick=async()=>{
   tileset.tileFailed.addEventListener(e=>console.warn('3D building tile failed',e));
   globalBuildingsButton.textContent='Hide global 3D buildings';
   status.textContent='Real-world 3D building tiles enabled. Detailed canon landmark models remain in production.';
- }catch(e){status.textContent='Global 3D buildings unavailable; loading nearby OSM building geometry instead.';console.warn('Global 3D tiles unavailable',e);if(!buildingCollection)document.getElementById('buildings').click();}
+ }catch(e){status.textContent='Global 3D buildings unavailable; loading nearby OSM building geometry instead.';console.warn('Global 3D tiles unavailable',e);if(!buildingCollection&&viewer.camera.positionCartographic.height<15000)document.getElementById('buildings').click();}
  finally{globalBuildingsButton.disabled=false;}
 };
 // Distinctive architectural geometry prototype for the Seattle Space Needle.
@@ -240,7 +240,9 @@ document.getElementById('buildings').onclick=async()=>{
    const tags=el.tags||{};
    const heightText=String(tags.height||'').replace(/[^0-9.]/g,'');
    const height=heightText?Number(heightText):(Math.max(1,Number(tags['building:levels'])||3)*3.2);
-   features.push({type:'Feature',properties:{name:tags.name||'Building',height:Math.min(450,Math.max(3,height)),osm_id:el.id},geometry:{type:'Polygon',coordinates:[coords]}});
+   const category=String(tags['building']||'').toLowerCase();
+   const wallColor=tags['building:colour']||tags['building:color']||tags['facade:colour']||'';
+   features.push({type:'Feature',properties:{name:tags.name||'Building',height:Math.min(450,Math.max(3,height)),osm_id:el.id,category,wallColor},geometry:{type:'Polygon',coordinates:[coords]}});
   }
   const fc={type:'FeatureCollection',features};
   buildingCollection=await Cesium.GeoJsonDataSource.load(fc,{clampToGround:false});
@@ -252,14 +254,19 @@ document.getElementById('buildings').onclick=async()=>{
    entity.polygon.heightReference=Cesium.HeightReference.RELATIVE_TO_GROUND;
    entity.polygon.extrudedHeight=height;
    entity.polygon.extrudedHeightReference=Cesium.HeightReference.RELATIVE_TO_GROUND;
-   entity.polygon.material=Cesium.Color.fromCssColorString('#9aa7b3').withAlpha(.94);
+   // Preserve mapped façade colors when present; use restrained building-type materials otherwise.
+   const category=String(props.category?.getValue()||'');
+   const rawColor=String(props.wallColor?.getValue()||'');
+   const defaults=category==='industrial'?'#929ca4':category==='church'||category==='cathedral'?'#c9bdac':category==='commercial'||category==='office'?'#a9b7c1':category==='house'||category==='residential'?'#b6afa4':'#abb5bd';
+   let facade;try{facade=Cesium.Color.fromCssColorString(rawColor||defaults);}catch(e){facade=undefined;}
+   entity.polygon.material=(facade||Cesium.Color.fromCssColorString(defaults)).withAlpha(.98);
    entity.polygon.outline=false;
    entity.polygon.shadows=Cesium.ShadowMode.DISABLED;
   }
   viewer.dataSources.add(buildingCollection);
   button.textContent='Hide nearby 3D buildings';
   status.textContent=features.length+' building footprints near '+currentTarget.name+' extruded relative to ground. Height estimates used where missing; geometry is schematic, not photogrammetry.';
-  viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(currentTarget.lon,currentTarget.lat,2600),orientation:{heading:0,pitch:Cesium.Math.toRadians(-45),roll:0},duration:1.8});
+  // Do not unexpectedly move the camera when fallback buildings load.
  }catch(e){status.textContent='Building data unavailable: '+e.message+'. Try again later.';}
  finally{button.disabled=false;}
 };
@@ -318,6 +325,8 @@ document.getElementById('inspect').onclick=()=>{
  if(orbitHandler){viewer.clock.onTick.removeEventListener(orbitHandler);orbitHandler=null;document.getElementById('orbit').textContent='Orbit selected site';viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);}
  if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;document.getElementById('buildings').textContent='Load nearby 3D buildings';}
  inspectAtHeight(d.type==='wonder'?4500:800);
+ // Automatically populate local building footprints only when global tiles are unavailable.
+ if(!globalBuildings&&!buildingCollection)document.getElementById('buildings').click();
  document.getElementById('panel').classList.add('collapsed');document.getElementById('panel-toggle').setAttribute('aria-expanded','false');
  status.textContent=d.name+' · '+d.note+'. Use Load nearby 3D buildings for schematic OSM extrusions. Canon Guild Hall architecture is not modeled yet.';
 };
