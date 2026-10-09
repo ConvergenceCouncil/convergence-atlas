@@ -37,6 +37,42 @@
       "license": "CC BY-NC",
       "interior": "unverified",
       "status": "commercial-license-block"
+    },
+    {
+      "site": "Carnegie Mansion — exterior, interior, main floor, 2nd and 3rd floors",
+      "url": "https://3d.si.edu/explore?edan_fq%5B%5D=media_usage%3A%22CC0%22&edan_fq%5B%5D=topic%3A%22Architecture%22",
+      "source": "Cooper Hewitt / Smithsonian",
+      "license": "CC0 per Smithsonian",
+      "interior": "multi-floor interior datasets published; connected navigation and collision not verified",
+      "status": "priority-pipeline-benchmark",
+      "notes": "Excellent candidate to test merging floor-by-floor scans with exterior; not an approved CONVERGENCE location."
+    },
+    {
+      "site": "Realistic House (With Interior)",
+      "url": "https://sketchfab.com/3d-models/realistic-house-with-interior-c57c2019e5c84e1a8cd0c37c5b87b7ec",
+      "source": "Blender Studio™ Sketchfab listing",
+      "license": "CC BY per listing",
+      "interior": "rooms, walls, doors and flooring explicitly described; unfurnished; traversal unverified",
+      "status": "architecture-pipeline-benchmark",
+      "notes": "77.5k triangles according to listing; verify actual file and licensing on download."
+    },
+    {
+      "site": "Military HQ Building with 3 Interiors",
+      "url": "https://sketchfab.com/3d-models/military-hq-building-with-3-interiors-da2b6e1da4594cad935713018b7af445",
+      "source": "3RDimens Sketchfab listing",
+      "license": "CC BY per listing",
+      "interior": "three interiors described; connectivity unverified",
+      "status": "architecture-pipeline-benchmark",
+      "notes": "9.2k triangles, FBX according to listing; not a canonical Guild Hall design."
+    },
+    {
+      "site": "Ruined City Building — Game-Ready PBR",
+      "url": "https://sketchfab.com/3d-models/ruined-city-building-game-ready-pbr-ba927bcd6a254cb6bcfd27d7d16e417f",
+      "source": "prabinpandey631 Sketchfab listing",
+      "license": "Verify at source",
+      "interior": "partial interiors and stairwell described; full traversal unverified",
+      "status": "research",
+      "notes": "1.2M triangles in listing; purported LOD/collision details contain placeholder text and require validation."
     }
   ]
 }
