@@ -75,6 +75,16 @@ function adaptBuildingBudget(){
  if(pressure!==lastTilePressure){lastTilePressure=pressure;console.info('Building tile LOD',pressure);}
 }
 viewer.camera.moveEnd.addEventListener(adaptBuildingBudget);
+// Prefer progressive tile refinement: avoid briefly drawing a coarse parent tile
+// on top of a sharper child when navigating close to a building.
+function configureTileRefinement(tileset){
+ tileset.dynamicScreenSpaceError=false;
+ tileset.skipLevelOfDetail=false;
+ tileset.preloadWhenHidden=false;
+ tileset.cullWithChildrenBounds=true;
+ tileset.maximumScreenSpaceError=quality==='high'?8:12;
+ tileset.maximumMemoryUsage=mobile?300:640;
+}
 const buildingCredits=document.createElement('div');buildingCredits.style.cssText='font-size:10px;color:#b9c6d0;margin-top:5px';buildingCredits.textContent='Buildings © OpenStreetMap contributors, Overture Maps Foundation (ODbL). Terrain © Re:Earth Terrain / Mapterhorn.';document.getElementById('panel').appendChild(buildingCredits);
 const globalBuildingsButton=document.getElementById('global-buildings');
 globalBuildingsButton.onclick=async()=>{
@@ -82,7 +92,8 @@ globalBuildingsButton.onclick=async()=>{
  if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;document.getElementById('buildings').textContent='Load nearby 3D buildings';}
  globalBuildingsButton.disabled=true;status.textContent='Connecting to worldwide 3D building tiles…';
  try{
-  const tileset=await Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:quality==='high'?8:16,dynamicScreenSpaceError:true,skipLevelOfDetail:true});
+  const tileset=await Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:quality==='high'?8:16,dynamicScreenSpaceError:false,skipLevelOfDetail:false});
+  configureTileRefinement(tileset);
   viewer.scene.primitives.add(tileset);globalBuildings=tileset;currentLod='';updateZoomLod();adaptBuildingBudget();
   tileset.tileFailed.addEventListener(e=>console.warn('3D building tile failed',e));
   globalBuildingsButton.textContent='Hide global 3D buildings';
