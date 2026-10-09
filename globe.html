@@ -11,7 +11,7 @@ status.textContent='3D globe ready. Enable elevation and fly toward Rainier or t
 try{const resource=await fetch('data/earth/ne110-countries.geojson');if(!resource.ok)throw Error('HTTP '+resource.status);const data=await resource.json();const ds=await Cesium.GeoJsonDataSource.load(data,{stroke:Cesium.Color.fromCssColorString('#d6bc78'),strokeWidth:1,fill:Cesium.Color.fromCssColorString('#16354c').withAlpha(.08),clampToGround:false});viewer.dataSources.add(ds);status.textContent='3D globe with Natural Earth country boundaries. Tap Enable 3D terrain to load elevation.';}catch(e){status.textContent='Globe loaded; country overlay unavailable: '+e.message;}
 let terrainEnabled=false;
 const terrainButton=document.getElementById('terrain');
-const scheme=new Cesium.WebMercatorTilingScheme();
+const scheme=new Cesium.WebMercatorTilingScheme();let good=0,bad=0;const tileCache=new Map();
 const terrainProvider=new Cesium.CustomHeightmapTerrainProvider({
  tilingScheme:scheme,width:65,height:65,
  callback:async(x,y,level)=>{
@@ -20,13 +20,8 @@ const terrainProvider=new Cesium.CustomHeightmapTerrainProvider({
   const zoom=Math.min(level,12),shift=level-zoom,tx=Math.floor(x/Math.pow(2,shift)),ty=Math.floor(y/Math.pow(2,shift));
   const url='https://s3.amazonaws.com/elevation-tiles-prod/terrarium/'+zoom+'/'+tx+'/'+ty+'.png';
   try{
-   const response=await fetch(url,{mode:'cors'});
-   if(!response.ok)throw Error('HTTP '+response.status);
-   const bitmap=await createImageBitmap(await response.blob());
-   const canvas=document.createElement('canvas');canvas.width=256;canvas.height=256;
-   const ctx=canvas.getContext('2d',{willReadFrequently:true});
-   ctx.drawImage(bitmap,0,0,256,256);if(bitmap.close)bitmap.close();
-   const rgba=ctx.getImageData(0,0,256,256).data;
+   let job=tileCache.get(url);if(!job){job=(async()=>{const response=await fetch(url,{mode:'cors'});if(!response.ok)throw Error('HTTP '+response.status);const bitmap=await createImageBitmap(await response.blob());const canvas=document.createElement('canvas');canvas.width=256;canvas.height=256;const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(bitmap,0,0,256,256);if(bitmap.close)bitmap.close();return ctx.getImageData(0,0,256,256).data;})();tileCache.set(url,job);if(tileCache.size>100)tileCache.delete(tileCache.keys().next().value);}
+   const rgba=await job;
    const heights=new Float32Array(65*65);
    const tilesAcross=Math.pow(2,level-zoom);
    const localX=(x-tx*tilesAcross)/tilesAcross;
@@ -37,8 +32,8 @@ const terrainProvider=new Cesium.CustomHeightmapTerrainProvider({
     const i=(py*256+px)*4;
     heights[row*65+col]=rgba[i]*256+rgba[i+1]+rgba[i+2]/256-32768;
    }
-   return heights;
-  }catch(err){console.warn('Terrain tile unavailable',url,err);return new Float32Array(65*65);}
+   good++;if(good===1||good%25===0)status.textContent='3D elevation tiles loaded: '+good+'; errors: '+bad+'.';return heights;
+  }catch(err){bad++;console.warn('Terrain tile unavailable',url,err);status.textContent='Terrain load errors: '+bad+' ('+String(err.message||err)+'). Globe may appear flat.';return new Float32Array(65*65);}
  }
 });
 const imageryButton=document.getElementById('imagery');
@@ -48,13 +43,14 @@ imageryButton.onclick=()=>{
  const url=usgsImagery?'https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}':'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
  try{viewer.imageryLayers.removeAll();viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({url,maximumLevel:19,credit:usgsImagery?'USGS National Map imagery (US coverage only)':'Esri and imagery contributors'}));imageryButton.textContent=usgsImagery?'Imagery: USGS USA':'Imagery: World';status.textContent=usgsImagery?'USGS aerial imagery enabled. Switch to World outside US coverage.':'Worldwide imagery enabled.';}catch(e){status.textContent='Imagery switch failed: '+e.message;}
 };
-document.querySelectorAll('[data-fly]').forEach(button=>button.onclick=()=>{const [lon,lat,alt]=button.dataset.fly.split(',').map(Number);viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(lon,lat,alt),duration:1.8});});
+document.querySelectorAll('[data-fly]').forEach(button=>button.onclick=()=>{const [lon,lat,alt]=button.dataset.fly.split(',').map(Number);viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(lon,lat,alt),orientation:{heading:0,pitch:Cesium.Math.toRadians(-50),roll:0},duration:1.8});});
 terrainButton.onclick=()=>{
  terrainEnabled=!terrainEnabled;
  viewer.terrainProvider=terrainEnabled?terrainProvider:new Cesium.EllipsoidTerrainProvider();
  terrainButton.textContent=terrainEnabled?'Disable 3D terrain':'Enable 3D terrain';
- status.textContent=terrainEnabled?'3D Earth elevation enabled using public AWS Terrarium tiles. Zoom toward mountains for relief. This is sampled browser terrain, not a UE5 landscape.':'Smooth globe restored.';
+ status.textContent=terrainEnabled?'Terrain enabled; waiting for elevation tiles. Zoom toward Rainier.':'Smooth globe restored.';
 };
+terrainButton.click();
 
 }catch(e){status.textContent='Unable to initialize 3D globe: '+e.message;}})();
 </script></body></html>
