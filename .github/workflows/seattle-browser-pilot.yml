@@ -2,7 +2,7 @@ name: Seattle browser overlay pilot
 on:
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -25,6 +25,17 @@ jobs:
         run: |
           bash scripts/process_osm_pilot.sh
           python scripts/make_browser_pilot.py --input staging/processed --output staging/browser/seattle-osm-pilot.geojson
+      - name: Publish bounded preview to Atlas
+        run: |
+          mkdir -p data/imports
+          cp staging/browser/seattle-osm-pilot.geojson data/imports/seattle-osm-pilot.geojson
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/imports/seattle-osm-pilot.geojson
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish Seattle OSM preview'
+            git push
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: seattle-browser-geojson
