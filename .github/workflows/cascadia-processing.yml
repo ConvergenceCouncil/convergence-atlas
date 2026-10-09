@@ -1,0 +1,46 @@
+name: Cascadia bounded processing pilot
+on:
+  workflow_dispatch:
+    inputs:
+      source_url:
+        description: 'Authorized HTTPS OSM PBF extract'
+        required: true
+        default: 'https://download.geofabrik.de/north-america/us/washington-latest.osm.pbf'
+permissions:
+  contents: read
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install geographic conversion tools
+        run: sudo apt-get update && sudo apt-get install -y gdal-bin
+      - name: Download authorized source
+        env:
+          SOURCE_URL: ${{ inputs.source_url }}
+        run: |
+          python scripts/acquire_region.py \
+            --url "$SOURCE_URL" \
+            --output staging/cascadia.osm.pbf \
+            --source 'Geofabrik / OpenStreetMap contributors' \
+            --license 'ODbL 1.0' \
+            --region 'Washington State / Seattle pilot' \
+            --max-gb 5 --accept-license
+      - name: Convert Seattle pilot geographic features
+        env:
+          SOURCE_PBF: staging/cascadia.osm.pbf
+          OUTPUT_DIR: staging/processed
+          BBOX: '-122.46,47.48,-122.22,47.74'
+          MAX_FEATURES: '10000'
+        run: bash scripts/process_osm_pilot.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seattle-osm-pilot
+          path: |
+            staging/processed/
+            staging/cascadia.osm.pbf.source.json
+          retention-days: 7
