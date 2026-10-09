@@ -16,6 +16,7 @@ for layer in lines multipolygons points; do
   echo "Processing $layer within $BBOX (cap $MAX_FEATURES)"
   ogr2ogr -f GeoJSONSeq "$OUTPUT_DIR/$layer.geojsonl" "$SOURCE_PBF" "$layer" \
     -spat "$west" "$south" "$east" "$north" \
+    -clipsrc "$west" "$south" "$east" "$north" \
     -limit "$MAX_FEATURES" -lco RS=NO -skipfailures
   gzip -f "$OUTPUT_DIR/$layer.geojsonl"
 done
