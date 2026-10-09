@@ -44,8 +44,8 @@ def main():
  Image.fromarray(encoded).save(a.output)
  zscale=(high-low)*100*128/65535
  meta={'input':str(a.input),'output':str(a.output),'crs':str(crs),'size':[a.size,a.size],
- 'metric_bounds_projected':metric_bounds,'crop_note':'Conservative 20% projected bounding-box inset to avoid uncovered reprojection corners; smaller geographic area than original DEM','horizontal_meters_per_vertex_x':(east-west)/(a.size-1),'horizontal_meters_per_vertex_y':(north-south)/(a.size-1),
- 'unreal_x_scale_percent':(east-west)/(a.size-1)*100,'unreal_y_scale_percent':(north-south)/(a.size-1)*100,'unreal_z_scale_percent':zscale,
+ 'metric_bounds_projected':metric_bounds,'crop_note':'Conservative 20% projected bounding-box inset to avoid uncovered reprojection corners; smaller geographic area than original DEM','horizontal_meters_per_vertex_x':(metric_bounds[2]-metric_bounds[0])/(a.size-1),'horizontal_meters_per_vertex_y':(metric_bounds[3]-metric_bounds[1])/(a.size-1),
+ 'unreal_x_scale_percent':(metric_bounds[2]-metric_bounds[0])/(a.size-1)*100,'unreal_y_scale_percent':(metric_bounds[3]-metric_bounds[1])/(a.size-1)*100,'unreal_z_scale_percent':zscale,
  'unreal_actor_z_offset_cm':(low+high)*50,
  'min_elevation_m':minimum,'max_elevation_m':maximum,
  'vertical_datum_note':'Source vertical datum must be checked before precision placement',
