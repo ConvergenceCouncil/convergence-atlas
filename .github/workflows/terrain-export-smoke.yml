@@ -21,7 +21,7 @@ jobs:
       - name: Install terrain dependencies
         run: pip install -r requirements-terrain.txt
       - name: Export bounded Seattle DEM
-        run: python scripts/export_terrarium_dem.py --bbox=-122.45,47.50,-122.20,47.72 --zoom 10 --output output/seattle-dem.tif
+        run: python scripts/export_terrarium_dem.py --bbox -122.45 47.50 -122.20 47.72 --zoom 10 --output output/seattle-dem.tif
       - name: Validate raster and manifest
         run: |
           python - <<'PY'
