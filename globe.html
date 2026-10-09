@@ -62,6 +62,19 @@ function updateZoomLod(){
 }
 viewer.camera.changed.addEventListener(updateZoomLod);
 document.getElementById('quality').onclick=()=>{applyQuality(quality==='high'?'balanced':'high');status.textContent=quality==='high'?'High-detail mode: finer terrain and building LOD, up to 2× display resolution. May use more battery and memory.':'Balanced mode: lower GPU and memory usage.';};
+// Stream progressively finer city tiles while keeping mobile memory bounded.
+let lastTilePressure='normal';
+function adaptBuildingBudget(){
+ if(!globalBuildings)return;
+ const altitude=viewer.camera.positionCartographic.height;
+ const near=altitude<3000;
+ const high=quality==='high';
+ globalBuildings.maximumScreenSpaceError=near?(high?5:8):altitude<15000?(high?7:11):altitude<180000?16:26;
+ globalBuildings.maximumMemoryUsage=mobile?Math.min(high?320:220,320):high?640:400;
+ const pressure=near?'close':'normal';
+ if(pressure!==lastTilePressure){lastTilePressure=pressure;console.info('Building tile LOD',pressure);}
+}
+viewer.camera.moveEnd.addEventListener(adaptBuildingBudget);
 const buildingCredits=document.createElement('div');buildingCredits.style.cssText='font-size:10px;color:#b9c6d0;margin-top:5px';buildingCredits.textContent='Buildings © OpenStreetMap contributors, Overture Maps Foundation (ODbL). Terrain © Re:Earth Terrain / Mapterhorn.';document.getElementById('panel').appendChild(buildingCredits);
 const globalBuildingsButton=document.getElementById('global-buildings');
 globalBuildingsButton.onclick=async()=>{
@@ -70,7 +83,7 @@ globalBuildingsButton.onclick=async()=>{
  globalBuildingsButton.disabled=true;status.textContent='Connecting to worldwide 3D building tiles…';
  try{
   const tileset=await Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:quality==='high'?8:16,dynamicScreenSpaceError:true,skipLevelOfDetail:true});
-  viewer.scene.primitives.add(tileset);globalBuildings=tileset;currentLod='';updateZoomLod();
+  viewer.scene.primitives.add(tileset);globalBuildings=tileset;currentLod='';updateZoomLod();adaptBuildingBudget();
   tileset.tileFailed.addEventListener(e=>console.warn('3D building tile failed',e));
   globalBuildingsButton.textContent='Hide global 3D buildings';
   status.textContent='Real-world 3D building tiles enabled. Detailed canon landmark models remain in production.';
