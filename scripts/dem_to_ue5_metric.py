@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+"""Reproject a DEM into a metric CRS and export a square UE5 heightmap.
+
+Example: python scripts/dem_to_ue5_metric.py --input output/seattle-dem.tif --output output/seattle-metric-ue5.png --epsg 32610 --size 505
+"""
+import argparse,hashlib,json,pathlib
+import numpy as np
+import rasterio
+from rasterio.warp import calculate_default_transform,reproject,Resampling
+from rasterio.transform import array_bounds
+from PIL import Image
+
+def main():
+ p=argparse.ArgumentParser(description=__doc__)
+ p.add_argument('--input',type=pathlib.Path,required=True)
+ p.add_argument('--output',type=pathlib.Path,required=True)
+ p.add_argument('--epsg',type=int,default=32610,help='Metric projected EPSG; Seattle UTM zone 10N = 32610')
+ p.add_argument('--size',type=int,default=505)
+ a=p.parse_args()
+ if a.size<64 or (a.size-1)%63:p.error('size must be 63*N+1')
+ with rasterio.open(a.input) as src:
+  if src.count!=1:p.error('DEM must have one band')
+  crs=rasterio.crs.CRS.from_epsg(a.epsg)
+  if not crs.is_projected:p.error('target CRS must be projected')
+  transform,width,height=calculate_default_transform(src.crs,crs,src.width,src.height,*src.bounds)
+  # Preserve metric aspect ratio and use a square raster with the same physical
+  # meters-per-pixel in both directions; extra square coverage is nodata.
+  west,south,east,north=array_bounds(height,width,transform)
+  span=max(east-west,north-south)
+  cx=(east+west)/2;cy=(north+south)/2
+  square_bounds=(cx-span/2,cy-span/2,cx+span/2,cy+span/2)
+  dst_transform=rasterio.transform.from_bounds(*square_bounds,a.size,a.size)
+  target=np.full((a.size,a.size),np.nan,dtype=np.float32)
+  reproject(source=rasterio.band(src,1),destination=target,src_transform=src.transform,src_crs=src.crs,dst_transform=dst_transform,dst_crs=crs,src_nodata=src.nodata,dst_nodata=np.nan,resampling=Resampling.bilinear)
+ if not np.isfinite(target).all():
+  # The square extends beyond source bounds. For now fail rather than silently
+  # fabricating landscape elevations; later use an expanded source tile region.
+  p.error('metric square contains uncovered pixels; export a larger DEM bounding box first')
+ minimum=float(target.min());maximum=float(target.max())
+ pad=max(1,(maximum-minimum)*.02);low=minimum-pad;high=maximum+pad
+ encoded=np.clip(np.rint((target-low)/(high-low)*65535),0,65535).astype(np.uint16)
+ a.output.parent.mkdir(parents=True,exist_ok=True)
+ Image.fromarray(encoded).save(a.output)
+ zscale=(high-low)*100*128/65535
+ meta={'input':str(a.input),'output':str(a.output),'crs':str(crs),'size':[a.size,a.size],
+ 'metric_bounds_wsen':square_bounds,'horizontal_meters_per_vertex':span/(a.size-1),
+ 'unreal_xy_scale_percent':span/(a.size-1)*100,'unreal_z_scale_percent':zscale,
+ 'unreal_actor_z_offset_cm':(low+high)*50,
+ 'min_elevation_m':minimum,'max_elevation_m':maximum,
+ 'vertical_datum_note':'Source vertical datum must be checked before precision placement',
+ 'png_sha256':hashlib.sha256(a.output.read_bytes()).hexdigest()}
+ a.output.with_suffix('.json').write_text(json.dumps(meta,indent=2)+'\n')
+ print('Created metric UE5 heightmap:',a.output,'meters/vertex:',meta['horizontal_meters_per_vertex'])
+
+if __name__=='__main__':main()
