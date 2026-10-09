@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;max-height:45vh;overflow-y:auto;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}</style></head>
-<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><div style="margin:6px 0"><button data-inspect-height="4500">Aerial</button> <button data-inspect-height="800">Building</button> <button data-inspect-height="90">Ground</button></div><button id="terrain">Enable 3D terrain</button> <button id="orbit">Orbit selected site</button> <button id="buildings">Load nearby 3D buildings</button> <button id="global-buildings">Enable global 3D buildings</button> <button id="imagery">Imagery: World</button> <button id="quality">Quality: Balanced</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="lod-status" style="font-size:11px;color:#b8c9d9;margin-top:5px">Detail: initializing…</div><div id="imagery-detail" style="font-size:11px;color:#b8c9d9;margin-top:4px">Imagery: world satellite</div><div id="status">Loading globe…</div></div>
+<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><div style="margin:6px 0"><button data-inspect-height="4500">Aerial</button> <button data-inspect-height="800">Building</button> <button data-inspect-height="90">Ground</button></div><button id="terrain">Enable 3D terrain</button> <button id="orbit">Orbit selected site</button> <button id="buildings">Load nearby 3D buildings</button> <button id="global-buildings">Enable global 3D buildings</button> <button id="needle-model">Show Space Needle 3D prototype</button> <button id="imagery">Imagery: World</button> <button id="quality">Quality: Balanced</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="lod-status" style="font-size:11px;color:#b8c9d9;margin-top:5px">Detail: initializing…</div><div id="imagery-detail" style="font-size:11px;color:#b8c9d9;margin-top:4px">Imagery: world satellite</div><div id="status">Loading globe…</div></div>
 <script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
 (async function(){'use strict';const status=document.getElementById('status');if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
 const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false});
@@ -72,6 +72,49 @@ globalBuildingsButton.onclick=async()=>{
   status.textContent='Worldwide Overture building geometry enabled. Zoom into a city; building tiles stream as needed. Detailed landmark models remain separate.';
  }catch(e){status.textContent='Global 3D building tiles unavailable: '+e.message+'. Nearby OSM extrusions remain available.';}
  finally{globalBuildingsButton.disabled=false;}
+};
+// Distinctive architectural geometry prototype for the Seattle Space Needle.
+// This is hand-built simplified geometry, NOT a surveyed/photogrammetric asset.
+let needleEntities=[];
+const needleButton=document.getElementById('needle-model');
+needleButton.onclick=async()=>{
+ if(needleEntities.length){
+  needleEntities.forEach(e=>viewer.entities.remove(e));needleEntities=[];
+  needleButton.textContent='Show Space Needle 3D prototype';
+  status.textContent='Space Needle prototype hidden.';
+  return;
+ }
+ needleButton.disabled=true;
+ try{
+  const lon=-122.3493,lat=47.6205;
+  let ground=0;
+  if(terrainEnabled&&terrainProvider){
+   try{const sample=await Cesium.sampleTerrainMostDetailed(viewer.terrainProvider,[Cesium.Cartographic.fromDegrees(lon,lat)]);ground=Number.isFinite(sample[0]?.height)?sample[0].height:0;}catch(e){console.warn('Needle elevation sample unavailable',e);}
+  }
+  const p=(east,north,up)=>{
+   const center=Cesium.Cartesian3.fromDegrees(lon,lat,ground);
+   const transform=Cesium.Transforms.eastNorthUpToFixedFrame(center);
+   return Cesium.Matrix4.multiplyByPoint(transform,new Cesium.Cartesian3(east,north,up),new Cesium.Cartesian3());
+  };
+  const silver=Cesium.Color.fromCssColorString('#c3cbd1'),dark=Cesium.Color.fromCssColorString('#596b7a'),glass=Cesium.Color.fromCssColorString('#395a70');
+  const add=spec=>{const entity=viewer.entities.add(spec);needleEntities.push(entity);return entity;};
+  const cylinder=(name,z,length,top,bottom,material)=>add({name,position:p(0,0,z),cylinder:{length,topRadius:top,bottomRadius:bottom,material,outline:false}});
+  cylinder('Space Needle central tower',76,146,5,7,silver);
+  cylinder('Space Needle observation deck glazing',157,13,29,24,glass);
+  cylinder('Space Needle saucer roof',168,9,3,31,silver);
+  cylinder('Space Needle lower saucer',148,8,25,9,silver);
+  cylinder('Space Needle spire',190,37,.5,2,silver);
+  for(let i=0;i<3;i++){
+   const a=i*Math.PI*2/3,ex=Math.cos(a)*27,ny=Math.sin(a)*27;
+   add({name:'Space Needle tripod leg',polyline:{positions:[p(ex,ny,2),p(ex*.65,ny*.65,65),p(ex*.19,ny*.19,147)],width:7,material:silver,clampToGround:false}});
+   add({name:'Space Needle diagonal support',polyline:{positions:[p(ex,ny,9),p(-ex*.12,-ny*.12,91)],width:3,material:dark,clampToGround:false}});
+  }
+  needleButton.textContent='Hide Space Needle prototype';
+  currentTarget={name:'Space Needle 3D prototype',lon,lat,type:'landmark'};
+  viewer.camera.flyTo({destination:p(0,-420,240),orientation:{heading:0,pitch:Cesium.Math.toRadians(-25),roll:0},duration:2});
+  status.textContent='Seattle Space Needle: simplified 3D architectural prototype at its approximate location. This is NOT a licensed high-fidelity model; detailed geometry and textures still required.';
+ }catch(e){needleEntities.forEach(entity=>viewer.entities.remove(entity));needleEntities=[];status.textContent='Space Needle prototype unavailable: '+e.message;}
+ finally{needleButton.disabled=false;}
 };
 // OSM building footprints extruded into actual 3D polygon geometry; limited downtown pilot.
 let buildingCollection=null;let orbitHandler=null;let currentTarget={lat:47.604,lon:-122.334,name:'Downtown Seattle'};
