@@ -297,20 +297,51 @@ document.getElementById('buildings').onclick=async()=>{
 // Approved architectural asset pipeline. Only load explicitly registered,
 // licensed GLB models; procedural prototypes do not enter this production layer.
 const approvedModels=[];
+let lastModelVisibilityCheck=0;
+function updateApprovedModelVisibility(){
+ const now=performance.now();
+ if(now-lastModelVisibilityCheck<180)return;
+ lastModelVisibilityCheck=now;
+ const camera=viewer.camera.positionWC;
+ for(const entry of approvedModels){
+  const distance=Cesium.Cartesian3.distance(camera,entry.position);
+  entry.entity.show=distance<entry.maxDistanceMeters;
+ }
+}
+viewer.camera.changed.addEventListener(updateApprovedModelVisibility);
 async function loadApprovedArchitecture(){
  try{
   const response=await fetch('data/architectural-models.json',{cache:'no-cache'});
   if(!response.ok)throw Error('Model registry HTTP '+response.status);
   const manifest=await response.json();
-  for(const model of manifest.models||[]){
-   if(model.status!=='approved'||!model.uri||!Number.isFinite(model.longitude)||!Number.isFinite(model.latitude))continue;
-   const position=Cesium.Cartesian3.fromDegrees(model.longitude,model.latitude,Number(model.heightMeters)||0);
+  const entries=(manifest.models||[]).filter(model=>
+   model.status==='approved'&&typeof model.uri==='string'&&
+   /^(\\.\\/|assets\\/|models\\/|https:\\/\\/)/.test(model.uri)&&
+   Number.isFinite(model.longitude)&&Number.isFinite(model.latitude)&&
+   Math.abs(model.latitude)<=90&&Math.abs(model.longitude)<=180&&
+   model.license&&model.credit&&model.name);
+  const terrainPoints=entries.map(model=>Cesium.Cartographic.fromDegrees(model.longitude,model.latitude));
+  let heights=terrainPoints.map(()=>0);
+  if(terrainEnabled&&terrainProvider&&terrainPoints.length){
+   try{
+    const samples=await Cesium.sampleTerrainMostDetailed(viewer.terrainProvider,terrainPoints);
+    heights=samples.map(p=>Number.isFinite(p.height)?p.height:0);
+   }catch(e){console.warn('Model terrain sampling unavailable; ellipsoid fallback',e);}
+  }
+  entries.forEach((model,index)=>{
+   const height=(model.heightReference==='ellipsoid'?0:heights[index])+(Number(model.heightMeters)||0);
+   const position=Cesium.Cartesian3.fromDegrees(model.longitude,model.latitude,height);
    const heading=Cesium.Math.toRadians(Number(model.headingDegrees)||0);
    const orientation=Cesium.Transforms.headingPitchRollQuaternion(position,new Cesium.HeadingPitchRoll(heading,0,0));
-   const entity=viewer.entities.add({name:model.name||'Approved architectural model',position,orientation,model:{uri:model.uri,scale:Number(model.scale)||1,minimumPixelSize:0,maximumScale:1,shadows:Cesium.ShadowMode.ENABLED},description:'Approved architectural asset · '+(model.credit||'Source documented in registry')});
-   approvedModels.push(entity);
-  }
-  if(approvedModels.length)console.info('Approved architectural GLB models registered:',approvedModels.length);
+   const entity=viewer.entities.add({
+    name:model.name,position,orientation,show:false,
+    model:{uri:model.uri,scale:Number(model.scale)||1,minimumPixelSize:0,maximumScale:1,shadows:Cesium.ShadowMode.ENABLED},
+    description:'Architectural asset · '+model.credit+' · License: '+model.license
+   });
+   approvedModels.push({entity,position,maxDistanceMeters:Math.max(500,Number(model.maxDistanceMeters)||40000)});
+  });
+  updateApprovedModelVisibility();
+  console.info('Approved architectural GLB assets:',approvedModels.length);
  }catch(e){console.warn('Architectural model manifest unavailable',e);}
 }
 loadApprovedArchitecture();
