@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;max-height:45vh;overflow-y:auto;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}</style></head>
-<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><button id="terrain">Enable 3D terrain</button> <button id="orbit">Orbit selected site</button> <button id="buildings">Load nearby 3D buildings</button> <button id="imagery">Imagery: World</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="status">Loading globe…</div></div>
+<body><div id="globe"></div><div id="panel"><strong>CONVERGENCE · 3D Earth prototype</strong><div style="font-size:13px;margin:6px 0">Real-world globe with native quantized-mesh terrain. The original <a href="index.html">2D Earth Atlas</a> · <a href="terrain.html">Cascadia 3D terrain</a> remains unchanged.</div><div style="margin:7px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select> <button id="inspect" style="margin-top:6px">Inspect location</button></div><button id="terrain">Enable 3D terrain</button> <button id="orbit">Orbit selected site</button> <button id="buildings">Load nearby 3D buildings</button> <button id="global-buildings">Enable global 3D buildings</button> <button id="imagery">Imagery: World</button><div style="margin-top:6px"><button data-fly="-122.3321,47.6062,25000">Seattle</button> <button data-fly="-121.7603,46.8523,24000">Rainier</button> <button data-fly="-123.5,47.8,45000">Olympics</button> <button data-fly="-122.33,47.61,12500000">Whole Earth</button></div><div id="status">Loading globe…</div></div>
 <script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
 (async function(){'use strict';const status=document.getElementById('status');if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
 const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false});
@@ -17,10 +17,26 @@ try{
  terrainProvider=await Cesium.CesiumTerrainProvider.fromUrl('https://terrain.reearth.land/cesium-mesh/ellipsoid',{requestVertexNormals:true,requestWaterMask:true});
  status.textContent='Native quantized-mesh terrain provider connected (Re:Earth / Mapterhorn).';
 }catch(e){status.textContent='Native terrain unavailable: '+e.message+'. Smooth globe fallback.';}
+// Stream tiled Overture buildings worldwide, without an account token.
+let globalBuildings=null;
+const globalBuildingsButton=document.getElementById('global-buildings');
+globalBuildingsButton.onclick=async()=>{
+ if(globalBuildings){viewer.scene.primitives.remove(globalBuildings);globalBuildings=null;globalBuildingsButton.textContent='Enable global 3D buildings';status.textContent='Global building tiles hidden.';return;}
+ if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;document.getElementById('buildings').textContent='Load nearby 3D buildings';}
+ globalBuildingsButton.disabled=true;status.textContent='Connecting to worldwide 3D building tiles…';
+ try{
+  const tileset=await Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:16,dynamicScreenSpaceError:true,skipLevelOfDetail:true});
+  viewer.scene.primitives.add(tileset);globalBuildings=tileset;
+  globalBuildingsButton.textContent='Hide global 3D buildings';
+  status.textContent='Worldwide Overture building geometry enabled. Zoom into a city; building tiles stream as needed. Detailed landmark models remain separate.';
+ }catch(e){status.textContent='Global 3D building tiles unavailable: '+e.message+'. Nearby OSM extrusions remain available.';}
+ finally{globalBuildingsButton.disabled=false;}
+};
 // OSM building footprints extruded into actual 3D polygon geometry; limited downtown pilot.
 let buildingCollection=null;let orbitHandler=null;let currentTarget={lat:47.604,lon:-122.334,name:'Downtown Seattle'};
 document.getElementById('buildings').onclick=async()=>{
  const button=document.getElementById('buildings');
+ if(globalBuildings){status.textContent='Global building tiles are already active. Disable them before loading the local OSM layer to avoid duplicate buildings.';return;}
  if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;button.textContent='Load nearby 3D buildings';status.textContent='Nearby buildings hidden.';return;}
  button.disabled=true;status.textContent='Fetching OpenStreetMap building footprints near '+currentTarget.name+'…';
  try{
