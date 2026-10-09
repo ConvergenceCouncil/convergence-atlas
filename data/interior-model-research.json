@@ -73,6 +73,33 @@
       "interior": "partial interiors and stairwell described; full traversal unverified",
       "status": "research",
       "notes": "1.2M triangles in listing; purported LOD/collision details contain placeholder text and require validation."
+    },
+    {
+      "site": "Complete Medieval Tiled Castle Interior",
+      "url": "https://sketchfab.com/3d-models/complete-medieval-tiled-castle-interior-7c41daa4d30544279b13286402491da8",
+      "source": "Teranox",
+      "license": "CC BY",
+      "interior": "described as complete interior; traversal/collision unverified",
+      "status": "priority-interior-evaluation",
+      "triangles": 72600
+    },
+    {
+      "site": "Metro/Subway Station Interior",
+      "url": "https://sketchfab.com/3d-models/metrosubway-station-interior-14f5a6534607450d82583e0aa0ed345b",
+      "source": "shhiiii",
+      "license": "CC BY",
+      "interior": "station interior model; access, circulation and collision unverified",
+      "status": "interior-reference",
+      "triangles": 56700
+    },
+    {
+      "site": "Gothic Cloister Corner",
+      "url": "https://sketchfab.com/3d-models/gothic-cloister-corner-69f4351215e84d3ca61feea9fe9890db",
+      "source": "Zoilo",
+      "license": "CC BY; listing also marked NoAI, review restrictions",
+      "interior": "single historic cloister section, not full building",
+      "status": "heritage-reference",
+      "triangles": 1000000
     }
   ]
 }
