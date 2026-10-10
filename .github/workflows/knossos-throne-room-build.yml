@@ -5,7 +5,14 @@ on:
       - '.github/workflows/knossos-throne-room-build.yml'
       - 'tools/optimize_architecture.py'
       - 'tools/audit_architecture.py'
+      - 'tools/validate_review_glb.py'
+      - 'tools/build_terrain_review.py'
+      - 'assets/review/seattle/seattle-center-ue5.*'
+      - 'assets/review/knossos/ATTRIBUTION.md'
   workflow_dispatch:
+concurrency:
+  group: atlas-review-build
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
@@ -34,7 +41,7 @@ jobs:
       - name: Install Blender
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends blender python3-numpy
+          sudo apt-get install -y --no-install-recommends blender python3-numpy python3-pil gltfpack
       - name: Build browser review copy
         run: |
           PATH="/usr/bin:/bin:$PATH" blender -b --python-exit-code 1 -P tools/optimize_architecture.py -- downloaded-knossos/*.glb knossos-throne-browser.glb --ratio 1 --texture-max 4096 --image-format JPEG
@@ -43,6 +50,15 @@ jobs:
         run: |
           PATH="/usr/bin:/bin:$PATH" blender -b --python-exit-code 1 -P tools/optimize_architecture.py -- downloaded-knossos/*.glb knossos-throne-iphone.glb --ratio 1 --texture-max 2048 --image-format JPEG
           python3 tools/audit_architecture.py knossos-throne-iphone.glb > knossos-throne-iphone-audit.json
+      - name: Build persistent review assets and enforce budgets
+        run: |
+          mkdir -p assets/review/knossos
+          gltfpack -i knossos-throne-iphone.glb -o assets/review/knossos/knossos-throne-review.glb -noq
+          python3 tools/audit_architecture.py assets/review/knossos/knossos-throne-review.glb > assets/review/knossos/knossos-throne-audit.json
+          python3 tools/validate_review_glb.py assets/review/knossos/knossos-throne-review.glb > assets/review/knossos/build-report.json
+          PATH="/usr/bin:/bin:$PATH" blender -b --python-exit-code 1 -P tools/build_terrain_review.py -- assets/review/seattle
+          gltfpack -i assets/review/seattle/seattle-center-terrain-review.glb -o assets/review/seattle/seattle-center-terrain-preview.glb -noq
+          python3 tools/audit_architecture.py assets/review/seattle/seattle-center-terrain-preview.glb > assets/review/seattle/seattle-center-terrain-audit.json
       - name: Write delivery report
         run: |
           python3 - <<'PY'
@@ -97,3 +113,41 @@ jobs:
           name: knossos-throne-iphone-glb
           path: knossos-throne-iphone.glb
           retention-days: 30
+      - name: Deliver verified atlas assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-persistent-review-assets
+          path: |
+            assets/review/knossos/knossos-throne-review.glb
+            assets/review/knossos/knossos-throne-audit.json
+            assets/review/knossos/build-report.json
+            assets/review/seattle/seattle-center-terrain-preview.glb
+            assets/review/seattle/seattle-center-terrain-audit.json
+          if-no-files-found: error
+          retention-days: 30
+  publish-review-assets:
+    needs: build-throne-room
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        with:
+          name: atlas-persistent-review-assets
+          path: generated
+      - name: Save verified review assets to the atlas
+        run: |
+          cp generated/knossos/knossos-throne-review.glb assets/review/knossos/
+          cp generated/knossos/knossos-throne-audit.json assets/review/knossos/
+          cp generated/knossos/build-report.json assets/review/knossos/
+          cp generated/seattle/seattle-center-terrain-preview.glb assets/review/seattle/
+          cp generated/seattle/seattle-center-terrain-audit.json assets/review/seattle/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/review/knossos/knossos-throne-review.glb assets/review/knossos/knossos-throne-audit.json assets/review/knossos/build-report.json assets/review/seattle/seattle-center-terrain-preview.glb assets/review/seattle/seattle-center-terrain-audit.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish verified Knossos and Seattle review assets"
+          git push origin HEAD:main

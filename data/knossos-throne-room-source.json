@@ -8,7 +8,8 @@
     "download": "https://zenodo.org/records/7752061/files/Throne%20Room.glb?download=1",
     "filename": "Throne Room.glb",
     "sizeMB": 395.2,
-    "md5": "d73acfdb906ca7ecda4452936050a57f"
+    "md5": "d73acfdb906ca7ecda4452936050a57f",
+    "recordLicense": "CC BY 4.0"
   },
   "catalogRightsSource": {
     "catalog": "SearchCulture.gr",
@@ -20,7 +21,7 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
   },
   "rightsStatus": "catalog-verified",
-  "rightsNote": "SearchCulture explicitly states that the digital file or thumbnail is used according to CC BY-SA 4.0. Zenodo's crawled record does not expose a populated license field, so preserve the SearchCulture/CRAEFT attribution chain with any derivative or redistribution.",
+  "rightsNote": "Zenodo API reports CC BY 4.0; SearchCulture reports CC BY-SA 4.0. Preserve both attribution records and ShareAlike for the review derivative. Resolve inconsistency before production approval.",
   "implementationUse": {
     "sourceMaster": "Keep immutable and checksum-verified.",
     "reviewCopy": "Optimization is allowed only with required attribution and ShareAlike obligations preserved.",
@@ -28,8 +29,10 @@
   },
   "status": {
     "downloadedIntoRepository": false,
-    "optimizedPreviewCreated": false,
+    "optimizedPreviewCreated": true,
     "mobileWalkTested": false,
-    "ue5Imported": false
-  }
+    "ue5Imported": false,
+    "sourceChecksumVerifiedInBuild": true
+  },
+  "buildRun": "https://github.com/ConvergenceCouncil/convergence-atlas/actions/runs/38085767759"
 }

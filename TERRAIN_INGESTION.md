@@ -43,6 +43,6 @@ python -m pip install numpy requests rasterio pillow
 python scripts/export_terrarium_dem.py --bbox -122.45 47.50 -122.20 47.72 --zoom 11 --output data/local/seattle-dem.tif
 ```
 
-The script limits each request to 64 tiles to prevent accidental bulk downloads. It outputs a geographic EPSG:4326 float32 raster. The original terrain source may blend elevation datasets with differing vertical datums and resolutions; **do not treat it as survey-grade data**. Verify original provider licensing and redistribution terms before use in a commercial release. GeoTIFFs should remain out of the GitHub Pages source tree until storage, versioning, and licensing are settled.
+The script limits each request to 64 tiles to prevent accidental bulk downloads. It outputs a geographic EPSG:3857 float32 raster. The original terrain source may blend elevation datasets with differing vertical datums and resolutions; **do not treat it as survey-grade data**. Verify original provider licensing and redistribution terms before use in a commercial release. GeoTIFFs should remain out of the GitHub Pages source tree until storage, versioning, and licensing are settled.
 
 Next: execute the export on a runner, inspect GeoTIFF dimensions/CRS, compare known elevations, assess seams and no-data, and design an approved multi-region source ledger before converting any data to UE5 landscape heightfields.

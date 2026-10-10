@@ -16,7 +16,7 @@
       "name": "Global 3D Earth viewer",
       "state": "working-baseline",
       "source": "globe.html",
-      "next": "Finish mobile controls, location search, landmark layer toggles, and reliable street-to-globe transitions."
+      "next": "Search and layer controls implemented; verify iPhone rendering and street-to-globe transitions."
     },
     {
       "id": "imagery",
@@ -30,7 +30,7 @@
       "name": "Global elevation terrain",
       "state": "working-baseline",
       "source": "globe.html",
-      "next": "Validate terrain coverage at representative mountain, desert, island, urban, and polar regions."
+      "next": "Seattle Center source terrain, Blender review and metric UE5 heightmap generated. Verify elevation datum, coastal coverage and UE5 import before expansion."
     },
     {
       "id": "buildings",
@@ -65,7 +65,7 @@
       "name": "Additional globally significant landmarks and attractions",
       "state": "data-present",
       "source": "data/tourist-attractions.geojson + data/tourist-attractions-expansion.geojson",
-      "next": "Merge into one deduplicated browsable landmark layer with category filters and importance tiers."
+      "next": "Deduplicated searchable registry implemented; verify destination coverage and phone performance."
     },
     {
       "id": "country-boundaries",
@@ -79,7 +79,7 @@
       "name": "High-fidelity important-area architecture",
       "state": "in-production",
       "source": "data/important-area-model-search.json + data/interior-model-research.json + data/architectural-models.json",
-      "next": "Acquire, verify, optimize, and integrate real or reconstruction-grade assets beginning with Knossos."
+      "next": "Knossos source checksum verified; publish the texture-resized geometry-preserving review model, then verify scale, collision and iPhone rendering."
     },
     {
       "id": "convergence-world-state",

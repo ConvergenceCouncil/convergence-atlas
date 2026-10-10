@@ -1,0 +1,26 @@
+{
+  "input": "seattle-center-study-area.tif",
+  "output": "seattle-center-ue5.png",
+  "crs": "EPSG:32610",
+  "size": [
+    505,
+    505
+  ],
+  "metric_bounds_projected": [
+    548324.1410147722,
+    5274119.843072085,
+    549127.9512205997,
+    5274861.821723619
+  ],
+  "crop_note": "Conservative 20% projected bounding-box inset to avoid uncovered reprojection corners; smaller geographic area than original DEM",
+  "horizontal_meters_per_vertex_x": 1.5948615194989428,
+  "horizontal_meters_per_vertex_y": 1.4721798641544337,
+  "unreal_x_scale_percent": 159.4861519498943,
+  "unreal_y_scale_percent": 147.21798641544336,
+  "unreal_z_scale_percent": 5.929584754925803,
+  "unreal_actor_z_offset_cm": 3340.027141571045,
+  "min_elevation_m": 19.220766067504883,
+  "max_elevation_m": 47.579776763916016,
+  "vertical_datum_note": "Source vertical datum must be checked before precision placement",
+  "png_sha256": "0329f7228a397c5ffa107cdae80885e29bc447588dfd5fa226ecc278cd6b6c0f"
+}

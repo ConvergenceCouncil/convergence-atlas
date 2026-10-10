@@ -17,6 +17,15 @@ def tile_y(lat,z):
     lat=max(-85.05112878,min(85.05112878,lat))
     return (1-math.asinh(math.tan(math.radians(lat)))/math.pi)/2*(2**z)
 
+def write_mosaic(output,pixels,x0,y0,zoom):
+    half_world=math.pi*6378137.0
+    tile_width=2*half_world/(2**zoom)
+    bounds=(-half_world+x0*tile_width,half_world-(y0+pixels.shape[0]/256)*tile_width,
+            -half_world+(x0+pixels.shape[1]/256)*tile_width,half_world-y0*tile_width)
+    output.parent.mkdir(parents=True,exist_ok=True)
+    with rasterio.open(output,'w',driver='GTiff',height=pixels.shape[0],width=pixels.shape[1],count=1,dtype='float32',crs='EPSG:3857',transform=from_bounds(*bounds,pixels.shape[1],pixels.shape[0]),compress='deflate',predictor=3) as dst:dst.write(pixels,1)
+    return bounds
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--bbox',nargs=4,type=float,required=True,metavar=('WEST','SOUTH','EAST','NORTH'))
@@ -46,8 +55,8 @@ def main():
     def latitude(y):return math.degrees(math.atan(math.sinh(math.pi*(1-2*y/n))))
     bounds=(longitude(x0),latitude(y1+1),longitude(x1+1),latitude(y0))
     a.output.parent.mkdir(parents=True,exist_ok=True)
-    with rasterio.open(a.output,'w',driver='GTiff',height=pixels.shape[0],width=pixels.shape[1],count=1,dtype='float32',crs='EPSG:4326',transform=from_bounds(*bounds,pixels.shape[1],pixels.shape[0]),compress='deflate',predictor=3) as dst:dst.write(pixels,1)
-    manifest={'dataset':'Mapzen terrain tiles on AWS (Terrarium encoding)','source':'https://registry.opendata.aws/terrain-tiles/','url_template':'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png','retrieved_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'requested_bbox_wsen':a.bbox,'output_bounds_wsen':bounds,'zoom':a.zoom,'tile_count':count,'crs':'EPSG:4326','elevation_units':'meters','vertical_datum':'source dataset mixed/unspecified; verify before precise engineering use','license_note':'Check source dataset terms and attribution before redistribution or commercial asset use','tiles':checksums,'output_sha256':hashlib.sha256(a.output.read_bytes()).hexdigest()}
+    projected_bounds=write_mosaic(a.output,pixels,x0,y0,a.zoom)
+    manifest={'dataset':'Mapzen terrain tiles on AWS (Terrarium encoding)','source':'https://registry.opendata.aws/terrain-tiles/','url_template':'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png','retrieved_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'requested_bbox_wsen':a.bbox,'output_bounds_wsen':bounds,'zoom':a.zoom,'tile_count':count,'crs':'EPSG:3857','output_bounds_projected':projected_bounds,'elevation_units':'meters','vertical_datum':'source dataset mixed/unspecified; verify before precise engineering use','license_note':'Check source dataset terms and attribution before redistribution or commercial asset use','tiles':checksums,'output_sha256':hashlib.sha256(a.output.read_bytes()).hexdigest()}
     a.output.with_suffix('.manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     print(f'Created {a.output} ({pixels.shape[1]}x{pixels.shape[0]}, {count} tiles)')
 

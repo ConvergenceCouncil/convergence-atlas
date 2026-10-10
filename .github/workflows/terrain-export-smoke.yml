@@ -32,7 +32,7 @@ jobs:
           manifest=json.loads(path.with_suffix('.manifest.json').read_text())
           with rasterio.open(path) as ds:
               values=ds.read(1)
-              assert ds.crs.to_epsg()==4326, ds.crs
+              assert ds.crs.to_epsg()==3857, ds.crs
               assert ds.count==1 and ds.width==512 and ds.height==512
               assert np.isfinite(values).all(), 'nonfinite DEM pixels'
               assert -12000 <= float(values.min()) <= 9000, f'unexpected minimum: {values.min()}'

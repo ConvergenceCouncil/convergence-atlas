@@ -33,3 +33,9 @@ python3 scripts/validate_earth.py --output /tmp/earth-inventory.json
 The registry behavior test covers partial source outages, duplicate landmarks, invalid coordinates, search and marker selection. Browser/iPhone rendering still requires device QA. The existing Earth vector validator reports an empty geometry in `data/earth/ne-50-rivers.geojson`; this file is not loaded by the globe.
 
 GitHub Pages serves the root of `main` when configured in repository settings. A published update may take time to appear; reload if an older version is cached.
+
+## World asset pilots
+
+[Seattle terrain](terrain-pilot.html): sourced land crop, metric UE5 heightmap and Blender-derived review GLB. [Knossos review](knossos-room-review.html): geometry-preserving Throne Room model with source attribution, texture budget checks and automatic verified-asset publication. Both require scale, collision and device QA before gameplay approval.
+
+All nine Earth vector files validate after excluding one empty Loire record, with its original index and reason preserved.

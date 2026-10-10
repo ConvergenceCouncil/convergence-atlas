@@ -41,7 +41,10 @@ for obj in meshes:
   obj.modifiers.remove(modifier)
 resized=[]
 for image in bpy.data.images:
- if image.source not in {'FILE','GENERATED'} or not image.has_data:continue
+ if image.source not in {'FILE','GENERATED'}:continue
+ # Imported packed glTF images are lazy; load pixels before testing has_data.
+ if not image.has_data and len(image.pixels):_ = image.pixels[0]
+ if not image.has_data:raise RuntimeError('Texture could not be loaded: '+image.name)
  w,h=image.size
  if max(w,h)>texmax:
   scale=texmax/max(w,h)
