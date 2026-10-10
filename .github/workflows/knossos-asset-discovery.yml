@@ -13,7 +13,7 @@ on:
         default: false
         type: boolean
       optimize_preview:
-        description: "Also generate a reduced mobile-review GLB using Blender"
+        description: "Generate reduced browser-review and iPhone-review GLBs using Blender"
         required: false
         default: false
         type: boolean
@@ -24,7 +24,7 @@ permissions:
 jobs:
   inspect-zenodo-record:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
     env:
       MODEL_NAME: ${{ inputs.model_name || '' }}
       DOWNLOAD_ASSET: ${{ inputs.download_asset || false }}
@@ -67,24 +67,53 @@ jobs:
           with open("knossos-model-audit.json","w") as out:
             subprocess.run(["python3","tools/audit_architecture.py",paths[0]],check=True,stdout=out)
           PY
-      - name: Install Blender for optional mobile preview
+      - name: Install Blender for optional preview conversion
         if: env.DOWNLOAD_ASSET == 'true' && env.OPTIMIZE_PREVIEW == 'true'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y blender
-      - name: Generate and audit mobile review GLB
+      - name: Generate browser and iPhone review GLBs
         if: env.DOWNLOAD_ASSET == 'true' && env.OPTIMIZE_PREVIEW == 'true'
         run: |
           python3 - <<'PY'
           import glob,subprocess
           paths=glob.glob("downloaded-knossos/*.glb")
           if len(paths)!=1:raise SystemExit("Expected exactly one downloaded GLB")
-          subprocess.run([
-            "blender","-b","-P","tools/optimize_architecture.py","--",
-            paths[0],"knossos-mobile-preview.glb","--ratio","0.35","--texture-max","2048"
-          ],check=True)
-          with open("knossos-mobile-audit.json","w") as out:
-            subprocess.run(["python3","tools/audit_architecture.py","knossos-mobile-preview.glb"],check=True,stdout=out)
+          source=paths[0]
+          jobs=[
+            ("knossos-browser-preview.glb","0.35","2048"),
+            ("knossos-iphone-preview.glb","0.18","1024"),
+          ]
+          for output,ratio,tex in jobs:
+            subprocess.run([
+              "blender","-b","-P","tools/optimize_architecture.py","--",
+              source,output,"--ratio",ratio,"--texture-max",tex
+            ],check=True)
+            audit=output.replace('.glb','-audit.json')
+            with open(audit,"w") as out:
+              subprocess.run(["python3","tools/audit_architecture.py",output],check=True,stdout=out)
+          PY
+      - name: Measure preview sizes against mobile transfer budget
+        if: env.DOWNLOAD_ASSET == 'true' && env.OPTIMIZE_PREVIEW == 'true'
+        run: |
+          python3 - <<'PY'
+          import json,pathlib
+          original=next(pathlib.Path('downloaded-knossos').glob('*.glb'))
+          browser=pathlib.Path('knossos-browser-preview.glb')
+          phone=pathlib.Path('knossos-iphone-preview.glb')
+          budget=60_000_000
+          report={
+            'original_bytes':original.stat().st_size,
+            'browser_preview_bytes':browser.stat().st_size,
+            'iphone_preview_bytes':phone.stat().st_size,
+            'browser_reduction_percent':round(100*(1-browser.stat().st_size/original.stat().st_size),1),
+            'iphone_reduction_percent':round(100*(1-phone.stat().st_size/original.stat().st_size),1),
+            'iphone_transfer_budget_bytes':budget,
+            'iphone_transfer_budget_pass':phone.stat().st_size<=budget,
+            'note':'60 MB is a review-transfer screening target, not a guarantee of iPhone memory or frame-rate performance.'
+          }
+          pathlib.Path('knossos-transfer-budget.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
           PY
       - name: Publish metadata and audits
         if: always()
@@ -94,22 +123,32 @@ jobs:
           path: |
             knossos-asset-list.txt
             knossos-model-audit.json
-            knossos-mobile-audit.json
+            knossos-browser-preview-audit.json
+            knossos-iphone-preview-audit.json
+            knossos-transfer-budget.json
           if-no-files-found: ignore
           retention-days: 30
-      - name: Publish downloaded model for authorized review
+      - name: Publish downloaded source model for authorized review
         if: env.DOWNLOAD_ASSET == 'true' && success()
         uses: actions/upload-artifact@v4
         with:
-          name: knossos-review-glb
+          name: knossos-source-review-glb
           path: downloaded-knossos/*.glb
           if-no-files-found: error
           retention-days: 7
-      - name: Publish mobile review GLB
+      - name: Publish browser review GLB
         if: env.DOWNLOAD_ASSET == 'true' && env.OPTIMIZE_PREVIEW == 'true' && success()
         uses: actions/upload-artifact@v4
         with:
-          name: knossos-mobile-review-glb
-          path: knossos-mobile-preview.glb
+          name: knossos-browser-review-glb
+          path: knossos-browser-preview.glb
+          if-no-files-found: error
+          retention-days: 7
+      - name: Publish iPhone review GLB
+        if: env.DOWNLOAD_ASSET == 'true' && env.OPTIMIZE_PREVIEW == 'true' && success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: knossos-iphone-review-glb
+          path: knossos-iphone-preview.glb
           if-no-files-found: error
           retention-days: 7
