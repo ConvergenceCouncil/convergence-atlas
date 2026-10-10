@@ -79,7 +79,7 @@
       "name": "High-fidelity important-area architecture",
       "state": "in-production",
       "source": "data/important-area-model-search.json + data/interior-model-research.json + data/architectural-models.json",
-      "next": "Knossos source checksum verified; publish the texture-resized geometry-preserving review model, then verify scale, collision and iPhone rendering."
+      "next": "Knossos Throne Room review is published with all 260678 triangles and a 2K texture. Verify physical scale, floor connectivity, collision, historical interpretation, iPhone rendering and UE5 import before production approval."
     },
     {
       "id": "convergence-world-state",

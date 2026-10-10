@@ -30,7 +30,7 @@ node tests/globe_registry.test.cjs
 python3 scripts/validate_earth.py --output /tmp/earth-inventory.json
 ```
 
-The registry behavior test covers partial source outages, duplicate landmarks, invalid coordinates, search and marker selection. Browser/iPhone rendering still requires device QA. The existing Earth vector validator reports an empty geometry in `data/earth/ne-50-rivers.geojson`; this file is not loaded by the globe.
+The registry behavior test covers partial source outages, duplicate landmarks, invalid coordinates, search and marker selection. Browser/iPhone rendering still requires device QA. All nine Earth vector files validate. One empty Loire record was excluded with its original index and reason retained in the dataset metadata.
 
 GitHub Pages serves the root of `main` when configured in repository settings. A published update may take time to appear; reload if an older version is cached.
 

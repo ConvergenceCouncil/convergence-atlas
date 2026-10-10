@@ -398,7 +398,7 @@ function renderDestinations(){
 document.getElementById('location-search').addEventListener('input',renderDestinations);
 renderDestinations();
 for(const d of destinations){
- const entity=viewer.entities.add({name:d.name,position:Cesium.Cartesian3.fromDegrees(d.lon,d.lat),point:{pixelSize:d.type==='wonder'?10:7,color:d.type==='guild'?Cesium.Color.CYAN:d.type==='relic'?Cesium.Color.ORANGE:Cesium.Color.GOLD,outlineColor:Cesium.Color.BLACK,outlineWidth:2,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,d.type==='landmark'?1500000:20000000)},description:d.note});
+ const entity=viewer.entities.add({name:d.name,position:Cesium.Cartesian3.fromDegrees(d.lon,d.lat),point:{pixelSize:d.type==='wonder'?10:7,color:d.type==='guild'?Cesium.Color.CYAN:d.type==='relic'?Cesium.Color.ORANGE:Cesium.Color.GOLD,outlineColor:Cesium.Color.BLACK,outlineWidth:2,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,d.type==='landmark'?1500000:20000000)},description:d.note+(d.id==='relic:ARC-03'?'<p><a href="https://convergencecouncil.github.io/convergence-atlas/knossos-room-review.html" target="_blank" rel="noopener">Inspect sourced Knossos Throne Room</a></p>':'')});
  entity.atlasDestination=d;
 }
 status.textContent=destinations.length+' searchable locations ready.'+(results.some(r=>r.status==='rejected')?' Some location sources could not load.':'');

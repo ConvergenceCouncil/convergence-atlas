@@ -25,7 +25,7 @@ Each downloaded DEM tile must retain: source institution, dataset identifier, ac
 |---|---|---|
 | Global DEM raster | Not imported | Source selection and download required |
 | Cascadia regional DEM | Not imported | Prioritize USGS 3DEP and Canadian open elevation sources |
-| Seattle Center local DEM | Not imported | Source and spatial extent not yet audited |
+| Seattle Center local DEM | Review pilot processed (2026-10-10) | Land crop, Blender preview and metric UE5 heightmap; datum and UE5 import pending |
 | Satellite imagery | Third-party live basemap only | Not downloaded; usage rights remain with providers |
 | Topographic contours | Third-party live basemap only | Not imported as elevation geometry |
 
@@ -43,6 +43,10 @@ python -m pip install numpy requests rasterio pillow
 python scripts/export_terrarium_dem.py --bbox -122.45 47.50 -122.20 47.72 --zoom 11 --output data/local/seattle-dem.tif
 ```
 
-The script limits each request to 64 tiles to prevent accidental bulk downloads. It outputs a geographic EPSG:3857 float32 raster. The original terrain source may blend elevation datasets with differing vertical datums and resolutions; **do not treat it as survey-grade data**. Verify original provider licensing and redistribution terms before use in a commercial release. GeoTIFFs should remain out of the GitHub Pages source tree until storage, versioning, and licensing are settled.
+The script limits each request to 64 tiles to prevent accidental bulk downloads. It outputs a projected EPSG:3857 float32 raster preserving the native Mercator pixel grid. The original terrain source may blend elevation datasets with differing vertical datums and resolutions; **do not treat it as survey-grade data**. Verify original provider licensing and redistribution terms before use in a commercial release. GeoTIFFs should remain out of the GitHub Pages source tree until storage, versioning, and licensing are settled.
 
 Next: execute the export on a runner, inspect GeoTIFF dimensions/CRS, compare known elevations, assess seams and no-data, and design an approved multi-region source ledger before converting any data to UE5 landscape heightfields.
+
+## Seattle pilot delivery (2026-10-10)
+
+The bounded exporter has run successfully in CI with native EPSG:3857 georeferencing. The saved Seattle Center land crop has a 505 × 505 16-bit UE5 heightmap, metric scale metadata and Blender-derived GLB. See [terrain-pilot.html](terrain-pilot.html). Raw source rasters remain in the handoff package rather than the Pages repository. This is a small review pilot; high-detail source replacement, vertical datum, coastline anomalies, seams, collision and UE5 import remain open.
