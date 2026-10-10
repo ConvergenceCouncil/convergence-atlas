@@ -78,13 +78,18 @@ def transform_point(m, p):
 
 def accessor_bounds(g, accessor_index):
     accessors = g.get("accessors", [])
-    if not isinstance(accessor_index, int) or accessor_index >= len(accessors):
+    if not isinstance(accessor_index, int) or not 0 <= accessor_index < len(accessors):
         return None
     a = accessors[accessor_index]
     lo, hi = a.get("min"), a.get("max")
     if not (isinstance(lo, list) and isinstance(hi, list) and len(lo) >= 3 and len(hi) >= 3):
         return None
-    return [float(v) for v in lo[:3]], [float(v) for v in hi[:3]]
+    bounds = [float(v) for v in lo[:3]], [float(v) for v in hi[:3]]
+    if not all(math.isfinite(v) for side in bounds for v in side):
+        raise ValueError("Nonfinite accessor bounds")
+    if any(bounds[0][i] > bounds[1][i] for i in range(3)):
+        raise ValueError("Reversed accessor bounds")
+    return bounds
 
 
 def bbox_corners(lo, hi):

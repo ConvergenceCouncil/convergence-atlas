@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - '.github/workflows/knossos-throne-room-build.yml'
+      - 'tools/optimize_architecture.py'
+      - 'tools/audit_architecture.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -32,14 +34,14 @@ jobs:
       - name: Install Blender
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y blender
+          sudo apt-get install -y --no-install-recommends blender python3-numpy
       - name: Build browser review copy
         run: |
-          blender -b -P tools/optimize_architecture.py -- downloaded-knossos/*.glb knossos-throne-browser.glb --ratio 0.35 --texture-max 2048
+          PATH="/usr/bin:/bin:$PATH" blender -b --python-exit-code 1 -P tools/optimize_architecture.py -- downloaded-knossos/*.glb knossos-throne-browser.glb --ratio 1 --texture-max 4096 --image-format JPEG
           python3 tools/audit_architecture.py knossos-throne-browser.glb > knossos-throne-browser-audit.json
       - name: Build iPhone review copy
         run: |
-          blender -b -P tools/optimize_architecture.py -- downloaded-knossos/*.glb knossos-throne-iphone.glb --ratio 0.18 --texture-max 1024
+          PATH="/usr/bin:/bin:$PATH" blender -b --python-exit-code 1 -P tools/optimize_architecture.py -- downloaded-knossos/*.glb knossos-throne-iphone.glb --ratio 1 --texture-max 2048 --image-format JPEG
           python3 tools/audit_architecture.py knossos-throne-iphone.glb > knossos-throne-iphone-audit.json
       - name: Write delivery report
         run: |
@@ -73,6 +75,7 @@ jobs:
           print(json.dumps(report,indent=2))
           PY
       - name: Publish audits and build report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: knossos-throne-room-report
@@ -87,10 +90,10 @@ jobs:
         with:
           name: knossos-throne-browser-glb
           path: knossos-throne-browser.glb
-          retention-days: 7
+          retention-days: 30
       - name: Publish iPhone review GLB
         uses: actions/upload-artifact@v4
         with:
           name: knossos-throne-iphone-glb
           path: knossos-throne-iphone.glb
-          retention-days: 7
+          retention-days: 30

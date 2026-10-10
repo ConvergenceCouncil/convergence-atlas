@@ -14,10 +14,12 @@ if len(argv)<2:raise SystemExit(__doc__)
 source,output=map(os.path.abspath,argv[:2])
 if not os.path.isfile(source) or not source.lower().endswith('.glb'):raise SystemExit('Input must be an existing GLB')
 if not output.lower().endswith('.glb') or source==output:raise SystemExit('Output must be a different .glb file')
-ratio=.35;texmax=2048
+ratio=.35;texmax=2048;image_format="AUTO"
 for i,a in enumerate(argv[2:],2):
  if a=='--ratio':ratio=float(argv[i+1])
  if a=='--texture-max':texmax=int(argv[i+1])
+ if a=='--image-format':image_format=argv[i+1].upper()
+if image_format not in {'AUTO','JPEG','NONE'}:raise SystemExit('image-format must be AUTO, JPEG or NONE')
 if not (0.05<=ratio<=1):raise SystemExit('ratio must be 0.05..1')
 if not (256<=texmax<=8192):raise SystemExit('texture-max must be 256..8192')
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -27,7 +29,7 @@ if not meshes:raise SystemExit('No meshes in source GLB')
 before=sum(len(o.data.polygons) for o in meshes)
 changed=[]
 for obj in meshes:
- if len(obj.data.polygons)<200:continue
+ if ratio==1 or len(obj.data.polygons)<200:continue
  # Preserve obvious thin structural objects from automatic decimation.
  if any(k in obj.name.lower() for k in ('stair','door','floor','collision','navmesh','railing')):
   continue
@@ -47,5 +49,5 @@ for image in bpy.data.images:
   resized.append(image.name)
 after=sum(len(o.data.polygons) for o in meshes)
 Path(output).parent.mkdir(parents=True,exist_ok=True)
-bpy.ops.export_scene.gltf(filepath=output,export_format='GLB',export_materials='EXPORT')
+bpy.ops.export_scene.gltf(filepath=output,export_format='GLB',export_materials='EXPORT',export_image_format=image_format,export_jpeg_quality=90)
 print(json.dumps({'source':source,'output':output,'mesh_count':len(meshes),'triangles_before_estimate':before,'triangles_after_estimate':after,'reduced_objects':len(changed),'resized_images':resized,'warning':'Visual preview only; geometry and traversal QA required'},indent=2))
