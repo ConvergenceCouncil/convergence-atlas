@@ -20,3 +20,11 @@ python3 tools/audit_architecture.py "output/main-floor.glb"
 **Status:** source identified and conversion script committed; no Smithsonian geometry downloaded, converted, or approved yet. Do not mark a model as fully traversable from mesh names or triangle counts alone.
 
 **Limitations:** The conversion script requires installed Blender and source files; it does not reconstruct absent geometry, create collision meshes or prove walkability. Large scans need decimation/LODs before mobile deployment. Attribution is recommended by the museum.
+
+## Verified discovery links (2026-10-09)
+
+- [Original Cooper Hewitt CC0 source and FBX link](https://www.cooperhewitt.org/open-source-at-cooper-hewitt/mansionmodel/). The **Smithsonian X 3D** hyperlink points to a filtered Carnegie Mansion collection, not directly to an FBX binary; the filtered collection returned a server error during automated retrieval. Do not mistake this for a downloaded model.
+- [Smithsonian Carnegie Mansion 3rd floor asset](https://3d.si.edu/object/3d/3rd-floor%3A29702a91-7f25-4012-855c-1fb0f39afbb7) — individual public-domain floor listing; verify available downloadable formats in the site's UI.
+- [Cooper Hewitt official Sketchfab collection](https://sketchfab.com/cooperhewitt) — contains Main Floor, 2nd Floor, 3rd Floor and combined-floor visualizations; these are viewer listings, **not direct GLB/FBX download links**. Inspect each listing's download rights and file formats.
+
+**Access blocker:** No working direct FBX package URL has been verified, and no original geometry has been retrieved. If the official portal download is inaccessible, contact Cooper Hewitt/Smithsonian rather than using unofficial reuploads.
