@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "updated": "2026-10-09",
+  "scope": "All seven modern wonders and seven ancient relic cities; Petra appears once",
+  "note": "Research leads only; all licenses and source listings must be rechecked at download. No geometry or complete interiors verified.",
+  "sites": [
+    {
+      "id": "W-01",
+      "name": "Great Wall of China",
+      "candidate": "https://sketchfab.com/3d-models/great-wall-of-china-32f1443d65794c1a84742eae38c6ea31",
+      "licenseClaimToReverify": "CC BY",
+      "interiorStatus": "interior unverified",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "W-02 / ARC-06",
+      "name": "Petra",
+      "candidate": "https://sketchfab.com/3d-models/ad-deir-monastery-petra-jordan-b1bb4d6d9bfa4bd2a85621186016734e",
+      "licenseClaimToReverify": "CC BY-NC; unsuitable for commercial integration without permission",
+      "interiorStatus": "chamber traversal unverified",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "W-03",
+      "name": "Colosseum",
+      "candidate": "https://sketchfab.com/3d-models/colosseum-rome-italy-535dc96e586f40bd956ea3cbff810055",
+      "licenseClaimToReverify": "CC BY",
+      "interiorStatus": "hypogeum/interior unverified",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "W-04",
+      "name": "Chichen Itza",
+      "candidate": "https://sketchfab.com/3d-models/temple-de-chichen-itza-66e8becd8b1c43279125c916e20c2e0d",
+      "licenseClaimToReverify": "CC BY-NC-ND; unsuitable for commercial integration",
+      "interiorStatus": "interior unverified",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "W-05",
+      "name": "Machu Picchu",
+      "candidate": "https://sketchfab.com/3d-models/machupicchu-d59370ac4a444628b95081f5bb7bbd02",
+      "licenseClaimToReverify": "CC BY",
+      "interiorStatus": "site ruins; interiors unverified",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "W-06",
+      "name": "Taj Mahal",
+      "candidate": "https://sketchfab.com/3d-models/taj-mahal-3d-model-1eb09052f6cd421caeaa6cb3204cb15d",
+      "licenseClaimToReverify": "CC BY",
+      "interiorStatus": "interior unverified",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "W-07",
+      "name": "Christ the Redeemer",
+      "candidate": "https://sketchfab.com/3d-models/christ-the-redeemer-rio-de-janeiro-brazil-90d53b3cb4b042ce845a24baa679109e",
+      "licenseClaimToReverify": "CC BY",
+      "interiorStatus": "interior/platform unverified",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "ARC-01",
+      "name": "Library of Alexandria",
+      "candidate": null,
+      "licenseClaimToReverify": "no verified asset",
+      "interiorStatus": "historical architecture uncertain",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "ARC-02",
+      "name": "Troy",
+      "candidate": null,
+      "licenseClaimToReverify": "no verified asset",
+      "interiorStatus": "search ongoing",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "ARC-03",
+      "name": "Knossos",
+      "candidate": null,
+      "licenseClaimToReverify": "no verified asset",
+      "interiorStatus": "search ongoing",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "ARC-04",
+      "name": "Baiae",
+      "candidate": null,
+      "licenseClaimToReverify": "no verified asset",
+      "interiorStatus": "underwater reconstruction needed",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "ARC-05",
+      "name": "Dwarka",
+      "candidate": null,
+      "licenseClaimToReverify": "no verified asset",
+      "interiorStatus": "location and reconstruction uncertain",
+      "downloaded": false,
+      "gameReady": false
+    },
+    {
+      "id": "ARC-07",
+      "name": "Derinkuyu",
+      "candidate": null,
+      "licenseClaimToReverify": "no verified asset",
+      "interiorStatus": "underground interior priority",
+      "downloaded": false,
+      "gameReady": false
+    }
+  ]
+}
