@@ -1,6 +1,17 @@
 name: Knossos asset discovery
 on:
   workflow_dispatch:
+    inputs:
+      model_name:
+        description: "Optional exact filename fragment (e.g. Throne Room); blank = inventory only"
+        required: false
+        default: ""
+        type: string
+      download_asset:
+        description: "Download selected GLB into a private Actions artifact for inspection (may be hundreds of MB)"
+        required: false
+        default: false
+        type: boolean
   schedule:
     - cron: '0 10 * * 1'
 permissions:
@@ -8,17 +19,56 @@ permissions:
 jobs:
   inspect-zenodo-record:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 45
+    env:
+      MODEL_NAME: ${{ inputs.model_name || '' }}
+      DOWNLOAD_ASSET: ${{ inputs.download_asset || false }}
     steps:
       - uses: actions/checkout@v4
       - name: Fetch official record metadata
+        run: python3 tools/fetch_knossos.py --list | tee knossos-asset-list.txt
+      - name: Guard optional asset download
+        if: env.DOWNLOAD_ASSET == 'true'
         run: |
-          python3 tools/fetch_knossos.py --list | tee knossos-asset-list.txt
-      - name: Publish research output
+          python3 - <<'PY'
+          import json,os,urllib.request
+          name=os.environ["MODEL_NAME"].strip()
+          if not name:raise SystemExit("Specify a model_name before enabling download_asset")
+          with urllib.request.urlopen("https://zenodo.org/api/records/7752061",timeout=60) as r: record=json.load(r)
+          files=[f for f in record.get("files",[]) if name.lower() in f.get("key","").lower()]
+          if len(files)!=1:raise SystemExit(f"Expected exactly one match, found {len(files)}")
+          size=files[0].get("size",0)
+          if size>500_000_000:raise SystemExit(f"File {size/1e6:.1f} MB exceeds 500 MB workflow safety cap")
+          print(f"Authorized selected download: {files[0]['key']} ({size/1e6:.1f} MB)")
+          PY
+      - name: Download selected official GLB with checksum verification
+        if: env.DOWNLOAD_ASSET == 'true'
+        run: python3 tools/fetch_knossos.py --download "$MODEL_NAME" --out downloaded-knossos
+      - name: Inspect selected GLB structure
+        if: env.DOWNLOAD_ASSET == 'true'
+        run: |
+          python3 - <<'PY'
+          import glob,subprocess
+          paths=glob.glob("downloaded-knossos/*.glb")
+          if len(paths)!=1:raise SystemExit("Expected exactly one GLB file")
+          with open("knossos-model-audit.json","w") as out:
+            subprocess.run(["python3","tools/audit_architecture.py",paths[0]],check=True,stdout=out)
+          PY
+      - name: Publish metadata and audit
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: knossos-zenodo-asset-list
-          path: knossos-asset-list.txt
+          name: knossos-research-report
+          path: |
+            knossos-asset-list.txt
+            knossos-model-audit.json
           if-no-files-found: ignore
           retention-days: 30
+      - name: Publish downloaded model for authorized review
+        if: env.DOWNLOAD_ASSET == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: knossos-review-glb
+          path: downloaded-knossos/*.glb
+          if-no-files-found: error
+          retention-days: 7
