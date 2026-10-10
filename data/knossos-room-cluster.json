@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "siteId": "ARC-03",
+  "status": "layout-contract-only",
+  "coordinateSystem": {
+    "units": "meters",
+    "up": "Y",
+    "forward": "-Z",
+    "origin": "CV_SPAWN_ENTRY",
+    "transforms": "placeholder positions for layout prototyping only; replace after measured geometry registration"
+  },
+  "rooms": [
+    {
+      "id": "KNO_THRONE",
+      "label": "Throne Room",
+      "asset": {
+        "uri": null,
+        "licenseVerified": false
+      },
+      "transform": {
+        "position": [0, 0, 0],
+        "rotation": [0, 0, 0, 1],
+        "scale": [1, 1, 1]
+      },
+      "entryMarker": "CV_SPAWN_ENTRY",
+      "review": "awaiting-source"
+    },
+    {
+      "id": "KNO_STAIRS",
+      "label": "Grand Staircase",
+      "asset": {
+        "uri": null,
+        "licenseVerified": false
+      },
+      "transform": {
+        "position": [0, 0, -12],
+        "rotation": [0, 0, 0, 1],
+        "scale": [1, 1, 1]
+      },
+      "review": "awaiting-source"
+    },
+    {
+      "id": "KNO_QUEEN",
+      "label": "Queen's Megaron",
+      "asset": {
+        "uri": null,
+        "licenseVerified": false
+      },
+      "transform": {
+        "position": [0, 0, -26],
+        "rotation": [0, 0, 0, 1],
+        "scale": [1, 1, 1]
+      },
+      "review": "awaiting-source"
+    }
+  ],
+  "portals": [
+    {
+      "id": "CV_PORTAL_THRONE_ROOM",
+      "from": "KNO_THRONE",
+      "to": "KNO_STAIRS",
+      "fromMarker": null,
+      "toMarker": null,
+      "status": "unmeasured",
+      "mode": "walk"
+    },
+    {
+      "id": "CV_PORTAL_GRAND_STAIRCASE",
+      "from": "KNO_STAIRS",
+      "to": "KNO_QUEEN",
+      "fromMarker": null,
+      "toMarker": null,
+      "status": "unmeasured",
+      "mode": "walk"
+    }
+  ],
+  "acceptance": {
+    "sourceGeometryPresent": false,
+    "licenseVerified": false,
+    "portalClearanceVerified": false,
+    "continuousWalkRouteVerified": false,
+    "ue5Imported": false
+  },
+  "notes": [
+    "Do not infer actual architectural adjacency or relative room positions from the prototype transforms.",
+    "Actual archaeological layout and geometry registration must supersede placeholders.",
+    "No teleport portals; connections represent physically traversable thresholds."
+  ]
+}
