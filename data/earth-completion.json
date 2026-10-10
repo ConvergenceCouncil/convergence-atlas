@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "project": "CONVERGENCE Earth",
+  "updated": "2026-10-10",
+  "goal": "A mobile-first traversable Earth baseline with real terrain, imagery, buildings, approved Guild sites, Modern Wonders, Ancient Relic Cities, and expandable landmark coverage before CONVERGENCE-specific world deformation is layered in.",
+  "principles": [
+    "Preserve real-world geography as the baseline.",
+    "Do not replace important locations with crude invented geometry when sourced or research-backed assets are available.",
+    "Use progressive LOD so the same Earth can scale from globe view to street-level inspection.",
+    "Keep approved CONVERGENCE canon separate from illustrative prototypes.",
+    "Every important location must have an explicit provenance and implementation state."
+  ],
+  "layers": [
+    {
+      "id": "earth-globe",
+      "name": "Global 3D Earth viewer",
+      "state": "working-baseline",
+      "source": "globe.html",
+      "next": "Finish mobile controls, location search, landmark layer toggles, and reliable street-to-globe transitions."
+    },
+    {
+      "id": "imagery",
+      "name": "Global satellite imagery",
+      "state": "working-baseline",
+      "source": "globe.html",
+      "next": "Verify provider reliability and attribution on mobile."
+    },
+    {
+      "id": "terrain",
+      "name": "Global elevation terrain",
+      "state": "working-baseline",
+      "source": "globe.html",
+      "next": "Validate terrain coverage at representative mountain, desert, island, urban, and polar regions."
+    },
+    {
+      "id": "buildings",
+      "name": "Worldwide streamed buildings",
+      "state": "working-baseline",
+      "source": "globe.html",
+      "next": "Validate global tiles, fallback local OSM geometry, LOD transitions, and mobile memory pressure."
+    },
+    {
+      "id": "guild-sites",
+      "name": "Approved Adventurer Guild site registry",
+      "state": "data-present",
+      "source": "data/approved-guild-registry.json",
+      "next": "Surface every approved site consistently in 2D and 3D and mark any coordinate confidence gaps."
+    },
+    {
+      "id": "modern-wonders",
+      "name": "Seven Modern Wonders",
+      "state": "data-present",
+      "source": "data/modern-seven-wonders.geojson",
+      "next": "Replace procedural stand-ins with sourced or purpose-built recognizable architectural assets."
+    },
+    {
+      "id": "ancient-relic-cities",
+      "name": "Seven Ancient Relic Cities",
+      "state": "data-present",
+      "source": "data/ancient-relic-cities.geojson",
+      "next": "Complete site-specific architectural research and traversable reconstruction pipeline; Knossos is the active pilot."
+    },
+    {
+      "id": "landmarks",
+      "name": "Additional globally significant landmarks and attractions",
+      "state": "data-present",
+      "source": "data/tourist-attractions.geojson + data/tourist-attractions-expansion.geojson",
+      "next": "Merge into one deduplicated browsable landmark layer with category filters and importance tiers."
+    },
+    {
+      "id": "country-boundaries",
+      "name": "Country boundaries",
+      "state": "working-baseline",
+      "source": "data/earth/ne110-countries.geojson",
+      "next": "Keep lightweight at globe scale; do not overdraw when imagery is the useful visual layer."
+    },
+    {
+      "id": "important-architecture",
+      "name": "High-fidelity important-area architecture",
+      "state": "in-production",
+      "source": "data/important-area-model-search.json + data/interior-model-research.json + data/architectural-models.json",
+      "next": "Acquire, verify, optimize, and integrate real or reconstruction-grade assets beginning with Knossos."
+    },
+    {
+      "id": "convergence-world-state",
+      "name": "Post-Convergence world deformation and authored changes",
+      "state": "not-started-on-earth-baseline",
+      "source": null,
+      "next": "Only layer after the real-world Earth baseline is dependable enough to preserve geographic readability."
+    }
+  ],
+  "earthDefinitionOfDone": [
+    "Globe loads on iPhone without a blank-screen failure.",
+    "Satellite imagery, terrain, country context, and streamed buildings have graceful fallbacks.",
+    "Approved Guild sites, Modern Wonders, Ancient Relic Cities, and major landmarks are searchable and selectable.",
+    "Camera transitions support globe, regional, city, building, and ground inspection without abrupt quality jumps.",
+    "Important locations have recognizable architecture or an explicit asset-production state instead of anonymous blocks.",
+    "Each external dataset and architectural asset has attribution/provenance tracked.",
+    "The web atlas can act as a reliable planning reference for UE5 world-building rather than a disconnected prototype."
+  ]
+}
