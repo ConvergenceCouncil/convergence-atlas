@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>CONVERGENCE · Knossos Cluster Lab</title>
-<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1019;color:#eee9dc;font:14px system-ui}canvas{display:block}#ui{position:absolute;z-index:3;left:12px;top:12px;max-width:min(380px,88vw);background:#101927e8;border:1px solid #88714b;border-radius:10px;padding:10px}button{background:#26364d;color:#fff;border:1px solid #88714b;border-radius:6px;padding:8px;margin:3px}#status{white-space:pre-wrap;font-size:12px;margin-top:8px}#pad{position:absolute;z-index:3;right:12px;bottom:18px;display:none;grid-template-columns:repeat(3,52px);gap:7px;touch-action:none}#pad button{height:48px;font-size:22px}#cross{display:none;position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}</style>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1019;color:#eee9dc;font:14px system-ui}canvas{display:block}#ui{position:absolute;z-index:3;left:12px;top:12px;max-width:min(390px,88vw);background:#101927e8;border:1px solid #88714b;border-radius:10px;padding:10px}button{background:#26364d;color:#fff;border:1px solid #88714b;border-radius:6px;padding:8px;margin:3px}#status{white-space:pre-wrap;font-size:12px;margin-top:8px}#pad{position:absolute;z-index:3;right:12px;bottom:18px;display:none;grid-template-columns:repeat(3,52px);gap:7px;touch-action:none}#pad button{height:48px;font-size:22px}#cross{display:none;position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}</style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script></head><body>
-<div id="ui"><b>CONVERGENCE · Knossos Cluster Lab</b><div><button id="load">Load manifest</button><button id="walk">Walk</button><button id="reset">Reset</button></div><div id="status">This page only assembles real room GLBs declared in data/knossos-room-cluster.json. Missing source assets are reported rather than replaced with fake palace geometry.</div></div>
+<div id="ui"><b>CONVERGENCE · Knossos Cluster Lab</b><div><button id="load">Load Knossos manifest</button><button id="demo">Explore test room</button><button id="walk">Walk</button><button id="reset">Reset</button></div><div id="status">Loading manifest… If authentic Knossos GLBs are unavailable, use Explore test room to verify that the viewer and walk controls work.</div></div>
 <div id="cross">+</div><div id="pad"><span></span><button data-k="w">↑</button><span></span><button data-k="a">←</button><button data-k="s">↓</button><button data-k="d">→</button></div>
 <script type="module">
 import * as THREE from 'three';
@@ -14,44 +14,31 @@ const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(
 scene.add(new THREE.HemisphereLight(0xffffff,0x4b5058,2.1));const sun=new THREE.DirectionalLight(0xffffff,2.1);sun.position.set(12,24,10);scene.add(sun);scene.add(new THREE.GridHelper(80,80,0x76684f,0x38404a));
 const orbit=new OrbitControls(camera,renderer.domElement);orbit.enableDamping=true;const status=document.getElementById('status');const loader=new GLTFLoader();let root=null,colliders=[],walk=false,keys={},yaw=0,pitch=0,last=null,spawn=new THREE.Vector3(0,1.7,0),groundY=0;const ray=new THREE.Raycaster();const eye=1.7;
 function setStatus(t){status.textContent=t}
-function clearRoot(){if(root){scene.remove(root);root.traverse(o=>{if(o.geometry)o.geometry.dispose?.()});root=null}colliders=[]}
-function fit(){if(!root)return;const b=new THREE.Box3().setFromObject(root),c=b.getCenter(new THREE.Vector3()),s=b.getSize(new THREE.Vector3());groundY=b.min.y;const d=Math.max(s.x,s.y,s.z,4);camera.position.copy(c).add(new THREE.Vector3(d*.75,d*.45,d*.95));orbit.target.copy(c);orbit.update();spawn.set(c.x,b.min.y+eye,c.z);const origin=new THREE.Vector3(c.x,b.max.y+3,c.z);ray.set(origin,new THREE.Vector3(0,-1,0));ray.far=d+10;const h=ray.intersectObjects(colliders,false).find(x=>x.face&&x.face.normal.clone().transformDirection(x.object.matrixWorld).y>.6);if(h)spawn.copy(h.point).add(new THREE.Vector3(0,eye,0))}
+function clearRoot(){if(root){scene.remove(root);root.traverse(o=>{if(o.geometry)o.geometry.dispose?.();if(o.material){const ms=Array.isArray(o.material)?o.material:[o.material];for(const m of ms)m.dispose?.()}});root=null}colliders=[]}
+function fit(){if(!root)return;const b=new THREE.Box3().setFromObject(root);if(b.isEmpty())return;const c=b.getCenter(new THREE.Vector3()),s=b.getSize(new THREE.Vector3());groundY=b.min.y;const d=Math.max(s.x,s.y,s.z,4);camera.position.copy(c).add(new THREE.Vector3(d*.75,d*.45,d*.95));orbit.target.copy(c);orbit.update();spawn.set(c.x,b.min.y+eye,c.z);const origin=new THREE.Vector3(c.x,b.max.y+3,c.z);ray.set(origin,new THREE.Vector3(0,-1,0));ray.far=d+10;const h=ray.intersectObjects(colliders,false).find(x=>x.face&&x.face.normal.clone().transformDirection(x.object.matrixWorld).y>.6);if(h)spawn.copy(h.point).add(new THREE.Vector3(0,eye,0))}
 function addMarkersTo(group,manifest){const mat=new THREE.MeshBasicMaterial({color:0x9d8462,wireframe:true});for(const r of manifest.rooms){const m=new THREE.Mesh(new THREE.SphereGeometry(.25,12,8),mat);m.name='MARKER_'+r.id;m.position.fromArray(r.transform.position);group.add(m)}}
 async function loadCluster(){
  setWalk(false);setStatus('Loading Knossos room manifest…');
  try{
-  const res=await fetch('./data/knossos-room-cluster.json',{cache:'no-store'});
-  if(!res.ok)throw Error('manifest HTTP '+res.status);
-  const manifest=await res.json();
-  if(manifest.schemaVersion!==1||!Array.isArray(manifest.rooms))throw Error('unsupported manifest schema');
-  const roomIds=new Set(manifest.rooms.map(r=>r.id));
-  if(roomIds.size!==manifest.rooms.length)throw Error('duplicate room IDs');
-  for(const portal of manifest.portals||[])if(!roomIds.has(portal.from)||!roomIds.has(portal.to))throw Error('invalid portal: '+portal.id);
-  const next=new THREE.Group();next.name=manifest.siteId+'_cluster';
-  const failures=[],missing=[],loaded=[];
-  for(const room of manifest.rooms){
-   if(!room.asset?.uri){missing.push(room.label);continue}
-   try{
-    const u=new URL(room.asset.uri,location.href);
-    if(u.protocol!=='https:'&&u.origin!==location.origin)throw Error('asset URL must be HTTPS or same-origin');
-    if(!/\.(glb|gltf)$/i.test(u.pathname))throw Error('asset must end in .glb or .gltf');
-    setStatus('Loading '+room.label+'…');
-    const g=await loader.loadAsync(u.href);const o=g.scene;o.name=room.id;
-    o.position.fromArray(room.transform.position);o.quaternion.fromArray(room.transform.rotation);o.scale.fromArray(room.transform.scale);
-    next.add(o);loaded.push(room.label);
-   }catch(e){failures.push(room.label+': '+(e.message||e))}
-  }
-  if(!loaded.length)addMarkersTo(next,manifest);
-  clearRoot();root=next;scene.add(root);root.updateMatrixWorld(true);
-  if(loaded.length)root.traverse(o=>{if(o.isMesh&&o.visible)colliders.push(o)});
-  fit();
-  const summary=['Knossos · '+loaded.length+'/'+manifest.rooms.length+' real rooms loaded','Loaded: '+(loaded.join(', ')||'none'),'Missing asset URI: '+(missing.join(', ')||'none'),'Failed: '+(failures.join('; ')||'none'),'Physical connections verified: 0/'+(manifest.portals||[]).length,'Historical alignment, licensing, collision and navigation unverified.'];
-  if(!loaded.length)summary.push('Showing contract markers only, not reconstructed palace geometry.');
-  setStatus(summary.join('\n'));
- }catch(e){setStatus('Cluster load failed: '+(e.message||e))}
+  const res=await fetch('./data/knossos-room-cluster.json',{cache:'no-store'});if(!res.ok)throw Error('manifest HTTP '+res.status);const manifest=await res.json();if(manifest.schemaVersion!==1||!Array.isArray(manifest.rooms))throw Error('unsupported manifest schema');
+  const roomIds=new Set(manifest.rooms.map(r=>r.id));if(roomIds.size!==manifest.rooms.length)throw Error('duplicate room IDs');for(const portal of manifest.portals||[])if(!roomIds.has(portal.from)||!roomIds.has(portal.to))throw Error('invalid portal: '+portal.id);
+  const next=new THREE.Group();next.name=manifest.siteId+'_cluster';const failures=[],missing=[],loaded=[];
+  for(const room of manifest.rooms){if(!room.asset?.uri){missing.push(room.label);continue}try{const u=new URL(room.asset.uri,location.href);if(u.protocol!=='https:'&&u.origin!==location.origin)throw Error('asset URL must be HTTPS or same-origin');if(!/\.(glb|gltf)$/i.test(u.pathname))throw Error('asset must end in .glb or .gltf');setStatus('Loading '+room.label+'…');const g=await loader.loadAsync(u.href);const o=g.scene;o.name=room.id;o.position.fromArray(room.transform.position);o.quaternion.fromArray(room.transform.rotation);o.scale.fromArray(room.transform.scale);next.add(o);loaded.push(room.label)}catch(e){failures.push(room.label+': '+(e.message||e))}}
+  if(!loaded.length)addMarkersTo(next,manifest);clearRoot();root=next;scene.add(root);root.updateMatrixWorld(true);if(loaded.length)root.traverse(o=>{if(o.isMesh&&o.visible)colliders.push(o)});fit();
+  const summary=['Knossos · '+loaded.length+'/'+manifest.rooms.length+' real rooms loaded','Loaded: '+(loaded.join(', ')||'none'),'Missing asset URI: '+(missing.join(', ')||'none'),'Failed: '+(failures.join('; ')||'none'),'Physical connections verified: 0/'+(manifest.portals||[]).length,'Historical alignment, licensing, collision and navigation unverified.'];if(!loaded.length)summary.push('No real room geometry is available yet. Tap Explore test room to confirm the viewer works.');setStatus(summary.join('\n'));
+ }catch(e){setStatus('Cluster load failed: '+(e.message||e)+'\nTap Explore test room to verify the renderer independently.')}
+}
+function loadTestRoom(){
+ setWalk(false);clearRoot();root=new THREE.Group();root.name='TEST_ROOM_NOT_KNOSSOS';
+ const stone=new THREE.MeshStandardMaterial({color:0x9b8c76,roughness:.93});const floorMat=new THREE.MeshStandardMaterial({color:0x6b6257,roughness:1});
+ function block(name,w,h,d,x,y,z,material=stone){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.name=name;m.position.set(x,y,z);root.add(m);colliders.push(m);return m}
+ block('TEST_FLOOR',12,.3,16,0,-.15,0,floorMat);block('TEST_WALL_LEFT',.35,4,16,-6,2,0);block('TEST_WALL_RIGHT',.35,4,16,6,2,0);block('TEST_WALL_BACK',12,4,.35,0,2,-8);block('TEST_WALL_FRONT_LEFT',5,4,.35,-3.5,2,8);block('TEST_WALL_FRONT_RIGHT',5,4,.35,3.5,2,8);block('TEST_DOOR_HEADER',2,1.5,.35,0,3.25,8);
+ for(let i=0;i<4;i++)block('TEST_COLUMN_'+i,.55,3,.55,i%2?3.5:-3.5,1.5,i<2?-4:3);
+ scene.add(root);root.updateMatrixWorld(true);fit();spawn.set(0,eye,5);camera.position.copy(spawn);orbit.target.set(0,eye,0);orbit.update();
+ setStatus('TEST ROOM LOADED — generic geometry, NOT Knossos.\n12 m × 16 m floor, walls, columns and 2 m doorway.\nTap Walk to test movement and collision. This confirms the viewer while authentic Knossos GLBs are still unavailable.');
 }
 function setWalk(v){walk=v;orbit.enabled=!v;document.getElementById('pad').style.display=v?'grid':'none';document.getElementById('cross').style.display=v?'block':'none';document.getElementById('walk').textContent=v?'Exit walk':'Walk';if(v){camera.position.copy(spawn);const d=new THREE.Vector3();camera.getWorldDirection(d);yaw=Math.atan2(-d.x,-d.z);pitch=Math.asin(THREE.MathUtils.clamp(d.y,-1,1))}}
-document.getElementById('load').onclick=loadCluster;document.getElementById('walk').onclick=()=>setWalk(!walk);document.getElementById('reset').onclick=()=>{setWalk(false);fit()};window.addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(e.key==='Escape')setWalk(false)});window.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+document.getElementById('load').onclick=loadCluster;document.getElementById('demo').onclick=loadTestRoom;document.getElementById('walk').onclick=()=>setWalk(!walk);document.getElementById('reset').onclick=()=>{setWalk(false);fit()};window.addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(e.key==='Escape')setWalk(false)});window.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 document.querySelectorAll('#pad button').forEach(b=>{const k=b.dataset.k;b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture(e.pointerId);keys[k]=true};['pointerup','pointercancel','lostpointercapture'].forEach(ev=>b.addEventListener(ev,()=>keys[k]=false))});renderer.domElement.onpointerdown=e=>{if(walk)last=[e.clientX,e.clientY]};window.onpointerup=()=>last=null;window.onpointermove=e=>{if(!walk||!last)return;yaw-=(e.clientX-last[0])*.003;pitch=THREE.MathUtils.clamp(pitch-(e.clientY-last[1])*.003,-1.5,1.5);last=[e.clientX,e.clientY]};
 let prev=performance.now();function tick(t){requestAnimationFrame(tick);const dt=Math.min(.05,(t-prev)/1000);prev=t;if(walk){camera.rotation.order='YXZ';camera.rotation.set(pitch,yaw,0);const f=Number(keys.w||keys.arrowup)-Number(keys.s||keys.arrowdown),r=Number(keys.d||keys.arrowright)-Number(keys.a||keys.arrowleft);const v=new THREE.Vector3(r,0,-f);if(v.lengthSq()){v.normalize().applyAxisAngle(new THREE.Vector3(0,1,0),yaw);const next=camera.position.clone().addScaledVector(v,dt*3);ray.set(new THREE.Vector3(camera.position.x,camera.position.y-.5,camera.position.z),v);ray.far=.45;if(!ray.intersectObjects(colliders,false).length)camera.position.copy(next)}ray.set(new THREE.Vector3(camera.position.x,camera.position.y+.8,camera.position.z),new THREE.Vector3(0,-1,0));ray.far=3.8;const h=ray.intersectObjects(colliders,false).find(x=>x.face&&x.face.normal.clone().transformDirection(x.object.matrixWorld).y>.55);if(h){const y=h.point.y+eye;if(Math.abs(y-camera.position.y)<.7)camera.position.y=THREE.MathUtils.lerp(camera.position.y,y,Math.min(1,dt*10))}else camera.position.y=Math.max(camera.position.y,groundY+eye)}else orbit.update();renderer.render(scene,camera)}requestAnimationFrame(tick);window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});loadCluster();
 </script></body></html>
