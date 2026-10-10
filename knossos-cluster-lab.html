@@ -16,8 +16,40 @@ const orbit=new OrbitControls(camera,renderer.domElement);orbit.enableDamping=tr
 function setStatus(t){status.textContent=t}
 function clearRoot(){if(root){scene.remove(root);root.traverse(o=>{if(o.geometry)o.geometry.dispose?.()});root=null}colliders=[]}
 function fit(){if(!root)return;const b=new THREE.Box3().setFromObject(root),c=b.getCenter(new THREE.Vector3()),s=b.getSize(new THREE.Vector3());groundY=b.min.y;const d=Math.max(s.x,s.y,s.z,4);camera.position.copy(c).add(new THREE.Vector3(d*.75,d*.45,d*.95));orbit.target.copy(c);orbit.update();spawn.set(c.x,b.min.y+eye,c.z);const origin=new THREE.Vector3(c.x,b.max.y+3,c.z);ray.set(origin,new THREE.Vector3(0,-1,0));ray.far=d+10;const h=ray.intersectObjects(colliders,false).find(x=>x.face&&x.face.normal.clone().transformDirection(x.object.matrixWorld).y>.6);if(h)spawn.copy(h.point).add(new THREE.Vector3(0,eye,0))}
-function addMarkers(manifest){const mat=new THREE.MeshBasicMaterial({wireframe:true});for(const r of manifest.rooms){const m=new THREE.Mesh(new THREE.SphereGeometry(.25,12,8),mat);m.name='MARKER_'+r.id;m.position.fromArray(r.transform.position);root.add(m)}}
-async function loadCluster(){setWalk(false);setStatus('Loading Knossos room manifest…');try{const res=await fetch('./data/knossos-room-cluster.json',{cache:'no-store'});if(!res.ok)throw Error('manifest HTTP '+res.status);const manifest=await res.json();if(manifest.schemaVersion!==1||!Array.isArray(manifest.rooms))throw Error('unsupported manifest schema');const missing=manifest.rooms.filter(r=>!r.asset?.uri);if(missing.length){clearRoot();root=new THREE.Group();root.name='KnossosContract';scene.add(root);addMarkers(manifest);fit();setStatus('Assembly contract loaded.\nRooms: '+manifest.rooms.length+' · planned walk connections: '+manifest.portals.length+'\nWaiting for real GLBs: '+missing.map(r=>r.label).join(', ')+'\nMarker positions are prototype transforms only — not archaeological geometry.');return}clearRoot();root=new THREE.Group();root.name=manifest.siteId+'_cluster';const failures=[];for(const room of manifest.rooms){try{const u=new URL(room.asset.uri,location.href);if(u.protocol!=='https:'&&u.origin!==location.origin)throw Error('asset URL must be HTTPS or same-origin');setStatus('Loading '+room.label+'…');const g=await loader.loadAsync(u.href);const o=g.scene;o.name=room.id;o.position.fromArray(room.transform.position);o.quaternion.fromArray(room.transform.rotation);o.scale.fromArray(room.transform.scale);root.add(o)}catch(e){failures.push(room.label+': '+(e.message||e))}}if(failures.length)throw Error(failures.join('\n'));scene.add(root);root.updateMatrixWorld(true);root.traverse(o=>{if(o.isMesh&&o.visible)colliders.push(o)});fit();setStatus('Knossos cluster assembled from '+manifest.rooms.length+' declared source rooms.\nMeshes: '+colliders.length+'\nTraversal, scale, portal alignment, license and historical accuracy remain QA gates.')}catch(e){setStatus('Cluster load failed: '+(e.message||e))}}
+function addMarkersTo(group,manifest){const mat=new THREE.MeshBasicMaterial({color:0x9d8462,wireframe:true});for(const r of manifest.rooms){const m=new THREE.Mesh(new THREE.SphereGeometry(.25,12,8),mat);m.name='MARKER_'+r.id;m.position.fromArray(r.transform.position);group.add(m)}}
+async function loadCluster(){
+ setWalk(false);setStatus('Loading Knossos room manifest…');
+ try{
+  const res=await fetch('./data/knossos-room-cluster.json',{cache:'no-store'});
+  if(!res.ok)throw Error('manifest HTTP '+res.status);
+  const manifest=await res.json();
+  if(manifest.schemaVersion!==1||!Array.isArray(manifest.rooms))throw Error('unsupported manifest schema');
+  const roomIds=new Set(manifest.rooms.map(r=>r.id));
+  if(roomIds.size!==manifest.rooms.length)throw Error('duplicate room IDs');
+  for(const portal of manifest.portals||[])if(!roomIds.has(portal.from)||!roomIds.has(portal.to))throw Error('invalid portal: '+portal.id);
+  const next=new THREE.Group();next.name=manifest.siteId+'_cluster';
+  const failures=[],missing=[],loaded=[];
+  for(const room of manifest.rooms){
+   if(!room.asset?.uri){missing.push(room.label);continue}
+   try{
+    const u=new URL(room.asset.uri,location.href);
+    if(u.protocol!=='https:'&&u.origin!==location.origin)throw Error('asset URL must be HTTPS or same-origin');
+    if(!/\.(glb|gltf)$/i.test(u.pathname))throw Error('asset must end in .glb or .gltf');
+    setStatus('Loading '+room.label+'…');
+    const g=await loader.loadAsync(u.href);const o=g.scene;o.name=room.id;
+    o.position.fromArray(room.transform.position);o.quaternion.fromArray(room.transform.rotation);o.scale.fromArray(room.transform.scale);
+    next.add(o);loaded.push(room.label);
+   }catch(e){failures.push(room.label+': '+(e.message||e))}
+  }
+  if(!loaded.length)addMarkersTo(next,manifest);
+  clearRoot();root=next;scene.add(root);root.updateMatrixWorld(true);
+  if(loaded.length)root.traverse(o=>{if(o.isMesh&&o.visible)colliders.push(o)});
+  fit();
+  const summary=['Knossos · '+loaded.length+'/'+manifest.rooms.length+' real rooms loaded','Loaded: '+(loaded.join(', ')||'none'),'Missing asset URI: '+(missing.join(', ')||'none'),'Failed: '+(failures.join('; ')||'none'),'Physical connections verified: 0/'+(manifest.portals||[]).length,'Historical alignment, licensing, collision and navigation unverified.'];
+  if(!loaded.length)summary.push('Showing contract markers only, not reconstructed palace geometry.');
+  setStatus(summary.join('\n'));
+ }catch(e){setStatus('Cluster load failed: '+(e.message||e))}
+}
 function setWalk(v){walk=v;orbit.enabled=!v;document.getElementById('pad').style.display=v?'grid':'none';document.getElementById('cross').style.display=v?'block':'none';document.getElementById('walk').textContent=v?'Exit walk':'Walk';if(v){camera.position.copy(spawn);const d=new THREE.Vector3();camera.getWorldDirection(d);yaw=Math.atan2(-d.x,-d.z);pitch=Math.asin(THREE.MathUtils.clamp(d.y,-1,1))}}
 document.getElementById('load').onclick=loadCluster;document.getElementById('walk').onclick=()=>setWalk(!walk);document.getElementById('reset').onclick=()=>{setWalk(false);fit()};window.addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(e.key==='Escape')setWalk(false)});window.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 document.querySelectorAll('#pad button').forEach(b=>{const k=b.dataset.k;b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture(e.pointerId);keys[k]=true};['pointerup','pointercancel','lostpointercapture'].forEach(ev=>b.addEventListener(ev,()=>keys[k]=false))});renderer.domElement.onpointerdown=e=>{if(walk)last=[e.clientX,e.clientY]};window.onpointerup=()=>last=null;window.onpointermove=e=>{if(!walk||!last)return;yaw-=(e.clientX-last[0])*.003;pitch=THREE.MathUtils.clamp(pitch-(e.clientY-last[1])*.003,-1.5,1.5);last=[e.clientX,e.clientY]};
