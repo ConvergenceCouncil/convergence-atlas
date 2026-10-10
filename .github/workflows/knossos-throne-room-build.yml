@@ -1,0 +1,96 @@
+name: Knossos Throne Room build
+on:
+  push:
+    paths:
+      - '.github/workflows/knossos-throne-room-build.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-throne-room:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download official Throne Room GLB with checksum verification
+        run: python3 tools/fetch_knossos.py --download "Throne Room" --out downloaded-knossos
+      - name: Verify expected Throne Room checksum
+        run: |
+          python3 - <<'PY'
+          import hashlib,pathlib
+          p=next(pathlib.Path('downloaded-knossos').glob('*.glb'))
+          h=hashlib.md5()
+          with p.open('rb') as f:
+            for block in iter(lambda:f.read(1024*1024),b''):h.update(block)
+          expected='d73acfdb906ca7ecda4452936050a57f'
+          actual=h.hexdigest()
+          print('MD5',actual)
+          if actual!=expected:raise SystemExit(f'Checksum mismatch: {actual} != {expected}')
+          PY
+      - name: Audit source geometry
+        run: python3 tools/audit_architecture.py downloaded-knossos/*.glb > knossos-throne-source-audit.json
+      - name: Install Blender
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y blender
+      - name: Build browser review copy
+        run: |
+          blender -b -P tools/optimize_architecture.py -- downloaded-knossos/*.glb knossos-throne-browser.glb --ratio 0.35 --texture-max 2048
+          python3 tools/audit_architecture.py knossos-throne-browser.glb > knossos-throne-browser-audit.json
+      - name: Build iPhone review copy
+        run: |
+          blender -b -P tools/optimize_architecture.py -- downloaded-knossos/*.glb knossos-throne-iphone.glb --ratio 0.18 --texture-max 1024
+          python3 tools/audit_architecture.py knossos-throne-iphone.glb > knossos-throne-iphone-audit.json
+      - name: Write delivery report
+        run: |
+          python3 - <<'PY'
+          import json,pathlib
+          files={
+            'source':next(pathlib.Path('downloaded-knossos').glob('*.glb')),
+            'browser':pathlib.Path('knossos-throne-browser.glb'),
+            'iphone':pathlib.Path('knossos-throne-iphone.glb')
+          }
+          sizes={k:v.stat().st_size for k,v in files.items()}
+          report={
+            'source_MB':round(sizes['source']/1e6,1),
+            'browser_MB':round(sizes['browser']/1e6,1),
+            'iphone_MB':round(sizes['iphone']/1e6,1),
+            'browser_reduction_percent':round(100*(1-sizes['browser']/sizes['source']),1),
+            'iphone_reduction_percent':round(100*(1-sizes['iphone']/sizes['source']),1),
+            'iphone_transfer_target_MB':60,
+            'iphone_transfer_pass':sizes['iphone']<=60_000_000,
+            'note':'Transfer budget only; not a guarantee of runtime memory, rendering speed, collision or fidelity.'
+          }
+          pathlib.Path('knossos-throne-build-report.json').write_text(json.dumps(report,indent=2)+'\n')
+          summary=(
+            '# Knossos Throne Room build\n\n'
+            f"Source: {report['source_MB']} MB  \n"
+            f"Browser: {report['browser_MB']} MB  \n"
+            f"iPhone: {report['iphone_MB']} MB  \n"
+            f"iPhone 60 MB transfer target: {'PASS' if report['iphone_transfer_pass'] else 'FAIL'}\n"
+          )
+          with open(__import__('os').environ['GITHUB_STEP_SUMMARY'],'a') as out:out.write(summary)
+          print(json.dumps(report,indent=2))
+          PY
+      - name: Publish audits and build report
+        uses: actions/upload-artifact@v4
+        with:
+          name: knossos-throne-room-report
+          path: |
+            knossos-throne-source-audit.json
+            knossos-throne-browser-audit.json
+            knossos-throne-iphone-audit.json
+            knossos-throne-build-report.json
+          retention-days: 30
+      - name: Publish browser review GLB
+        uses: actions/upload-artifact@v4
+        with:
+          name: knossos-throne-browser-glb
+          path: knossos-throne-browser.glb
+          retention-days: 7
+      - name: Publish iPhone review GLB
+        uses: actions/upload-artifact@v4
+        with:
+          name: knossos-throne-iphone-glb
+          path: knossos-throne-iphone.glb
+          retention-days: 7
