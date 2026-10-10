@@ -34,8 +34,31 @@ function loadTestRoom(){
  function block(name,w,h,d,x,y,z,material=stone){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.name=name;m.position.set(x,y,z);root.add(m);colliders.push(m);return m}
  block('TEST_FLOOR',12,.3,16,0,-.15,0,floorMat);block('TEST_WALL_LEFT',.35,4,16,-6,2,0);block('TEST_WALL_RIGHT',.35,4,16,6,2,0);block('TEST_WALL_BACK',12,4,.35,0,2,-8);block('TEST_WALL_FRONT_LEFT',5,4,.35,-3.5,2,8);block('TEST_WALL_FRONT_RIGHT',5,4,.35,3.5,2,8);block('TEST_DOOR_HEADER',2,1.5,.35,0,3.25,8);
  for(let i=0;i<4;i++)block('TEST_COLUMN_'+i,.55,3,.55,i%2?3.5:-3.5,1.5,i<2?-4:3);
+ // Stylized architectural detail benchmark; NOT a historical reconstruction.
+ const plaster=new THREE.MeshStandardMaterial({color:0xd4b98d,roughness:.95});
+ const ochre=new THREE.MeshStandardMaterial({color:0x8e382a,roughness:.8});
+ const dark=new THREE.MeshStandardMaterial({color:0x34302d,roughness:.8});
+ const turquoise=new THREE.MeshStandardMaterial({color:0x467f79,roughness:.7});
+ function detail(geo,mat,x,y,z,name){const o=new THREE.Mesh(geo,mat);o.position.set(x,y,z);o.name=name;root.add(o);return o}
+ for(let z=-7.5;z<=7.5;z+=1.5){
+  detail(new THREE.BoxGeometry(.07,.12,1.2),plaster,-5.78,3.65,z,'TEST_FRIEZE_L');
+  detail(new THREE.BoxGeometry(.07,.12,1.2),plaster,5.78,3.65,z,'TEST_FRIEZE_R');
+ }
+ for(let i=0;i<4;i++){
+  const x=i%2?3.5:-3.5,z=i<2?-4:3;
+  detail(new THREE.CylinderGeometry(.23,.31,2.8,18),ochre,x,1.55,z,'TEST_TAPERED_COLUMN_'+i);
+  detail(new THREE.CylinderGeometry(.4,.35,.2,20),dark,x,3.05,z,'TEST_CAPITAL_'+i);
+  detail(new THREE.CylinderGeometry(.42,.42,.18,20),plaster,x,.12,z,'TEST_COLUMN_BASE_'+i);
+ }
+ for(let i=0;i<14;i++){
+  const z=-7+i*1.05;
+  detail(new THREE.BoxGeometry(.015,.18,.48),i%2?ochre:turquoise,-5.79,2.9,z,'TEST_PAINTED_BAND_'+i);
+  detail(new THREE.BoxGeometry(.015,.18,.48),i%2?turquoise:ochre,5.79,2.9,z,'TEST_PAINTED_BAND_R_'+i);
+ }
+ for(let z=-7;z<8;z+=2)detail(new THREE.BoxGeometry(.7,.015,.07),ochre,0,.013,z,'TEST_FLOOR_INLAY_'+z);
+ detail(new THREE.BoxGeometry(2.5,.28,.55),dark,0,3.9,-7.65,'TEST_LINTEL');
  scene.add(root);root.updateMatrixWorld(true);fit();spawn.set(0,eye,5);camera.position.copy(spawn);orbit.target.set(0,eye,0);orbit.update();
- setStatus('TEST ROOM LOADED — generic geometry, NOT Knossos.\n12 m × 16 m floor, walls, columns and 2 m doorway.\nTap Walk to test movement and collision. This confirms the viewer while authentic Knossos GLBs are still unavailable.');
+ setStatus('STYLIZED TEST ROOM — NOT Knossos.\n12 m × 16 m floor, walls, columns and 2 m doorway.\nTap Walk to test movement and collision. This confirms the viewer while authentic Knossos GLBs are still unavailable.');
 }
 function setWalk(v){walk=v;orbit.enabled=!v;document.getElementById('pad').style.display=v?'grid':'none';document.getElementById('cross').style.display=v?'block':'none';document.getElementById('walk').textContent=v?'Exit walk':'Walk';if(v){camera.position.copy(spawn);const d=new THREE.Vector3();camera.getWorldDirection(d);yaw=Math.atan2(-d.x,-d.z);pitch=Math.asin(THREE.MathUtils.clamp(d.y,-1,1))}}
 document.getElementById('load').onclick=loadCluster;document.getElementById('demo').onclick=loadTestRoom;document.getElementById('walk').onclick=()=>setWalk(!walk);document.getElementById('reset').onclick=()=>{setWalk(false);fit()};window.addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(e.key==='Escape')setWalk(false)});window.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
