@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "source_recovery": "v0.10 source/config/data scaffold recovered; no compiled or cooked assets supplied",
+  "source_sha256": "6a4dda44d9821028c73bf4a1857642165e0b65d4e2858fc08576eb272e110a7d",
+  "beat_count": 12,
+  "tasks": [
+    {
+      "id": "ST-001",
+      "title": "Source and canon reconciliation",
+      "status": "backlog",
+      "approval_status": "proposed_work",
+      "depends_on": [],
+      "acceptance": [
+        "Map the recovered 12 beats to current canon and record deviations.",
+        "Resolve approved visual references; replace obsolete terminology in the implementation brief."
+      ],
+      "evidence": [],
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/1"
+    },
+    {
+      "id": "ST-002",
+      "title": "Playable environment blockout",
+      "status": "backlog",
+      "approval_status": "proposed_work",
+      "depends_on": [
+        "ST-001"
+      ],
+      "acceptance": [
+        "Build a traversable approach-to-extraction route for all mandatory beats.",
+        "Verify scale, collisions, navigation and optional route access in Unreal."
+      ],
+      "evidence": [],
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/2"
+    },
+    {
+      "id": "ST-003",
+      "title": "Protagonist and Roenix animation integration",
+      "status": "backlog",
+      "approval_status": "proposed_work",
+      "depends_on": [
+        "ST-001"
+      ],
+      "acceptance": [
+        "Inspect character assets against exact approved references.",
+        "Demonstrate locomotion, dodge, interaction, follow and perch without clipping."
+      ],
+      "evidence": [],
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/3"
+    },
+    {
+      "id": "ST-004",
+      "title": "Relic interaction and environmental puzzles",
+      "status": "backlog",
+      "approval_status": "proposed_work",
+      "depends_on": [
+        "ST-002",
+        "ST-003"
+      ],
+      "acceptance": [
+        "Demonstrate readable environmental clues and physical Relic interaction.",
+        "Verify pickup, equip and loadout changes in engine."
+      ],
+      "evidence": [],
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/4"
+    },
+    {
+      "id": "ST-005",
+      "title": "Combat and boss encounter",
+      "status": "backlog",
+      "approval_status": "proposed_work",
+      "depends_on": [
+        "ST-002",
+        "ST-003"
+      ],
+      "acceptance": [
+        "Demonstrate telegraphed attacks, dodge and readable encounter transitions.",
+        "Complete the boss encounter with both intended environmental rule states."
+      ],
+      "evidence": [],
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/5"
+    },
+    {
+      "id": "ST-006",
+      "title": "Persistent NPC and aftermath integration",
+      "status": "backlog",
+      "approval_status": "proposed_work",
+      "depends_on": [
+        "ST-004",
+        "ST-005"
+      ],
+      "acceptance": [
+        "Show persistent consequences after extraction.",
+        "Save and reload without losing acquired Relics or relevant NPC history."
+      ],
+      "evidence": [],
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/6"
+    },
+    {
+      "id": "ST-007",
+      "title": "Environment art, audio and presentation",
+      "status": "backlog",
+      "approval_status": "proposed_work",
+      "depends_on": [
+        "ST-002"
+      ],
+      "acceptance": [
+        "Replace blockout with reviewed modular art and lighting.",
+        "Verify readable paths, subtitles, audio cues and accessibility settings."
+      ],
+      "evidence": [],
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/7"
+    },
+    {
+      "id": "ST-008",
+      "title": "End-to-end slice acceptance",
+      "status": "backlog",
+      "approval_status": "proposed_work",
+      "depends_on": [
+        "ST-004",
+        "ST-005",
+        "ST-006",
+        "ST-007"
+      ],
+      "acceptance": [
+        "Record a complete playthrough including optional exploration and aftermath.",
+        "Record hardware, build ID, measured performance and unresolved defects.",
+        "Repeat save/load and alternative-resolution checks; no completion credit without evidence."
+      ],
+      "evidence": [],
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/8"
+    }
+  ]
+}
