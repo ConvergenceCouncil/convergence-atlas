@@ -88,11 +88,45 @@
     {
       "id": "ARC-03",
       "name": "Knossos",
-      "candidate": null,
-      "licenseClaimToReverify": "no verified asset",
-      "interiorStatus": "search ongoing",
+      "candidate": "https://zenodo.org/records/7752061",
+      "licenseClaimToReverify": "CC BY reported by OpenAIRE; confirm on individual Zenodo files",
+      "interiorStatus": "Individual room and staircase GLB assets available; geometry connectivity, collision, scale, historical accuracy and gameplay walkability unverified",
       "downloaded": false,
-      "gameReady": false
+      "gameReady": false,
+      "source": "CRAEFT Knossos Palace reconstruction; Zenodo academic repository",
+      "filesOfInterest": [
+        {
+          "name": "Throne Room.glb",
+          "sizeMB": 395.2
+        },
+        {
+          "name": "Queen’s Megaron.glb",
+          "sizeMB": 270.9
+        },
+        {
+          "name": "Queen's Bathroom.glb",
+          "sizeMB": 290.8
+        },
+        {
+          "name": "East Wing, Grand Staircase Wall.glb",
+          "sizeMB": 257.3
+        },
+        {
+          "name": "West Wing.glb",
+          "sizeMB": 297.6
+        },
+        {
+          "name": "Hall of the Double Axes.glb",
+          "sizeMB": 302.7
+        },
+        {
+          "name": "Knossos_Aerial_3D_scan.glb",
+          "sizeMB": 1200
+        }
+      ],
+      "priority": "highest — actual marked Relic City with downloadable room-scale geometry",
+      "relatedSource": "https://www.searchculture.gr/aggregator/edm/knossos/000158-a94289ac-f8e9-4081-b451-325ae732e1bd",
+      "relatedLicense": "CC BY-SA 4.0 stated by SearchCulture for its catalog; confirm whether it applies to the exact Zenodo versions"
     },
     {
       "id": "ARC-04",
