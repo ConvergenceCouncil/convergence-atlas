@@ -36,7 +36,7 @@ def load(path):
 
 
 def mat_identity():
-    return [1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    return [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 
 
 def mat_mul(a, b):
