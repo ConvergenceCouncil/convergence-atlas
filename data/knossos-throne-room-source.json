@@ -1,0 +1,35 @@
+{
+  "siteId": "ARC-03",
+  "roomId": "KNO_THRONE",
+  "title": "Knossos :: Throne Room",
+  "binarySource": {
+    "repository": "Zenodo",
+    "record": "https://zenodo.org/records/7752061",
+    "download": "https://zenodo.org/records/7752061/files/Throne%20Room.glb?download=1",
+    "filename": "Throne Room.glb",
+    "sizeMB": 395.2,
+    "md5": "d73acfdb906ca7ecda4452936050a57f"
+  },
+  "catalogRightsSource": {
+    "catalog": "SearchCulture.gr",
+    "item": "https://www.searchculture.gr/aggregator/edm/knossos/000158-78b4b743-d80e-4899-8815-f9089531114c?language=en",
+    "provider": "Institute of Computer Science - Foundation for Research and Technology Hellas",
+    "collection": "CRAEFT / Knossos Digital Tour Guide project",
+    "mediaType": "GLTF (binary)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "rightsStatus": "catalog-verified",
+  "rightsNote": "SearchCulture explicitly states that the digital file or thumbnail is used according to CC BY-SA 4.0. Zenodo's crawled record does not expose a populated license field, so preserve the SearchCulture/CRAEFT attribution chain with any derivative or redistribution.",
+  "implementationUse": {
+    "sourceMaster": "Keep immutable and checksum-verified.",
+    "reviewCopy": "Optimization is allowed only with required attribution and ShareAlike obligations preserved.",
+    "production": "Do not strip provenance metadata from the CONVERGENCE asset registry. Historical interpretation and gameplay modifications must remain distinguishable from source reconstruction content."
+  },
+  "status": {
+    "downloadedIntoRepository": false,
+    "optimizedPreviewCreated": false,
+    "mobileWalkTested": false,
+    "ue5Imported": false
+  }
+}
