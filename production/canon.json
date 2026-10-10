@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "rules": [
+    {
+      "id": "CAN-001",
+      "status": "approved",
+      "statement": "Relic scope: 157 figure collections, five Relics each; 785 figure-linked + 115 originals + 40 beast + 20 folklore = 960.",
+      "source": "Recovered master registry Pass 46, summary tables"
+    },
+    {
+      "id": "CAN-002",
+      "status": "approved",
+      "statement": "Source recovery, canon approval, visual approval, modeling, rigging, engine integration and playtesting are separate measures.",
+      "source": "User-approved production tracking scope, 2026-10-09"
+    },
+    {
+      "id": "CAN-003",
+      "status": "approved",
+      "statement": "Approved artifact references must be preserved; replacements require explicit review and a supersession record.",
+      "source": "User-approved reference-preservation requirements, 2026-10-08"
+    },
+    {
+      "id": "CAN-004",
+      "status": "approved",
+      "statement": "Relic identities and registered names must be preserved; permitted shared identities require specific documented exceptions.",
+      "source": "Recovered master registry Pass 46, shared identity table"
+    },
+    {
+      "id": "CAN-005",
+      "status": "approved",
+      "statement": "Proposed production measurements must remain distinct from authenticated historical evidence.",
+      "source": "User-approved evidence-first Relic research requirements"
+    },
+    {
+      "id": "CAN-006",
+      "status": "approved",
+      "statement": "A completed or tested production item must include inspectable evidence; a concept image is not a game-ready asset.",
+      "source": "User-approved production tracking scope, 2026-10-09"
+    }
+  ],
+  "reference_register": [
+    {
+      "id": "REF-PROTAGONIST",
+      "status": "needs_review",
+      "reason": "Resolve newest approved reference and outfit before importing any older image. No canonical image selected in this setup.",
+      "approved_file": null,
+      "sha256": null
+    },
+    {
+      "id": "REF-ROENIX",
+      "status": "needs_review",
+      "reason": "Resolve exact approved image; verify four wings, four eyes and approved colors during visual review.",
+      "approved_file": null,
+      "sha256": null
+    }
+  ],
+  "supersessions": []
+}
