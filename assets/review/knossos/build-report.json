@@ -1,0 +1,16 @@
+{
+  "file": "knossos-throne-review.glb",
+  "bytes": 17319384,
+  "sha256": "46fae2ae0f28b3756a61646bb7962964be4d9f8279a7d816f46c57476458daa6",
+  "triangles": 260678,
+  "textureSizes": [
+    [
+      2048,
+      2048
+    ]
+  ],
+  "geometryDecimated": false,
+  "transferTarget60MBPassed": true,
+  "runtimeOnIPhoneVerified": false,
+  "status": "review-only"
+}

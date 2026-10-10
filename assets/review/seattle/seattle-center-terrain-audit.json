@@ -1,0 +1,61 @@
+{
+  "file": "assets/review/seattle/seattle-center-terrain-preview.glb",
+  "file_size_MB": 1.77,
+  "asset_generator": "gltfpack 0.20",
+  "nodes": 1,
+  "meshes": 1,
+  "mesh_names_sample": [
+    ""
+  ],
+  "primitives": 1,
+  "triangles_estimate": 32768,
+  "materials": 1,
+  "material_names_sample": [
+    "Elevation review surface"
+  ],
+  "textures": 0,
+  "images": 0,
+  "extensions_used": [],
+  "extensions_required": [],
+  "markers": {
+    "floor": [],
+    "stair": [],
+    "door": [],
+    "room": [],
+    "collision": [],
+    "navmesh": [],
+    "entrance": []
+  },
+  "scene_bounds_estimate": {
+    "min": [
+      -401.9051,
+      19.4628,
+      -370.9893
+    ],
+    "max": [
+      401.9051,
+      47.461,
+      370.9893
+    ]
+  },
+  "scene_dimensions_estimate": [
+    803.8102,
+    27.9982,
+    741.9786
+  ],
+  "scene_dimension_note": "Uses glTF accessor bounds and node transforms; units are glTF scene units and are not proof of real-world scale.",
+  "bounded_mesh_nodes": 1,
+  "external_files": [],
+  "pass": "STRUCTURE_ONLY",
+  "not_verified": [
+    "interior completeness",
+    "room connectivity",
+    "walkable floor surfaces",
+    "stairs and doors clearance",
+    "collision",
+    "real-world dimensions",
+    "historical reconstruction accuracy",
+    "licensing/redistribution rights",
+    "mobile frame rate"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "file": "assets/review/knossos/knossos-throne-review.glb",
+  "file_size_MB": 17.32,
+  "asset_generator": "gltfpack 0.20",
+  "nodes": 1,
+  "meshes": 1,
+  "mesh_names_sample": [
+    ""
+  ],
+  "primitives": 1,
+  "triangles_estimate": 260678,
+  "materials": 1,
+  "material_names_sample": [
+    "Material_export"
+  ],
+  "textures": 1,
+  "images": 1,
+  "extensions_used": [
+    "KHR_materials_ior",
+    "KHR_materials_specular"
+  ],
+  "extensions_required": [],
+  "markers": {
+    "floor": [],
+    "stair": [],
+    "door": [],
+    "room": [],
+    "collision": [],
+    "navmesh": [],
+    "entrance": []
+  },
+  "scene_bounds_estimate": {
+    "min": [
+      -13.7428,
+      -37.3261,
+      -24.3324
+    ],
+    "max": [
+      10.1905,
+      -28.9129,
+      -5.172
+    ]
+  },
+  "scene_dimensions_estimate": [
+    23.9333,
+    8.4132,
+    19.1604
+  ],
+  "scene_dimension_note": "Uses glTF accessor bounds and node transforms; units are glTF scene units and are not proof of real-world scale.",
+  "bounded_mesh_nodes": 1,
+  "external_files": [],
+  "pass": "STRUCTURE_ONLY",
+  "not_verified": [
+    "interior completeness",
+    "room connectivity",
+    "walkable floor surfaces",
+    "stairs and doors clearance",
+    "collision",
+    "real-world dimensions",
+    "historical reconstruction accuracy",
+    "licensing/redistribution rights",
+    "mobile frame rate"
+  ]
+}
