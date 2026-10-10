@@ -8,7 +8,7 @@ on:
         default: ""
         type: string
       download_asset:
-        description: "Download selected GLB into a private Actions artifact for inspection (may be hundreds of MB)"
+        description: "Download selected GLB into an Actions artifact (accessible to users with repository Actions access)"
         required: false
         default: false
         type: boolean
@@ -26,7 +26,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Fetch official record metadata
-        run: python3 tools/fetch_knossos.py --list | tee knossos-asset-list.txt
+        run: |
+          set -o pipefail
+          python3 tools/fetch_knossos.py --list | tee knossos-asset-list.txt
       - name: Guard optional asset download
         if: env.DOWNLOAD_ASSET == 'true'
         run: |
@@ -65,7 +67,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
       - name: Publish downloaded model for authorized review
-        if: env.DOWNLOAD_ASSET == 'true'
+        if: env.DOWNLOAD_ASSET == 'true' && success()
         uses: actions/upload-artifact@v4
         with:
           name: knossos-review-glb
