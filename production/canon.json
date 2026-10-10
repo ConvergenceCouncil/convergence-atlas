@@ -42,14 +42,14 @@
     {
       "id": "REF-PROTAGONIST",
       "status": "needs_review",
-      "reason": "Resolve newest approved reference and outfit before importing any older image. No canonical image selected in this setup.",
+      "reason": "Resolve the exact approved visual master using approval evidence; preserve its anatomy, colors and silhouette rather than relying on older text summaries.",
       "approved_file": null,
       "sha256": null
     },
     {
       "id": "REF-ROENIX",
       "status": "needs_review",
-      "reason": "Resolve exact approved image; verify four wings, four eyes and approved colors during visual review.",
+      "reason": "Resolve the exact approved visual master using approval evidence; preserve its anatomy, colors and silhouette rather than relying on older text summaries.",
       "approved_file": null,
       "sha256": null
     }

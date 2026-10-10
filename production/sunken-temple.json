@@ -7,7 +7,7 @@
     {
       "id": "ST-001",
       "title": "Source and canon reconciliation",
-      "status": "backlog",
+      "status": "in_progress",
       "approval_status": "proposed_work",
       "depends_on": [],
       "acceptance": [
@@ -50,7 +50,7 @@
     {
       "id": "ST-004",
       "title": "Relic interaction and environmental puzzles",
-      "status": "backlog",
+      "status": "blocked",
       "approval_status": "proposed_work",
       "depends_on": [
         "ST-002",
@@ -61,7 +61,8 @@
         "Verify pickup, equip and loadout changes in engine."
       ],
       "evidence": [],
-      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/4"
+      "issue_url": "https://github.com/ConvergenceCouncil/convergence-atlas/issues/4",
+      "blocked_reason": "Requires reviewed canonical registry bindings before integration."
     },
     {
       "id": "ST-005",
