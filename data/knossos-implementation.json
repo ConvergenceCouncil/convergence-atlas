@@ -1,0 +1,75 @@
+{
+  "siteId": "ARC-03",
+  "name": "Palace of Knossos",
+  "phase": "vertical-slice-pilot",
+  "sourceRecord": "https://zenodo.org/records/7752061",
+  "implementationGoal": "One historically grounded, fully traversable interior route that can be reviewed in the web Interior Lab and then imported into UE5 without redesigning the asset contract.",
+  "pilotRoute": [
+    "Throne Room",
+    "Grand Staircase",
+    "Queen's Megaron"
+  ],
+  "assetTiers": {
+    "sourceMaster": {
+      "format": "GLB",
+      "immutable": true,
+      "purpose": "archival/reference only"
+    },
+    "review": {
+      "format": "GLB",
+      "targetTriangleBudget": 1500000,
+      "targetTextureMax": 2048,
+      "purpose": "Interior Lab visual and traversal review"
+    },
+    "ue5": {
+      "preferredFormat": "FBX or glTF/GLB through validated importer",
+      "nanite": true,
+      "generateLightmapUVs": false,
+      "collision": "custom-simple-or-complex-as-simple-during-pilot",
+      "purpose": "gameplay vertical slice"
+    }
+  },
+  "coordinateContract": {
+    "upAxis": "Z in UE5; convert from glTF Y-up during import",
+    "forwardAxis": "+X gameplay convention after import",
+    "unit": "centimeters in UE5",
+    "worldOriginPolicy": "room cluster pivot near route entry; never use raw geospatial coordinates inside the playable interior actor"
+  },
+  "requiredNamedMarkers": [
+    "CV_SPAWN_ENTRY",
+    "CV_PORTAL_THRONE_ROOM",
+    "CV_PORTAL_GRAND_STAIRCASE",
+    "CV_PORTAL_QUEENS_MEGARON"
+  ],
+  "collisionPolicy": {
+    "playerCapsuleRadiusCm": 42,
+    "playerCapsuleHalfHeightCm": 96,
+    "minimumDoorClearanceCm": 95,
+    "minimumPassageHeightCm": 210,
+    "maximumStepHeightCm": 45,
+    "minimumWalkableSlopeDegrees": 0,
+    "maximumWalkableSlopeDegrees": 44,
+    "stairsMustBeTraversable": true,
+    "noInvisibleBlockingVolumesAcrossDoorways": true
+  },
+  "reviewGates": [
+    "Source license and redistribution terms verified",
+    "Source master checksum verified",
+    "Room dimensions checked against reliable archaeological/reference material",
+    "Player can enter, cross, turn around, and exit every room in pilot route",
+    "Grand Staircase can be ascended and descended without teleporting",
+    "No obvious holes or one-sided wall failures from playable viewpoints",
+    "Mobile review build loads without browser crash",
+    "UE5 pilot maintains stable collision and navigation",
+    "No historical reconstruction detail is treated as fact when the source is interpretive"
+  ],
+  "notYetApproved": [
+    "Downloaded source geometry",
+    "Exact source license for production redistribution",
+    "Final scale",
+    "Final collision",
+    "Final mobile performance",
+    "Final UE5 performance",
+    "Historical reconstruction accuracy"
+  ]
+}
