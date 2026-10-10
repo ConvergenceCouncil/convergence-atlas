@@ -1,9 +1,15 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel.collapsed{max-height:none;width:auto;max-width:calc(100vw - 24px);padding:6px 9px;background:rgba(9,21,38,.72);border-color:rgba(181,160,102,.6)}#panel.collapsed #panel-content{display:none}#panel.collapsed #panel-toggle{margin:0}#panel-toggle{font-weight:600;cursor:pointer}#panel-content{margin-top:8px}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;max-height:45vh;overflow-y:auto;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}</style></head>
-<body><div id="globe"></div><div id="panel" class="collapsed"><button id="panel-toggle" aria-expanded="false">☰ Explore locations</button><div id="panel-content"><div style="margin:5px 0"><select id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a Guild Hall or Wonder…</option></select><button id="inspect" style="margin-top:6px">Go to location</button></div><div id="status">Loading globe…</div><div style="font-size:11px;margin-top:8px"><a href="index.html">2D Atlas</a> · <a href="terrain.html">Regional terrain</a></div></div></div>
-<div id="engine-controls" hidden><button id="terrain">Terrain</button><button id="orbit">Orbit</button><button id="buildings">Local buildings</button><button id="global-buildings">Global buildings</button><button id="needle-model">Space Needle</button><button id="landmark-models">Wonders</button><button id="imagery">Imagery</button><button id="quality">Quality</button><div id="lod-status"></div><div id="imagery-detail"></div><button data-inspect-height="4500">Aerial</button><button data-inspect-height="800">Building</button><button data-inspect-height="90">Ground</button><button data-fly="-122.3321,47.6062,25000">Seattle</button></div>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel.collapsed{max-height:none;width:auto;max-width:calc(100vw - 24px);padding:6px 9px;background:rgba(9,21,38,.72);border-color:rgba(181,160,102,.6)}#panel.collapsed #panel-content{display:none}#panel.collapsed #panel-toggle{margin:0}#panel-toggle{font-weight:600;cursor:pointer}#panel-content{margin-top:8px}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;max-height:45vh;overflow-y:auto;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}#load-status{position:absolute;z-index:5;bottom:32px;left:12px;max-width:min(420px,calc(100vw - 48px));background:rgba(9,21,38,.9);padding:8px 12px;border-radius:8px;color:#eee;font-size:12px;pointer-events:none}#engine-controls{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}#engine-controls button{min-height:44px}#location-search{box-sizing:border-box;width:100%;padding:10px;margin-bottom:8px;background:#20364c;color:white;border:1px solid #a3a6aa;border-radius:6px}#panel{max-height:70vh}#engine-controls #needle-model,#engine-controls #landmark-models,#engine-controls [data-fly]{display:none}</style></head>
+<body><div id="globe"></div><div id="load-status" role="status" aria-live="polite">Loading Earth… If this takes too long, open the <a href="index.html">2D Atlas</a>.</div><div id="panel" class="collapsed"><button id="panel-toggle" aria-expanded="false">☰ Explore locations</button><div id="panel-content"><div style="margin:5px 0"><input id="location-search" type="search" placeholder="Search places, cities or Guilds" aria-label="Search destinations"><select aria-label="Destination" id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a destination…</option></select><button id="inspect" style="margin-top:6px">Go to location</button></div><div id="status">Loading globe…</div><div style="font-size:11px;margin-top:8px"><a href="index.html">2D Atlas</a> · <a href="terrain.html">Regional terrain</a></div></div></div>
+<div id="engine-controls"><button id="terrain">Terrain</button><button id="orbit">Orbit</button><button id="buildings">Local buildings</button><button id="global-buildings">Global buildings</button><button id="needle-model">Space Needle</button><button id="landmark-models">Wonders</button><button id="imagery">Imagery</button><button id="quality">Quality</button><div id="lod-status"></div><div id="imagery-detail"></div><button data-inspect-height="4500">Aerial</button><button data-inspect-height="800">Building</button><button data-inspect-height="90">Ground</button><button data-fly="-122.3321,47.6062,25000">Seattle</button></div>
 <script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
-(async function(){'use strict';document.getElementById('panel-toggle').onclick=()=>{const panel=document.getElementById('panel');const collapsed=panel.classList.toggle('collapsed');document.getElementById('panel-toggle').setAttribute('aria-expanded',String(!collapsed));};const status=document.getElementById('status');if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
+(async function(){'use strict';document.getElementById('panel-toggle').onclick=()=>{const panel=document.getElementById('panel');const collapsed=panel.classList.toggle('collapsed');document.getElementById('panel-toggle').setAttribute('aria-expanded',String(!collapsed));};const status=document.getElementById('status');
+const visibleStatus=document.getElementById('load-status');
+new MutationObserver(()=>{visibleStatus.textContent=status.textContent;}).observe(status,{childList:true,characterData:true,subtree:true});
+document.getElementById('panel-content').appendChild(document.getElementById('engine-controls'));
+async function withTimeout(promise, milliseconds=12000){let timer;try{return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Connection timed out')),milliseconds);})]);}finally{clearTimeout(timer);}}
+async function getJSON(path){const response=await fetch(path,{signal:AbortSignal.timeout(12000)});if(!response.ok)throw Error(path+' HTTP '+response.status);return response.json();}
+if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
 const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false});
 viewer.scene.globe.baseColor=Cesium.Color.fromCssColorString('#28516b');
 viewer.scene.highDynamicRange=true;
@@ -28,15 +34,15 @@ function applyQuality(mode){
 }
 
 viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(-122.33,47.61,12500000)});
-try{const imagery=new Cesium.UrlTemplateImageryProvider({url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',credit:'Esri, Vantor, Earthstar Geographics and the GIS User Community',maximumLevel:19});viewer.imageryLayers.addImageryProvider(imagery);}catch(e){console.warn('Imagery unavailable:',e);}
+try{const imagery=new Cesium.UrlTemplateImageryProvider({url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',credit:'Esri, Vantor, Earthstar Geographics and the GIS User Community',maximumLevel:19});imagery.errorEvent.addEventListener(()=>{status.textContent='Satellite tiles could not load. Earth controls remain available; try the 2D Atlas or reload.';});viewer.imageryLayers.addImageryProvider(imagery);}catch(e){console.warn('Imagery unavailable:',e);}
 status.textContent='3D globe ready. Elevation loads automatically; choose Rainier or Seattle.';
-try{const resource=await fetch('data/earth/ne110-countries.geojson');if(!resource.ok)throw Error('HTTP '+resource.status);const data=await resource.json();const ds=await Cesium.GeoJsonDataSource.load(data,{stroke:Cesium.Color.fromCssColorString('#d6bc78'),strokeWidth:1,fill:Cesium.Color.fromCssColorString('#16354c').withAlpha(.08),clampToGround:false});viewer.dataSources.add(ds);status.textContent='3D globe with Natural Earth country boundaries. Tap Enable 3D terrain to load elevation.';}catch(e){status.textContent='Globe loaded; country overlay unavailable: '+e.message;}
+try{const resource=await fetch('data/earth/ne110-countries.geojson',{signal:AbortSignal.timeout(10000)});if(!resource.ok)throw Error('HTTP '+resource.status);const data=await resource.json();const ds=await Cesium.GeoJsonDataSource.load(data,{stroke:Cesium.Color.fromCssColorString('#d6bc78'),strokeWidth:1,fill:Cesium.Color.fromCssColorString('#16354c').withAlpha(.08),clampToGround:false});viewer.dataSources.add(ds);status.textContent='3D globe with Natural Earth country boundaries. Tap Enable 3D terrain to load elevation.';}catch(e){status.textContent='Globe loaded; country overlay unavailable: '+e.message;}
 let terrainEnabled=false;
 const terrainButton=document.getElementById('terrain');
 // Native quantized-mesh terrain replaces the experimental raster heightmap mesh.
 let terrainProvider=null;
 try{
- terrainProvider=await Cesium.CesiumTerrainProvider.fromUrl('https://terrain.reearth.land/cesium-mesh/ellipsoid',{requestVertexNormals:true,requestWaterMask:true});
+ terrainProvider=await withTimeout(Cesium.CesiumTerrainProvider.fromUrl('https://terrain.reearth.land/cesium-mesh/ellipsoid',{requestVertexNormals:true,requestWaterMask:true}));
  status.textContent='Native quantized-mesh terrain provider connected (Re:Earth / Mapterhorn).';
 }catch(e){status.textContent='Native terrain unavailable: '+e.message+'. Smooth globe fallback.';}
 // Stream tiled Overture buildings worldwide, without an account token.
@@ -70,7 +76,7 @@ function adaptBuildingBudget(){
  const near=altitude<3000;
  const high=quality==='high';
  globalBuildings.maximumScreenSpaceError=near?(high?5:8):altitude<15000?(high?7:11):altitude<180000?16:26;
- globalBuildings.maximumMemoryUsage=mobile?Math.min(high?320:220,320):high?640:400;
+ globalBuildings.cacheBytes=(mobile?(high?240:160):(high?512:320))*1024*1024;globalBuildings.maximumCacheOverflowBytes=(mobile?64:128)*1024*1024;
  const pressure=near?'close':'normal';
  if(pressure!==lastTilePressure){lastTilePressure=pressure;console.info('Building tile LOD',pressure);}
 }
@@ -83,7 +89,7 @@ function configureTileRefinement(tileset){
  tileset.preloadWhenHidden=false;
  tileset.cullWithChildrenBounds=true;
  tileset.maximumScreenSpaceError=quality==='high'?8:12;
- tileset.maximumMemoryUsage=mobile?300:640;
+ tileset.cacheBytes=(mobile?160:320)*1024*1024;tileset.maximumCacheOverflowBytes=(mobile?64:128)*1024*1024;
 }
 const buildingCredits=document.createElement('div');buildingCredits.style.cssText='font-size:10px;color:#b9c6d0;margin-top:5px';buildingCredits.textContent='Buildings © OpenStreetMap contributors, Overture Maps Foundation (ODbL). Terrain © Re:Earth Terrain / Mapterhorn.';document.getElementById('panel').appendChild(buildingCredits);
 const globalBuildingsButton=document.getElementById('global-buildings');
@@ -92,10 +98,10 @@ globalBuildingsButton.onclick=async()=>{
  if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;document.getElementById('buildings').textContent='Load nearby 3D buildings';}
  globalBuildingsButton.disabled=true;status.textContent='Connecting to worldwide 3D building tiles…';
  try{
-  const tileset=await Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:quality==='high'?8:16,dynamicScreenSpaceError:false,skipLevelOfDetail:false});
+  const tileset=await withTimeout(Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:quality==='high'?8:16,dynamicScreenSpaceError:false,skipLevelOfDetail:false}));
   configureTileRefinement(tileset);
   viewer.scene.primitives.add(tileset);globalBuildings=tileset;currentLod='';updateZoomLod();adaptBuildingBudget();
-  tileset.tileFailed.addEventListener(e=>console.warn('3D building tile failed',e));
+  tileset.tileFailed.addEventListener(e=>{console.warn('3D building tile failed',e);status.textContent='Some building tiles could not load. Terrain and location controls remain available.';});
   globalBuildingsButton.textContent='Hide global 3D buildings';
   status.textContent='Real-world 3D building tiles enabled. Detailed canon landmark models remain in production.';
  }catch(e){status.textContent='Global 3D buildings unavailable; loading nearby OSM building geometry instead.';console.warn('Global 3D tiles unavailable',e);if(!buildingCollection&&viewer.camera.positionCartographic.height<15000)document.getElementById('buildings').click();}
@@ -348,12 +354,13 @@ loadApprovedArchitecture();
 // Shared Atlas registry: Guild Hall/Outpost reference points and New Seven Wonders.
 document.getElementById('orbit').onclick=async()=>{
  const button=document.getElementById('orbit');
- if(orbitHandler){viewer.clock.onTick.removeEventListener(orbitHandler);orbitHandler=null;button.textContent='Orbit selected site';status.textContent='Orbit stopped.';return;}
- const target=Cesium.Cartesian3.fromDegrees(currentTarget.lon,currentTarget.lat,0);
+ if(orbitHandler){viewer.clock.onTick.removeEventListener(orbitHandler);orbitHandler=null;viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);button.textContent='Orbit selected site';status.textContent='Orbit stopped.';return;}
+ const orbitTarget=currentTarget;
  try{
-  const sample=await Cesium.sampleTerrainMostDetailed(viewer.terrainProvider,[Cesium.Cartographic.fromDegrees(currentTarget.lon,currentTarget.lat)]);
+  const sample=terrainEnabled?await withTimeout(Cesium.sampleTerrainMostDetailed(viewer.terrainProvider,[Cesium.Cartographic.fromDegrees(orbitTarget.lon,orbitTarget.lat)])): [{height:0}];
+  if(orbitTarget!==currentTarget)return;
   const height=Number.isFinite(sample[0]?.height)?sample[0].height:0;
-  const center=Cesium.Cartesian3.fromDegrees(currentTarget.lon,currentTarget.lat,height);
+  const center=Cesium.Cartesian3.fromDegrees(orbitTarget.lon,orbitTarget.lat,height);
   viewer.camera.lookAt(center,new Cesium.HeadingPitchRange(0,Cesium.Math.toRadians(-30),Math.max(450,currentTarget.type==='wonder'?1400:850)));
   let last=Date.now();
   orbitHandler=()=>{const now=Date.now(),dt=Math.min(.05,(now-last)/1000);last=now;viewer.camera.rotateRight(dt*.08);};
@@ -363,17 +370,39 @@ document.getElementById('orbit').onclick=async()=>{
 };
 const destinationSelect=document.getElementById('destinations');
 const destinations=[];
-try{
- const [guildRes,wonderRes]=await Promise.all([fetch('data/approved-guild-registry.json'),fetch('data/modern-seven-wonders.geojson')]);
- if(!guildRes.ok||!wonderRes.ok)throw Error('Atlas registry unavailable');
- const guildData=await guildRes.json(),wonderData=await wonderRes.json();
- for(const site of guildData.sites||[]){const p=site.map_reference;if(p&&Number.isFinite(p.latitude)&&Number.isFinite(p.longitude))destinations.push({id:site.id,name:site.id+' · '+site.location,lat:p.latitude,lon:p.longitude,type:'guild',note:'Approximate site reference; approved building placement not surveyed'});}
- for(const feature of wonderData.features||[]){const c=feature.geometry?.coordinates;if(c?.length>=2)destinations.push({id:feature.properties.id,name:feature.properties.name,lat:c[1],lon:c[0],type:'wonder',note:feature.properties.note||'Landmark reference point'});}
- for(const type of ['guild','wonder']){const group=document.createElement('optgroup');group.label=type==='guild'?'Guild Halls and Outposts':'Seven Wonders';for(const d of destinations.filter(d=>d.type===type)){const o=document.createElement('option');o.value=d.id;o.textContent=d.name;group.appendChild(o);}destinationSelect.appendChild(group);}
- const markers=viewer.entities;
- for(const d of destinations){markers.add({name:d.name,position:Cesium.Cartesian3.fromDegrees(d.lon,d.lat,0),point:{pixelSize:d.type==='wonder'?10:7,color:d.type==='wonder'?Cesium.Color.GOLD:Cesium.Color.CYAN,outlineColor:Cesium.Color.BLACK,outlineWidth:2,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:300000},label:{text:d.type==='wonder'?d.name:'',font:'12px sans-serif',fillColor:Cesium.Color.WHITE,pixelOffset:new Cesium.Cartesian2(0,-16),distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,150000)}});}
- status.textContent='Atlas destinations ready: '+destinations.length+' Guild/Wonder reference points. Choose one to inspect.';
-}catch(e){status.textContent='Destination registry failed: '+e.message;}
+const sources=[['guild','data/approved-guild-registry.json'],['wonder','data/modern-seven-wonders.geojson'],['relic','data/ancient-relic-cities.geojson'],['landmark','data/tourist-attractions.geojson'],['landmark','data/tourist-attractions-expansion.geojson']];
+const results=await Promise.allSettled(sources.map(([,path])=>getJSON(path)));
+const seen=new Set();
+results.forEach((result,index)=>{
+ if(result.status!=='fulfilled'){console.warn('Location source unavailable',sources[index][1],result.reason);return;}
+ const type=sources[index][0],data=result.value;
+ const entries=type==='guild'?(data.sites||[]).map(site=>({id:site.id,name:site.id+' · '+site.location,lat:site.map_reference?.latitude,lon:site.map_reference?.longitude,note:'Approximate site reference; approved building placement not surveyed'})):(data.features||[]).map(f=>({id:f.properties?.id,name:f.properties?.name,lon:f.geometry?.coordinates?.[0],lat:f.geometry?.coordinates?.[1],note:f.properties?.note||'Approximate geographic reference; architecture may still be in production'}));
+ for(const entry of entries){
+  if(!entry.name||!Number.isFinite(entry.lon)||!Number.isFinite(entry.lat)||Math.abs(entry.lon)>180||Math.abs(entry.lat)>90)continue;
+  const key=entry.name.toLowerCase().trim()+'|'+entry.lon.toFixed(3)+'|'+entry.lat.toFixed(3);
+  if(seen.has(key))continue;seen.add(key);
+  destinations.push({...entry,id:type+':'+(entry.id||key),type});
+ }
+});
+const labels={guild:'Guild Halls and Outposts',wonder:'Seven Modern Wonders',relic:'Ancient Relic Cities',landmark:'Landmarks and Attractions'};
+function renderDestinations(){
+ const selection=destinationSelect.value,query=document.getElementById('location-search').value.toLowerCase().trim();
+ destinationSelect.replaceChildren(new Option('Choose a destination…',''));
+ for(const type of Object.keys(labels)){
+  const group=document.createElement('optgroup');group.label=labels[type];
+  for(const d of destinations.filter(d=>d.type===type&&d.name.toLowerCase().includes(query)).sort((a,b)=>a.name.localeCompare(b.name))){group.appendChild(new Option(d.name,d.id));}
+  if(group.children.length)destinationSelect.appendChild(group);
+ }
+ destinationSelect.value=selection;
+}
+document.getElementById('location-search').addEventListener('input',renderDestinations);
+renderDestinations();
+for(const d of destinations){
+ const entity=viewer.entities.add({name:d.name,position:Cesium.Cartesian3.fromDegrees(d.lon,d.lat),point:{pixelSize:d.type==='wonder'?10:7,color:d.type==='guild'?Cesium.Color.CYAN:d.type==='relic'?Cesium.Color.ORANGE:Cesium.Color.GOLD,outlineColor:Cesium.Color.BLACK,outlineWidth:2,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,d.type==='landmark'?1500000:20000000)},description:d.note});
+ entity.atlasDestination=d;
+}
+status.textContent=destinations.length+' searchable locations ready.'+(results.some(r=>r.status==='rejected')?' Some location sources could not load.':'');
+viewer.selectedEntityChanged.addEventListener(entity=>{if(entity?.atlasDestination){currentTarget=entity.atlasDestination;destinationSelect.value=currentTarget.id;status.textContent=currentTarget.name+' · '+currentTarget.note;}});
 // Terrain-aware inspection positions: heights are relative to actual ground,
 // not to the WGS84 ellipsoid. This prevents ground-level presets clipping into hills.
 async function inspectAtHeight(aboveGround){
@@ -383,7 +412,7 @@ async function inspectAtHeight(aboveGround){
  let ground=0;
  try{
   if(terrainEnabled&&terrainProvider){
-   const samples=await Cesium.sampleTerrainMostDetailed(viewer.terrainProvider,[carto]);
+   const samples=await withTimeout(Cesium.sampleTerrainMostDetailed(viewer.terrainProvider,[carto]));
    if(Number.isFinite(samples[0]?.height))ground=samples[0].height;
   }
  }catch(e){console.warn('Ground elevation sampling unavailable',e);}
@@ -401,7 +430,7 @@ document.getElementById('inspect').onclick=()=>{
  if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;document.getElementById('buildings').textContent='Load nearby 3D buildings';}
  inspectAtHeight(d.type==='wonder'?4500:800);
  // Automatically populate local building footprints only when global tiles are unavailable.
- if(!globalBuildings&&!buildingCollection)document.getElementById('buildings').click();
+ if(!globalBuildings&&!buildingCollection&&!document.getElementById('buildings').disabled)document.getElementById('buildings').click();
  document.getElementById('panel').classList.add('collapsed');document.getElementById('panel-toggle').setAttribute('aria-expanded','false');
  status.textContent=d.name+' · '+d.note+'. Use Load nearby 3D buildings for schematic OSM extrusions. Canon Guild Hall architecture is not modeled yet.';
 };
@@ -438,13 +467,14 @@ viewer.camera.changed.addEventListener(refreshImagery);
 viewer.camera.moveEnd.addEventListener(()=>{refreshImagery();updateZoomLod();});
 document.querySelectorAll('[data-fly]').forEach(button=>button.onclick=()=>{const [lon,lat,alt]=button.dataset.fly.split(',').map(Number);viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(lon,lat,alt),orientation:{heading:0,pitch:Cesium.Math.toRadians(-50),roll:0},duration:1.8});});
 terrainButton.onclick=()=>{
+ if(!terrainProvider){status.textContent="Terrain is unavailable; smooth Earth remains usable.";return;}
  terrainEnabled=!terrainEnabled;
  viewer.terrainProvider=terrainEnabled&&terrainProvider?terrainProvider:new Cesium.EllipsoidTerrainProvider();
  terrainButton.textContent=terrainEnabled?'Disable 3D terrain':'Enable 3D terrain';
  status.textContent=terrainEnabled?(terrainProvider?'Native quantized-mesh terrain enabled. Zoom toward Seattle or Rainier.':'Terrain provider unavailable; smooth globe fallback.'):'Smooth globe restored.';
 };
 if(terrainProvider)terrainButton.click();
-applyQuality('high');
+applyQuality(mobile?'balanced':'high');
 refreshImagery();
 // Default to real 3D city geometry: users should not need to discover an extra switch.
 globalBuildingsButton.click();
