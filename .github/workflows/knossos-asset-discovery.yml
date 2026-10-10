@@ -12,6 +12,11 @@ on:
         required: false
         default: false
         type: boolean
+      optimize_preview:
+        description: "Also generate a reduced mobile-review GLB using Blender"
+        required: false
+        default: false
+        type: boolean
   schedule:
     - cron: '0 10 * * 1'
 permissions:
@@ -19,16 +24,22 @@ permissions:
 jobs:
   inspect-zenodo-record:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       MODEL_NAME: ${{ inputs.model_name || '' }}
       DOWNLOAD_ASSET: ${{ inputs.download_asset || false }}
+      OPTIMIZE_PREVIEW: ${{ inputs.optimize_preview || false }}
     steps:
       - uses: actions/checkout@v4
       - name: Fetch official record metadata
         run: |
           set -o pipefail
           python3 tools/fetch_knossos.py --list | tee knossos-asset-list.txt
+      - name: Require download for preview optimization
+        if: env.OPTIMIZE_PREVIEW == 'true' && env.DOWNLOAD_ASSET != 'true'
+        run: |
+          echo "optimize_preview requires download_asset=true" >&2
+          exit 1
       - name: Guard optional asset download
         if: env.DOWNLOAD_ASSET == 'true'
         run: |
@@ -56,7 +67,26 @@ jobs:
           with open("knossos-model-audit.json","w") as out:
             subprocess.run(["python3","tools/audit_architecture.py",paths[0]],check=True,stdout=out)
           PY
-      - name: Publish metadata and audit
+      - name: Install Blender for optional mobile preview
+        if: env.DOWNLOAD_ASSET == 'true' && env.OPTIMIZE_PREVIEW == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y blender
+      - name: Generate and audit mobile review GLB
+        if: env.DOWNLOAD_ASSET == 'true' && env.OPTIMIZE_PREVIEW == 'true'
+        run: |
+          python3 - <<'PY'
+          import glob,subprocess
+          paths=glob.glob("downloaded-knossos/*.glb")
+          if len(paths)!=1:raise SystemExit("Expected exactly one downloaded GLB")
+          subprocess.run([
+            "blender","-b","-P","tools/optimize_architecture.py","--",
+            paths[0],"knossos-mobile-preview.glb","--ratio","0.35","--texture-max","2048"
+          ],check=True)
+          with open("knossos-mobile-audit.json","w") as out:
+            subprocess.run(["python3","tools/audit_architecture.py","knossos-mobile-preview.glb"],check=True,stdout=out)
+          PY
+      - name: Publish metadata and audits
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -64,6 +94,7 @@ jobs:
           path: |
             knossos-asset-list.txt
             knossos-model-audit.json
+            knossos-mobile-audit.json
           if-no-files-found: ignore
           retention-days: 30
       - name: Publish downloaded model for authorized review
@@ -72,5 +103,13 @@ jobs:
         with:
           name: knossos-review-glb
           path: downloaded-knossos/*.glb
+          if-no-files-found: error
+          retention-days: 7
+      - name: Publish mobile review GLB
+        if: env.DOWNLOAD_ASSET == 'true' && env.OPTIMIZE_PREVIEW == 'true' && success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: knossos-mobile-review-glb
+          path: knossos-mobile-preview.glb
           if-no-files-found: error
           retention-days: 7
