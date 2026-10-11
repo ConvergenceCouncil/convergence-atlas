@@ -53,9 +53,9 @@ jobs:
       - name: Build persistent review assets and enforce budgets
         run: |
           mkdir -p assets/review/knossos
-          gltfpack -i knossos-throne-iphone.glb -o assets/review/knossos/knossos-throne-review.glb -noq
+          gltfpack -i knossos-throne-browser.glb -o assets/review/knossos/knossos-throne-review.glb -noq
           python3 tools/audit_architecture.py assets/review/knossos/knossos-throne-review.glb > assets/review/knossos/knossos-throne-audit.json
-          python3 tools/validate_review_glb.py assets/review/knossos/knossos-throne-review.glb > assets/review/knossos/build-report.json
+          python3 tools/validate_review_glb.py assets/review/knossos/knossos-throne-review.glb --texture-max 4096 > assets/review/knossos/build-report.json
           PATH="/usr/bin:/bin:$PATH" blender -b --python-exit-code 1 -P tools/build_terrain_review.py -- assets/review/seattle
           gltfpack -i assets/review/seattle/seattle-center-terrain-review.glb -o assets/review/seattle/seattle-center-terrain-preview.glb -noq
           python3 tools/audit_architecture.py assets/review/seattle/seattle-center-terrain-preview.glb > assets/review/seattle/seattle-center-terrain-audit.json
