@@ -1,0 +1,29 @@
+name: Seattle mapped ground pilot
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/seattle_ground.py
+      - .github/workflows/seattle-ground-pilot.yml
+permissions:
+  contents: write
+concurrency:
+  group: seattle-ground-export
+  cancel-in-progress: false
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m unittest discover -s tests -p test_seattle_ground.py
+      - run: python scripts/seattle_ground.py
+      - name: Publish validated cache
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/seattle-ground-pilot.geojson
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Publish mapped Seattle roads and tree locations'
+          git pull --rebase origin main
+          git push origin main
