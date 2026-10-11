@@ -11,3 +11,20 @@ console.log('PASS: inspection height offsets, zoom detail and resized phone pixe
 assert.equal(ctx.cameraClearance(3000,2900),100);
 assert.equal(ctx.cameraClearance(100,undefined),100);
 assert.equal(ctx.cameraClearance(20,30),0);
+for(const high of [false,true]){
+ const street=ctx.terrainCacheBudget('street',high,false),nearby=ctx.terrainCacheBudget('near',high,false);
+ assert.equal(street,nearby,'Desktop cache must retain the same capacity across street/near transitions');
+ assert.ok(street>ctx.terrainCacheBudget('street',high,true));
+ assert.ok(street<=512);
+}
+assert.equal(ctx.terrainCacheBudget('street',true,true),220);
+assert.equal(ctx.terrainCacheBudget('near',true,true),140);
+assert.equal(ctx.terrainCacheBudget('far',true,true),65);
+assert.ok(html.includes('viewer.scene.globe.tileCacheSize=terrainCacheBudget(next,high,mobile)'));
+const callbacks={},globe={getHeight:()=>0};
+const integration={quality:'high',mobile:false,innerWidth:1920,innerHeight:1080,window:{devicePixelRatio:1},globalBuildings:{},document:{getElementById:()=>({})},viewer:{scene:{globe},camera:{positionCartographic:{height:90},changed:{addEventListener:f=>callbacks.changed=f},moveEnd:{addEventListener:f=>callbacks.end=f}}}};
+vm.createContext(integration);vm.runInContext(helpers, integration);
+vm.runInContext(html.slice(html.indexOf("let currentLod='';"),html.indexOf("document.getElementById('quality').onclick")),integration);
+assert.equal(typeof callbacks.end,'function','Settled camera must apply final detail');
+callbacks.end();assert.equal(globe.tileCacheSize,512);assert.equal(integration.globalBuildings.maximumScreenSpaceError,3.75);
+integration.viewer.camera.positionCartographic.height=4500;callbacks.end();assert.equal(globe.tileCacheSize,512);

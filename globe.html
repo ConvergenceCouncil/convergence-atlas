@@ -39,6 +39,11 @@ function globeDetailPolicy(altitude,high,mobile,width,height,dpr){
 function cameraClearance(height,terrainHeight){
  return Math.max(0,height-(Number.isFinite(terrainHeight)?terrainHeight:0));
 }
+function terrainCacheBudget(lod,high,mobile){
+ if(mobile)return {street:high?220:130,near:140,regional:100,far:65}[lod];
+ // Keep the nearby working set resident across street/building zoom changes.
+ return {street:high?512:320,near:high?512:320,regional:high?384:256,far:high?256:128}[lod];
+}
 function inspectionOffset(aboveGround){
  const height=Math.max(20,aboveGround);
  const pitchDegrees=height<=100?-16:height<=800?-32:-60;
@@ -51,7 +56,6 @@ function applyQuality(mode){
  viewer.useBrowserRecommendedResolution=true;
  viewer.scene.fxaa=true;
  viewer.scene.globe.maximumScreenSpaceError=detailed?1.5:3;
- viewer.scene.globe.tileCacheSize=detailed?180:90;
  viewer.scene.globe.preloadAncestors=true;
  viewer.scene.globe.preloadSiblings=detailed&&!mobile;
  viewer.scene.globe.depthTestAgainstTerrain=true;
@@ -59,7 +63,7 @@ function applyQuality(mode){
  viewer.scene.globe.enableLighting=false;
  if(globalBuildings){globalBuildings.maximumScreenSpaceError=detailed?8:16;}
  document.getElementById('quality').textContent=detailed?'Quality: High':'Quality: Balanced';
- currentLod='';updateZoomLod();
+ currentLod='';updateZoomLod();adaptBuildingBudget();
 }
 
 viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(-122.33,47.61,12500000)});
@@ -99,12 +103,13 @@ function updateZoomLod(){
  currentLod=next;
  const high=quality==='high';
  viewer.scene.globe.maximumScreenSpaceError=policy.terrain;
- viewer.scene.globe.tileCacheSize=next==='street'?(high?220:130):next==='near'?140:next==='regional'?100:65;
+ viewer.scene.globe.tileCacheSize=terrainCacheBudget(next,high,mobile);
  if(globalBuildings)globalBuildings.maximumScreenSpaceError=policy.buildings;
  const lodStatus=document.getElementById('lod-status');
  if(lodStatus)lodStatus.textContent='Detail: '+next+' · adaptive terrain and buildings';
 }
 viewer.camera.changed.addEventListener(updateZoomLod);
+viewer.camera.moveEnd.addEventListener(updateZoomLod);
 document.getElementById('quality').onclick=()=>{applyQuality(quality==='high'?'balanced':'high');status.textContent=quality==='high'?'High-detail mode: finer terrain and building LOD, up to 2× display resolution. May use more battery and memory.':'Balanced mode: lower GPU and memory usage.';};
 // Stream progressively finer city tiles while keeping mobile memory bounded.
 let lastTilePressure='normal';

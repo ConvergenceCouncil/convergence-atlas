@@ -58,3 +58,9 @@ Enabled Cesium request-render mode with time-only redraws disabled; camera movem
 - Road-segment and tree entity changes now suspend/resume Cesium collection events as a batch, with `finally` restoring delivery after errors.
 - Regression fixture: 120 tree additions emit one collection notification; 120 removals emit one; unchanged entities emit none. Nearby budgets, geometry and image resolution are unchanged.
 - All five local globe test suites pass. This verifies event overhead reduction, not measured phone FPS; actual-device rendering still needs measurement.
+
+
+### Desktop navigation cache — desktop1 (2026-10-11)
+- Desktop High retains a 512-tile terrain cache at street and nearby views (384 regional / 256 far); Balanced uses 320 nearby / 256 regional / 128 far. Phone cache limits are unchanged.
+- Final camera moveEnd now reapplies terrain/building detail; quality changes apply building memory limits immediately instead of waiting for movement.
+- Tests exercise settled-camera detail and desktop cache continuity. All five suites pass. Existing resolution, building geometry and detail targets remain unchanged; laptop FPS and GPU memory consumption are not measured by these tests.
