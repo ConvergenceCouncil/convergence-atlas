@@ -42,7 +42,7 @@ def convert(data):
         features.append({'type':'Feature','id':identity,'properties':p,'geometry':geom})
     counts={kind:sum(f['properties']['kind']==kind for f in features) for kind in ('road','tree')}
     if not all(counts.values()): raise ValueError('Pilot needs both mapped roads and trees: '+str(counts))
-    if len(features)>2500: raise ValueError('Unexpectedly large export')
+    if len(features)>10000: raise ValueError('Unexpectedly large export: '+str(counts))
     return {'type':'FeatureCollection','bbox':BBOX,'metadata':{'source':'© OpenStreetMap contributors','license':'ODbL-1.0','source_url':'https://www.openstreetmap.org/copyright','query':QUERY,'exported_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'counts':counts,'limitations':'Incomplete mapped coverage. Unmapped trees are not invented. Road widths and tree heights are estimated where absent; no drivable geometry or collision.'},'features':features}
 def main():
     errors=[]
