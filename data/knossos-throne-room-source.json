@@ -37,6 +37,13 @@
   },
   "buildRun": "https://github.com/ConvergenceCouncil/convergence-atlas/actions/runs/38092330462",
   "reviewAsset": "assets/review/knossos/knossos-throne-review.glb",
-  "reviewBytes": 17319384,
-  "reviewSha256": "46fae2ae0f28b3756a61646bb7962964be4d9f8279a7d816f46c57476458daa6"
+  "reviewBytes": 20062732,
+  "reviewSha256": "4702fe2d21f940785bc1a197f8241c8b955bc017ddc229ebd0d3396776fa65c2",
+  "reviewTextureSizes": [
+    [
+      4096,
+      4096
+    ]
+  ],
+  "publishRun": "https://github.com/ConvergenceCouncil/convergence-atlas/actions/runs/38105636051"
 }
