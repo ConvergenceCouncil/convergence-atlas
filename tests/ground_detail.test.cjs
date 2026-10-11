@@ -8,3 +8,9 @@ assert.equal(selectFeatures(features,[0,0],90,true).length,0);
 assert.equal(selectFeatures(features,[-122.349,47.6205],90,true)[0].id,'node/0');
 assert.ok(distanceMeters([0,0],[0,1])>111000);
 console.log('Ground budgets, proximity selection and culling passed');
+
+const {surfaceColor,treeAppearance}=require('../ground-detail.js');
+assert.equal(surfaceColor({highway:'cycleway',surface:'asphalt'}),'#45494c');
+assert.notEqual(surfaceColor({surface:'concrete'}),surfaceColor({surface:'dirt'}));
+assert.deepEqual(treeAppearance('node/123'),treeAppearance('node/123'));
+assert.notEqual(treeAppearance('node/123').uri,treeAppearance('node/124').uri);

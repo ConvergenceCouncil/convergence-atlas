@@ -2,6 +2,18 @@
 (function(root){'use strict';
 function distanceMeters(a,b){const r=Math.PI/180,h=Math.sin((a[1]-b[1])*r/2)**2+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.sin((a[0]-b[0])*r/2)**2;return 12742000*Math.asin(Math.sqrt(Math.min(1,h)));}
 function detailBudget(altitude,mobile){return {roads:altitude<5000?(mobile?100:180):0,trees:altitude<1400?(mobile?120:240):0};}
+function surfaceColor(properties){
+ const surface=String(properties.surface||'').toLowerCase();
+ if(['asphalt','paved'].includes(surface))return '#45494c';
+ if(['concrete','concrete:plates','paving_stones'].includes(surface))return '#aaa79e';
+ if(['gravel','fine_gravel','compacted','pebblestone'].includes(surface))return '#9b9079';
+ if(['dirt','earth','ground','sand','unpaved'].includes(surface))return '#8c785b';
+ return ['footway','path','pedestrian','steps'].includes(properties.highway)?'#b7aa8c':'#42464a';
+}
+function treeAppearance(id){
+ const hash=Number(String(id).split('/')[1])||0;
+ return {uri:hash%3===0?'assets/pilot-upright-v2.glb':'assets/pilot-broadleaf-v2.glb',heading:(hash%360)*Math.PI/180};
+}
 function selectFeatures(features,focus,altitude,mobile){
  const budget=detailBudget(altitude,mobile),selected=[];
  for(const kind of ['road','tree']){
@@ -42,11 +54,11 @@ function install(viewer,Cesium,mobile){
   for(const f of selected){
    const id=String(f.id),p=f.properties;if(rows.has(id))continue;const entities=[];
    if(p.kind==='road'){
-    const pedestrian=['footway','path','pedestrian','cycleway','steps'].includes(p.highway),color=Cesium.Color.fromCssColorString(pedestrian?'#b7aa8c':'#42464a').withAlpha(.87);
+    const color=Cesium.Color.fromCssColorString(surfaceColor(p)).withAlpha(.87);
     f.geometry.coordinates.forEach((coords,index)=>entities.push(layer.entities.add({id:'ground-'+id+'-'+index,name:p.name||p.highway+' · mapped road',properties:p,corridor:{positions:Cesium.Cartesian3.fromDegreesArray(coords.flat()),width:p.width_m,cornerType:Cesium.CornerType.ROUNDED,material:color,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,classificationType:Cesium.ClassificationType.TERRAIN,zIndex:2,outline:false,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,6000)}})));
    }else{
-    const coords=f.geometry.coordinates,hash=Number(id.split('/')[1])||0,position=Cesium.Cartesian3.fromDegrees(coords[0],coords[1]);
-    entities.push(layer.entities.add({id:'ground-'+id,name:p.name||'Mapped tree · generic foliage proxy',position,properties:p,orientation:Cesium.Transforms.headingPitchRollQuaternion(position,new Cesium.HeadingPitchRoll((hash%360)*Math.PI/180,0,0)),model:{uri:'assets/pilot-broadleaf.glb',scale:p.height_m/8,minimumPixelSize:0,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,shadows:Cesium.ShadowMode.DISABLED,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,1700)}}));
+    const coords=f.geometry.coordinates,appearance=treeAppearance(id),position=Cesium.Cartesian3.fromDegrees(coords[0],coords[1]);
+    entities.push(layer.entities.add({id:'ground-'+id,name:p.name||'Mapped tree · generic foliage proxy',position,properties:p,orientation:Cesium.Transforms.headingPitchRollQuaternion(position,new Cesium.HeadingPitchRoll(appearance.heading,0,0)),model:{uri:appearance.uri,scale:p.height_m/8,minimumPixelSize:0,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,shadows:Cesium.ShadowMode.DISABLED,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,1700)}}));
    }rows.set(id,entities);
   }
   layer.show=true;const trees=selected.filter(f=>f.properties.kind==='tree').length;
@@ -55,5 +67,5 @@ function install(viewer,Cesium,mobile){
  viewer.camera.moveEnd.addEventListener(()=>update().catch(e=>console.warn('Ground detail update',e)));
  update().catch(e=>console.warn(e));return {refresh:()=>update(true)};
 }
-const api={distanceMeters,detailBudget,selectFeatures,install};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ConvergenceGroundDetail=api;
+const api={distanceMeters,detailBudget,surfaceColor,treeAppearance,selectFeatures,install};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ConvergenceGroundDetail=api;
 })(typeof window!=='undefined'?window:globalThis);

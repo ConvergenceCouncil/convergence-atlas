@@ -1,12 +1,13 @@
 """Original generic broadleaf proxy, 8m tall. Not a species reconstruction."""
-import sys
+import sys, os
 # Debian Blender may need system extension modules when embedded in a managed runtime.
 for extra in ('/usr/lib/python3.12/lib-dynload','/usr/lib/python3/dist-packages'):
-    if pathlib_check := __import__('os').path.isdir(extra): sys.path.append(extra)
+    if os.path.isdir(extra): sys.path.append(extra)
 import bpy, math, random, pathlib
 from mathutils import Vector
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
-rng=random.Random(82)
+variant=os.environ.get('CONVERGENCE_TREE_VARIANT','broad')
+rng=random.Random(82 if variant=='broad' else 157)
 def material(name,color):
     m=bpy.data.materials.new(name);m.diffuse_color=(*color,1);m.use_nodes=True
     bs=m.node_tree.nodes.get('Principled BSDF');bs.inputs['Base Color'].default_value=(*color,1);bs.inputs['Roughness'].default_value=.94
@@ -22,15 +23,15 @@ for i in range(9):
     x,y=math.cos(angle)*rad,math.sin(angle)*rad
     branch((0,0,2.6+(i%3)*.7),(x,y,z),.075)
     bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2,radius=1,location=(x,y,z+.55))
-    o=bpy.context.object;o.scale=(1.5,1.35,1.75)
-    for v in o.data.vertices: v.co*=rng.uniform(.86,1.14)
-    for m in greens:o.data.materials.append(m)
-    for p in o.data.polygons:p.material_index=rng.randrange(4);p.use_smooth=True
+    o=bpy.context.object;o.scale=(1.5,1.35,1.75) if variant=='broad' else (1.1,1.05,2.05)
+    for v in o.data.vertices: v.co*=rng.uniform(.96,1.04)
+    o.data.materials.append(greens[i%len(greens)])
+    for p in o.data.polygons:p.material_index=0;p.use_smooth=True
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
 bpy.ops.object.join();o=bpy.context.object
 max_z=max((o.matrix_world@v.co).z for v in o.data.vertices)
 o.scale=(8/max_z,)*3;bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
 bpy.context.scene.cursor.location=(0,0,0);bpy.ops.object.origin_set(type='ORIGIN_CURSOR')
-path=pathlib.Path(__file__).resolve().parents[1]/'assets/pilot-broadleaf.glb'
+path=pathlib.Path(__file__).resolve().parents[1]/('assets/pilot-broadleaf-v2.glb' if variant=='broad' else 'assets/pilot-upright-v2.glb')
 bpy.ops.export_scene.gltf(filepath=str(path),export_format='GLB',use_selection=True,export_yup=True)
 print('TREE_TRIANGLES',sum(len(p.vertices)-2 for p in o.data.polygons),'HEIGHT_METERS',8,'BYTES',path.stat().st_size)
