@@ -3,6 +3,13 @@ export function mobileProfile(touch,dpr,width,height){
  return {fps:touch?30:60,antialias:!touch,pixelRatio:Math.min(dpr,touch?1:1.5,Math.sqrt((touch?900000:2400000)/Math.max(1,width*height)))};
 }
 export class FrameGate{
- constructor(fps){this.interval=1000/fps;this.last=-Infinity;}
- allow(now,hidden,active){if(hidden||!active||now-this.last<this.interval)return false;this.last=now;return true;}
+ constructor(fps){this.interval=1000/fps;this.next=null;}
+ allow(now,hidden,active){
+  if(hidden||!active){this.next=null;return false;}
+  if(this.next===null){this.next=now+this.interval;return true;}
+  if(now+0.01<this.next)return false;
+  this.next+=this.interval;
+  if(this.next<=now)this.next=now+this.interval;
+  return true;
+ }
 }

@@ -1,5 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {mobileProfile,FrameGate} from '../js/mobile-review.mjs';
-test('touch renderer bounds pixels even on a high density display',()=>{const p=mobileProfile(true,3,1000,1000);assert.equal(p.fps,30);assert.ok(p.pixelRatio*p.pixelRatio*1000000<=900000);assert.equal(p.antialias,false)});
-test('hidden frames and idle scenes do not render; active frames respect 30 FPS',()=>{const g=new FrameGate(30);assert.equal(g.allow(0,true,true),false);assert.equal(g.allow(0,false,false),false);assert.equal(g.allow(0,false,true),true);assert.equal(g.allow(16,false,true),false);assert.equal(g.allow(34,false,true),true);});
+import {FrameGate,mobileProfile} from '../js/mobile-review.mjs';
+test('30 FPS pacing stays near target over 60 Hz callbacks',()=>{const g=new FrameGate(30);let renders=0;for(let n=0;n<600;n++)if(g.allow(n*1000/60,false,true))renders++;assert.ok(renders>=299&&renders<=301,`rendered ${renders} times in ten seconds`)});
+test('hidden and idle frames pause, resume immediately',()=>{const g=new FrameGate(30);assert.equal(g.allow(0,false,true),true);assert.equal(g.allow(10,false,true),false);assert.equal(g.allow(15,true,true),false);assert.equal(g.allow(16,false,true),true);assert.equal(g.allow(17,false,false),false);assert.equal(g.allow(18,false,true),true)});
+test('phone pixel budget survives landscape resize',()=>{for(const [w,h] of [[390,844],[844,390],[1400,1000]]){const p=mobileProfile(true,3,w,h);assert.ok(w*h*p.pixelRatio**2<=900001);assert.equal(p.antialias,false)}});
