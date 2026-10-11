@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict'),api=require('../globe-ui.js');
+for(const message of ['Loading Earth…','Fetching buildings','Terrain unavailable','Unable to initialize 3D globe','Satellite tiles could not load','Choose a destination first.'])assert.equal(api.statusIsPersistent(message),true,message);
+for(const message of ['3D globe ready.','153 searchable locations ready.','Seattle · 90 m above sampled terrain.'])assert.equal(api.statusIsPersistent(message),false,message);
+assert.equal(api.showCountryOverlay(90),false);assert.equal(api.showCountryOverlay(12000),false);assert.equal(api.showCountryOverlay(500000),true);assert.equal(api.showCountryOverlay(NaN),false);
+let callback,scheduled,cancelled=0,disconnected=false;
+global.MutationObserver=class{constructor(cb){callback=cb;}observe(){}disconnect(){disconnected=true;}};
+const oldSet=global.setTimeout,oldClear=global.clearTimeout;
+global.setTimeout=cb=>(scheduled=cb,1);global.clearTimeout=()=>cancelled++;
+const classes=new Set(),source={textContent:'Globe ready'},banner={classList:{add:x=>classes.add(x),remove:x=>classes.delete(x)}};
+const cleanup=api.installStatus(source,banner);scheduled();assert.equal(classes.has('quiet'),true);
+source.textContent='Unable to load terrain';callback();assert.equal(classes.has('quiet'),false);assert.equal(banner.textContent,source.textContent);
+cleanup();assert.ok(disconnected&&cancelled>=3);
+global.setTimeout=oldSet;global.clearTimeout=oldClear;
+console.log('PASS: persistent errors/loading, settled-message fade and close-view overlay policy');

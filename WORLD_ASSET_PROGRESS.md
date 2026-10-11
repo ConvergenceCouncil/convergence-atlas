@@ -44,3 +44,7 @@ Road selection now measures proximity to full line segments rather than endpoint
 ### Progressive zoom transitions
 
 Nearby tree budgets now reduce gradually between 600m and 1,400m camera clearance instead of removing the full layer at one cutoff. Road budgets reduce between 1,500m and 5,000m. Closest ground views retain 100 road ways and 120 trees on phones. Both tree and road budget changes refresh even when the view focus stays still, and retention prioritizes nearer mapped features. Monotonic budget tests and selection checks across the actual Seattle dataset pass. This is gradual geometry thinning, not transparency blending; actual phone visual smoothness remains to be checked.
+
+### Globe presentation refinement
+
+Removed country polygon fill and limited country outlines to camera heights at or above 150km, keeping local imagery unobscured by the atlas overlay. Settled status notices fade after seven seconds; loading and error notices remain visible, with full messages retained in the menu. Panels and building details respect phone safe-area insets; the explore button has a 44px minimum touch target. Escape closes the menu and building inspector. Regression checks verify status lifecycle and overlay visibility, with existing ground/detail tests passing. This does not certify new imagery resolution or actual iPhone rendering performance.
