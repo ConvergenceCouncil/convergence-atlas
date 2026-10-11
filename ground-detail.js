@@ -58,7 +58,7 @@ function install(viewer,Cesium,mobile){
  async function update(force=false){
   if(disposed)return;
   const c=viewer.camera.positionCartographic,ground=viewer.scene.globe.getHeight(c)||0,altitude=Math.max(0,c.height-ground),focus=focusPoint();
-  if(altitude>=5000||distanceMeters(focus,[-122.349,47.6205])>4000){if(layer)layer.show=false;lastFocus=null;info.textContent='Roads & foliage: Seattle Center pilot · zoom closer to load';return;}
+  if(altitude>=5000||distanceMeters(focus,[-122.349,47.6205])>4000){if(layer&&layer.show){layer.show=false;viewer.scene.requestRender();}lastFocus=null;info.textContent='Roads & foliage: Seattle Center pilot · zoom closer to load';return;}
   if(!data){
    if(loading||Date.now()<retryAfter)return;
    info.textContent='Loading mapped Seattle ground detail…';

@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CONVERGENCE · 3D Earth prototype</title><link href="https://cesium.com/downloads/cesiumjs/releases/1.132/Build/Cesium/Widgets/widgets.css" rel="stylesheet"><style>html,body,#globe{margin:0;width:100%;height:100%;overflow:hidden;background:#07111c;font-family:system-ui,sans-serif}#panel.collapsed{max-height:none;width:auto;max-width:calc(100vw - 24px);padding:6px 9px;background:rgba(9,21,38,.72);border-color:rgba(181,160,102,.6)}#panel.collapsed #panel-content{display:none}#panel.collapsed #panel-toggle{margin:0}#panel-toggle{font-weight:600;cursor:pointer}#panel-content{margin-top:8px}#panel{position:absolute;z-index:5;top:12px;left:12px;right:12px;max-width:370px;max-height:45vh;overflow-y:auto;background:rgba(9,21,38,.94);border:1px solid #8a7849;border-radius:12px;padding:12px;color:#eee;box-sizing:border-box}a{color:#e8c782}button{background:#243c54;border:1px solid #a3a6aa;border-radius:6px;padding:8px;color:white}#status{font-size:12px;line-height:1.5;color:#d7e0e9;margin-top:8px}.cesium-viewer-bottom{bottom:3px!important}#load-status{position:absolute;z-index:5;bottom:32px;left:12px;max-width:min(420px,calc(100vw - 48px));background:rgba(9,21,38,.9);padding:8px 12px;border-radius:8px;color:#eee;font-size:12px;pointer-events:none}#engine-controls{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}#engine-controls button{min-height:44px}#location-search{box-sizing:border-box;width:100%;padding:10px;margin-bottom:8px;background:#20364c;color:white;border:1px solid #a3a6aa;border-radius:6px}#panel{max-height:70vh}#engine-controls #needle-model,#engine-controls #landmark-models,#engine-controls [data-fly]{display:none}#panel{top:calc(12px + env(safe-area-inset-top));max-height:70dvh}#panel-toggle{min-height:44px}#load-status{bottom:calc(32px + env(safe-area-inset-bottom));transition:opacity .3s ease;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}#load-status.quiet{opacity:0}.cesium-viewer-bottom{bottom:calc(3px + env(safe-area-inset-bottom))!important}@media(prefers-reduced-motion:reduce){#load-status{transition:none}}</style></head>
 <body><div id="globe"></div><div id="load-status" role="status" aria-live="polite">Loading Earth… If this takes too long, open the <a href="index.html">2D Atlas</a>.</div><div id="panel" class="collapsed"><button id="panel-toggle" aria-expanded="false">☰ Explore locations</button><div id="panel-content"><div style="margin:5px 0"><input id="location-search" type="search" placeholder="Search places, cities or Guilds" aria-label="Search destinations"><select aria-label="Destination" id="destinations" style="width:100%;padding:9px;background:#20364c;color:#fff;border:1px solid #a3a6aa;border-radius:6px"><option value="">Choose a destination…</option></select><button id="inspect" style="margin-top:6px">Go to location</button></div><div id="status">Loading globe…</div><div style="font-size:11px;margin-top:8px"><a href="index.html">2D Atlas</a> · <a href="terrain.html">Regional terrain</a></div></div></div>
 <div id="engine-controls"><button id="terrain">Terrain</button><button id="orbit">Orbit</button><button id="buildings">Local buildings</button><button id="global-buildings">Global buildings</button><button id="needle-model">Space Needle</button><button id="landmark-models">Wonders</button><button id="imagery">Imagery</button><button id="quality">Quality</button><div id="lod-status"></div><div id="imagery-detail"></div><button data-inspect-height="4500">Aerial</button><button data-inspect-height="800">Building</button><button data-inspect-height="90">Ground</button><button data-fly="-122.3321,47.6062,25000">Seattle</button></div>
-<script src="globe-ui.js?v=1"></script><script src="ground-detail.js?v=4"></script><script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
+<script src="globe-ui.js?v=1"></script><script src="ground-detail.js?v=5"></script><script src="https://cdn.jsdelivr.net/npm/cesium@1.132.0/Build/Cesium/Cesium.js"></script><script>
 (async function(){'use strict';document.getElementById('panel-toggle').onclick=()=>{const panel=document.getElementById('panel');const collapsed=panel.classList.toggle('collapsed');document.getElementById('panel-toggle').setAttribute('aria-expanded',String(!collapsed));};const status=document.getElementById('status');
 const visibleStatus=document.getElementById('load-status');
 const globeUI=window.ConvergenceGlobeUI;
@@ -12,15 +12,19 @@ document.getElementById('panel-content').appendChild(document.getElementById('en
 async function withTimeout(promise, milliseconds=12000){let timer;try{return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Connection timed out')),milliseconds);})]);}finally{clearTimeout(timer);}}
 async function getJSON(path){const response=await fetch(path,{signal:AbortSignal.timeout(12000)});if(!response.ok)throw Error(path+' HTTP '+response.status);return response.json();}
 if(typeof Cesium==='undefined'){status.textContent='3D engine could not load. Use the 2D Atlas.';return;}try{
-const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false});
+const viewer=new Cesium.Viewer('globe',{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,homeButton:true,sceneModePicker:true,navigationHelpButton:false,fullscreenButton:false,infoBox:true,selectionIndicator:true,terrainProvider:new Cesium.EllipsoidTerrainProvider(),baseLayer:false,requestRenderMode:true,maximumRenderTimeChange:Infinity});
 let countryOverlay=null;
-function updateCountryOverlay(){if(countryOverlay)countryOverlay.show=globeUI?globeUI.showCountryOverlay(viewer.camera.positionCartographic.height):viewer.camera.positionCartographic.height>=150000;}
+function updateCountryOverlay(){if(countryOverlay){const show=globeUI?globeUI.showCountryOverlay(viewer.camera.positionCartographic.height):viewer.camera.positionCartographic.height>=150000;if(countryOverlay.show!==show){countryOverlay.show=show;viewer.scene.requestRender();}}}
 viewer.camera.changed.addEventListener(updateCountryOverlay);
 viewer.camera.moveEnd.addEventListener(updateCountryOverlay);
 viewer.scene.globe.baseColor=Cesium.Color.fromCssColorString('#28516b');
 viewer.scene.highDynamicRange=true;
 viewer.scene.globe.enableLighting=false;
 const mobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+viewer.targetFrameRate=mobile?30:60;
+viewer.scene.highDynamicRange=!mobile;
+document.addEventListener('visibilitychange',()=>{viewer.useDefaultRenderLoop=!document.hidden;if(!document.hidden)viewer.scene.requestRender();});
+viewer.useDefaultRenderLoop=!document.hidden;
 let quality='balanced';
 function globeDetailPolicy(altitude,high,mobile,width,height,dpr){
  const lod=altitude<1200?'street':altitude<12000?'near':altitude<180000?'regional':'far';
@@ -49,7 +53,7 @@ function applyQuality(mode){
  viewer.scene.globe.maximumScreenSpaceError=detailed?1.5:3;
  viewer.scene.globe.tileCacheSize=detailed?180:90;
  viewer.scene.globe.preloadAncestors=true;
- viewer.scene.globe.preloadSiblings=detailed;
+ viewer.scene.globe.preloadSiblings=detailed&&!mobile;
  viewer.scene.globe.depthTestAgainstTerrain=true;
  viewer.scene.globe.showGroundAtmosphere=true;
  viewer.scene.globe.enableLighting=false;
@@ -61,14 +65,22 @@ function applyQuality(mode){
 viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(-122.33,47.61,12500000)});
 try{const imagery=new Cesium.UrlTemplateImageryProvider({url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',credit:'Esri, Vantor, Earthstar Geographics and the GIS User Community',maximumLevel:19});imagery.errorEvent.addEventListener(()=>{status.textContent='Satellite tiles could not load. Earth controls remain available; try the 2D Atlas or reload.';});viewer.imageryLayers.addImageryProvider(imagery);}catch(e){console.warn('Imagery unavailable:',e);}
 status.textContent='3D globe ready. Elevation loads automatically; choose Rainier or Seattle.';
-try{const resource=await fetch('data/earth/ne110-countries.geojson',{signal:AbortSignal.timeout(10000)});if(!resource.ok)throw Error('HTTP '+resource.status);const data=await resource.json();const ds=await Cesium.GeoJsonDataSource.load(data,{stroke:Cesium.Color.fromCssColorString('#d6bc78'),strokeWidth:1,fill:Cesium.Color.fromCssColorString('#16354c').withAlpha(.08),clampToGround:false});for(const entity of ds.entities.values){if(entity.polygon)entity.polygon.fill=false;}
-countryOverlay=ds;viewer.dataSources.add(ds);updateCountryOverlay();status.textContent='Country outlines ready; terrain and buildings load automatically.';}catch(e){status.textContent='Globe loaded; country overlay unavailable: '+e.message;}
+// Independent source requests start together; optional country outlines never block controls.
+const terrainConnection=withTimeout(Cesium.CesiumTerrainProvider.fromUrl('https://terrain.reearth.land/cesium-mesh/ellipsoid',{requestVertexNormals:true,requestWaterMask:true}));
+terrainConnection.catch(()=>{});
+const locationSources=[['guild','data/approved-guild-registry.json'],['wonder','data/modern-seven-wonders.geojson'],['relic','data/ancient-relic-cities.geojson'],['landmark','data/tourist-attractions.geojson'],['landmark','data/tourist-attractions-expansion.geojson']];
+const locationResults=Promise.allSettled(locationSources.map(([,path])=>getJSON(path)));
+function connectBuildingTiles(){return withTimeout(Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:quality==='high'?8:16,dynamicScreenSpaceError:false,skipLevelOfDetail:false}));}
+let buildingConnection=connectBuildingTiles();buildingConnection.catch(()=>{});
+
+(async()=>{try{const resource=await fetch('data/earth/ne110-countries.geojson',{signal:AbortSignal.timeout(10000)});if(!resource.ok)throw Error('HTTP '+resource.status);const data=await resource.json();const ds=await Cesium.GeoJsonDataSource.load(data,{stroke:Cesium.Color.fromCssColorString('#d6bc78'),strokeWidth:1,fill:Cesium.Color.fromCssColorString('#16354c').withAlpha(.08),clampToGround:false});for(const entity of ds.entities.values){if(entity.polygon)entity.polygon.fill=false;}
+countryOverlay=ds;viewer.dataSources.add(ds);updateCountryOverlay();console.info('Optional country outlines ready.');}catch(e){console.warn('Optional country overlay unavailable',e);}})();
 let terrainEnabled=false;
 const terrainButton=document.getElementById('terrain');
 // Native quantized-mesh terrain replaces the experimental raster heightmap mesh.
 let terrainProvider=null;
 try{
- terrainProvider=await withTimeout(Cesium.CesiumTerrainProvider.fromUrl('https://terrain.reearth.land/cesium-mesh/ellipsoid',{requestVertexNormals:true,requestWaterMask:true}));
+ terrainProvider=await terrainConnection;
  status.textContent='Native quantized-mesh terrain provider connected (Re:Earth / Mapterhorn).';
 }catch(e){status.textContent='Native terrain unavailable: '+e.message+'. Smooth globe fallback.';}
 // Stream tiled Overture buildings worldwide, without an account token.
@@ -126,7 +138,8 @@ globalBuildingsButton.onclick=async()=>{
  if(buildingCollection){viewer.dataSources.remove(buildingCollection,true);buildingCollection=null;document.getElementById('buildings').textContent='Load nearby 3D buildings';}
  globalBuildingsButton.disabled=true;status.textContent='Connecting to worldwide 3D building tiles…';
  try{
-  const tileset=await withTimeout(Cesium.Cesium3DTileset.fromUrl('https://buildings.reearth.land/tileset.json',{maximumScreenSpaceError:quality==='high'?8:16,dynamicScreenSpaceError:false,skipLevelOfDetail:false}));
+  const connection=buildingConnection||connectBuildingTiles();buildingConnection=null;
+  const tileset=await connection;
   configureTileRefinement(tileset);
   viewer.scene.primitives.add(tileset);globalBuildings=tileset;currentLod='';updateZoomLod();adaptBuildingBudget();
   tileset.tileFailed.addEventListener(e=>{console.warn('3D building tile failed',e);status.textContent='Some building tiles could not load. Terrain and location controls remain available.';});
@@ -398,8 +411,8 @@ document.getElementById('orbit').onclick=async()=>{
 };
 const destinationSelect=document.getElementById('destinations');
 const destinations=[];
-const sources=[['guild','data/approved-guild-registry.json'],['wonder','data/modern-seven-wonders.geojson'],['relic','data/ancient-relic-cities.geojson'],['landmark','data/tourist-attractions.geojson'],['landmark','data/tourist-attractions-expansion.geojson']];
-const results=await Promise.allSettled(sources.map(([,path])=>getJSON(path)));
+const sources=locationSources;
+const results=await locationResults;
 const seen=new Set();
 results.forEach((result,index)=>{
  if(result.status!=='fulfilled'){console.warn('Location source unavailable',sources[index][1],result.reason);return;}
@@ -482,7 +495,7 @@ function refreshImagery(){
    usgsLayer=viewer.imageryLayers.addImageryProvider(provider);
   }catch(e){console.warn('USGS aerial imagery overlay unavailable',e);return;}
  }
- if(usgsLayer&&Math.abs(alpha-lastImageryAlpha)>.015){usgsLayer.alpha=alpha;lastImageryAlpha=alpha;}
+ if(usgsLayer&&Math.abs(alpha-lastImageryAlpha)>.015){usgsLayer.alpha=alpha;lastImageryAlpha=alpha;viewer.scene.requestRender();}
  const detail=document.getElementById('imagery-detail');
  if(detail)detail.textContent='Imagery: '+(alpha>.9?'USGS aerial':alpha>.01?'blending USGS aerial':'world satellite')+' · zoom-dependent tiles';
 }

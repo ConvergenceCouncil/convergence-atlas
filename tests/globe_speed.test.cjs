@@ -1,0 +1,15 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync(require('node:path').join(__dirname,'../globe.html'),'utf8');
+const requests=[];const pending=()=>new Promise(()=>{});
+const context={quality:'balanced',withTimeout:p=>p,getJSON:p=>(requests.push(p),pending()),Cesium:{CesiumTerrainProvider:{fromUrl:u=>(requests.push(u),pending())},Cesium3DTileset:{fromUrl:u=>(requests.push(u),pending())}}};
+vm.createContext(context);
+const startup=html.slice(html.indexOf('// Independent source requests'),html.indexOf('(async()=>{try{const resource='));
+vm.runInContext(startup,context);
+assert.equal(requests.length,7,'All seven startup requests should begin even while earlier ones remain unresolved');
+assert.ok(requests.some(x=>x.includes('terrain.reearth'))&&requests.some(x=>x.includes('buildings.reearth')));
+let visibility,frames=0;context.document={hidden:true,addEventListener:(name,cb)=>{if(name==='visibilitychange')visibility=cb;}};context.viewer={scene:{requestRender:()=>frames++}};
+const visibilityCode=html.slice(html.indexOf("document.addEventListener('visibilitychange'"),html.indexOf("let quality='balanced'"));
+vm.runInContext(visibilityCode,context);assert.equal(context.viewer.useDefaultRenderLoop,false);
+context.document.hidden=false;visibility();assert.equal(context.viewer.useDefaultRenderLoop,true);assert.equal(frames,1);
+context.document.hidden=true;visibility();assert.equal(context.viewer.useDefaultRenderLoop,false);
+console.log('PASS: concurrent startup, hidden-tab pause and resume rendering');
