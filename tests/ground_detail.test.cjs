@@ -26,3 +26,13 @@ assert.ok(featureDistance(crossingStreet,[-122.349,47.6205])<.01);
 const stable=selectFeatures(features,[-122.349,47.6205],90,true,new Set(['node/125']));
 assert.ok(stable.some(f=>f.id==='node/125'));
 assert.equal(stable.length,120);
+const middle=detailBudget(1000,true),close=detailBudget(100,true);
+assert.ok(middle.trees>0&&middle.trees<close.trees,'Trees should thin progressively with altitude');
+assert.ok(detailBudget(3500,true).roads<close.roads,'Road coverage should reduce progressively at aerial height');
+for(let altitude=0;altitude<=5500;altitude+=25){
+ const now=detailBudget(altitude,true),next=detailBudget(altitude+25,true);
+ assert.ok(next.trees<=now.trees&&next.roads<=now.roads);
+ assert.ok(now.trees<=120&&now.roads<=100);
+ assert.ok(now.trees-next.trees<=4,'No abrupt full tree-layer cutoff');
+ assert.ok(now.roads-next.roads<=4,'No abrupt full road-layer cutoff');
+}

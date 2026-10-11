@@ -40,3 +40,7 @@ Added two original generic broadleaf silhouettes with smooth canopy shading (42,
 ### Ground coverage and movement refinement
 
 Road selection now measures proximity to full line segments rather than endpoints, and reserves up to 25% of the existing road budget for nearby main/residential streets. This avoids tiny footpath sections crowding streets out of a dense view. Nearby ground detail responds during camera movement, throttled to 350ms and 30m movement, with a small retention preference to reduce feature churn. Limits remain 100 road ways/120 trees on phones. Lifecycle cleanup and stale-download guards are regression-tested. Selection was checked against the actual Seattle export; this is not an iPhone frame-rate measurement.
+
+### Progressive zoom transitions
+
+Nearby tree budgets now reduce gradually between 600m and 1,400m camera clearance instead of removing the full layer at one cutoff. Road budgets reduce between 1,500m and 5,000m. Closest ground views retain 100 road ways and 120 trees on phones. Both tree and road budget changes refresh even when the view focus stays still, and retention prioritizes nearer mapped features. Monotonic budget tests and selection checks across the actual Seattle dataset pass. This is gradual geometry thinning, not transparency blending; actual phone visual smoothness remains to be checked.

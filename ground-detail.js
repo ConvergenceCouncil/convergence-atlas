@@ -1,7 +1,10 @@
 /* Mapped Seattle pilot; generic tree proxies, no invented locations. */
 (function(root){'use strict';
 function distanceMeters(a,b){const r=Math.PI/180,h=Math.sin((a[1]-b[1])*r/2)**2+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.sin((a[0]-b[0])*r/2)**2;return 12742000*Math.asin(Math.sqrt(Math.min(1,h)));}
-function detailBudget(altitude,mobile){return {roads:altitude<5000?(mobile?100:180):0,trees:altitude<1400?(mobile?120:240):0};}
+function detailBudget(altitude,mobile){
+ const fade=(start,end)=>Math.max(0,Math.min(1,(end-altitude)/(end-start)));
+ return {roads:Math.round((mobile?100:180)*fade(1500,5000)),trees:Math.round((mobile?120:240)*fade(600,1400))};
+}
 function surfaceColor(properties){
  const surface=String(properties.surface||'').toLowerCase();
  if(['asphalt','paved'].includes(surface))return '#45494c';
@@ -64,7 +67,8 @@ function install(viewer,Cesium,mobile){
    catch(e){data=null;retryAfter=Date.now()+30000;info.textContent='Seattle ground detail unavailable; terrain and buildings remain usable.';console.warn('Ground pilot',e);return;}
    finally{loading=null;}if(disposed)return;return update(true);
   }
-  if(!force&&lastFocus&&distanceMeters(focus,lastFocus)<30&&detailBudget(altitude,mobile).trees===detailBudget(lastAltitude,mobile).trees)return;
+  const budget=detailBudget(altitude,mobile),previousBudget=detailBudget(lastAltitude,mobile);
+  if(!force&&lastFocus&&distanceMeters(focus,lastFocus)<30&&budget.trees===previousBudget.trees&&budget.roads===previousBudget.roads)return;
   lastFocus=focus;lastAltitude=altitude;
   if(!layer){layer=new Cesium.CustomDataSource('Seattle mapped ground pilot');await viewer.dataSources.add(layer);if(disposed){viewer.dataSources.remove(layer,true);return;}return update(true);}
   const selected=selectFeatures(data.features,focus,altitude,mobile,new Set(rows.keys())),wanted=new Set(selected.map(f=>String(f.id)));
