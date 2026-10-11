@@ -1,12 +1,12 @@
 {
   "file": "knossos-throne-review.glb",
-  "bytes": 17319384,
-  "sha256": "46fae2ae0f28b3756a61646bb7962964be4d9f8279a7d816f46c57476458daa6",
+  "bytes": 20062732,
+  "sha256": "4702fe2d21f940785bc1a197f8241c8b955bc017ddc229ebd0d3396776fa65c2",
   "triangles": 260678,
   "textureSizes": [
     [
-      2048,
-      2048
+      4096,
+      4096
     ]
   ],
   "geometryDecimated": false,
