@@ -14,3 +14,15 @@ assert.equal(surfaceColor({highway:'cycleway',surface:'asphalt'}),'#45494c');
 assert.notEqual(surfaceColor({surface:'concrete'}),surfaceColor({surface:'dirt'}));
 assert.deepEqual(treeAppearance('node/123'),treeAppearance('node/123'));
 assert.notEqual(treeAppearance('node/123').uri,treeAppearance('node/124').uri);
+const road=(id,highway,coordinates)=>({id,properties:{kind:'road',highway},geometry:{type:'MultiLineString',coordinates:[coordinates]}});
+const tinyPaths=Array.from({length:110},(_,i)=>road('way/'+i,'footway',[[-122.349+i*.000001,47.62051],[-122.349+i*.000001,47.62052]]));
+const crossingStreet=road('way/main','primary',[[-122.359,47.6205],[-122.339,47.6205]]);
+const roadSelection=selectFeatures([...tinyPaths,crossingStreet],[-122.349,47.6205],90,true);
+assert.equal(roadSelection.length,100);
+assert.ok(roadSelection.some(f=>f.id==='way/main'),'A main street crossing the view must survive dense footpaths');
+
+const {featureDistance}=require('../ground-detail.js');
+assert.ok(featureDistance(crossingStreet,[-122.349,47.6205])<.01);
+const stable=selectFeatures(features,[-122.349,47.6205],90,true,new Set(['node/125']));
+assert.ok(stable.some(f=>f.id==='node/125'));
+assert.equal(stable.length,120);

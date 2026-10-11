@@ -36,3 +36,7 @@ Phone rendering is limited to the nearest 100 road ways and 120 trees. The layer
 ### Ground-detail refinement pass
 
 Added two original generic broadleaf silhouettes with smooth canopy shading (42,304 and 42,296 bytes, 1,000 triangles each), selected deterministically by mapped tree ID. These are visual variety, not inferred species. Road colors now honor mapped asphalt, concrete, gravel and unpaved surfaces; unknown surfaces retain class defaults. Terrain/building detail uses camera clearance above available terrain height, falling back to ellipsoid height when terrain is unavailable. Phone feature budgets and mapped positions remain unchanged. Regression tests and Blender previews pass; real device frame rate and final surveyed alignment remain unverified.
+
+### Ground coverage and movement refinement
+
+Road selection now measures proximity to full line segments rather than endpoints, and reserves up to 25% of the existing road budget for nearby main/residential streets. This avoids tiny footpath sections crowding streets out of a dense view. Nearby ground detail responds during camera movement, throttled to 350ms and 30m movement, with a small retention preference to reduce feature churn. Limits remain 100 road ways/120 trees on phones. Lifecycle cleanup and stale-download guards are regression-tested. Selection was checked against the actual Seattle export; this is not an iPhone frame-rate measurement.

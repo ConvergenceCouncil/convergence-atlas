@@ -14,19 +14,36 @@ function treeAppearance(id){
  const hash=Number(String(id).split('/')[1])||0;
  return {uri:hash%3===0?'assets/pilot-upright-v2.glb':'assets/pilot-broadleaf-v2.glb',heading:(hash%360)*Math.PI/180};
 }
-function selectFeatures(features,focus,altitude,mobile){
+function featureDistance(feature,focus){
+ if(feature.properties.kind==='tree')return distanceMeters(feature.geometry.coordinates,focus);
+ // Local metric projection is appropriate for this bounded Seattle pilot.
+ const xScale=111195*Math.cos(focus[1]*Math.PI/180),yScale=111195;
+ let nearest=Infinity;
+ for(const line of feature.geometry.coordinates){
+  for(let i=1;i<line.length;i++){
+   const a=line[i-1],b=line[i],ax=(a[0]-focus[0])*xScale,ay=(a[1]-focus[1])*yScale,dx=(b[0]-a[0])*xScale,dy=(b[1]-a[1])*yScale;
+   const length=dx*dx+dy*dy,t=length?Math.max(0,Math.min(1,-(ax*dx+ay*dy)/length)):0;
+   nearest=Math.min(nearest,Math.hypot(ax+t*dx,ay+t*dy));
+  }
+ }return nearest;
+}
+function selectFeatures(features,focus,altitude,mobile,retained=new Set()){
  const budget=detailBudget(altitude,mobile),selected=[];
  for(const kind of ['road','tree']){
   if(!budget[kind+'s'])continue;
   const ranked=features.filter(f=>f.properties.kind===kind).map(f=>{
-   const coords=kind==='tree'?[f.geometry.coordinates]:f.geometry.coordinates.flat();
-   return {f,distance:Math.min(...coords.map(p=>distanceMeters(p,focus)))};
-  }).filter(x=>x.distance<(kind==='tree'?1600:3500)).sort((a,b)=>a.distance-b.distance||String(a.f.id).localeCompare(String(b.f.id)));
-  selected.push(...ranked.slice(0,budget[kind+'s']).map(x=>x.f));
+   const distance=featureDistance(f,focus);
+   return {f,distance,score:distance-(retained.has(String(f.id))?(kind==='tree'?20:40):0)};
+  }).filter(x=>x.distance<(kind==='tree'?1600:3500)).sort((a,b)=>a.score-b.score||String(a.f.id).localeCompare(String(b.f.id)));
+  const cap=budget[kind+'s'];
+  const main=kind==='road'?ranked.filter(x=>['primary','secondary','tertiary','residential','unclassified','living_street'].includes(x.f.properties.highway)).slice(0,Math.ceil(cap*.25)):[];
+  const ids=new Set(main.map(x=>String(x.f.id)));
+  const result=[...main,...ranked.filter(x=>!ids.has(String(x.f.id))).slice(0,cap-main.length)];
+  selected.push(...result.map(x=>x.f));
  }return selected;
 }
 function install(viewer,Cesium,mobile){
- let data=null,loading=null,layer=null,lastFocus=null,lastAltitude=0,retryAfter=0;
+ let data=null,loading=null,layer=null,lastFocus=null,lastAltitude=0,retryAfter=0,lastMovementUpdate=0,disposed=false;
  const rows=new Map();
  const info=document.createElement('div');info.id='ground-detail-status';info.style.cssText='font-size:11px;line-height:1.5;color:#c6d2bf';document.getElementById('panel-content').appendChild(info);
  viewer.cesiumWidget.creditDisplay.addStaticCredit(new Cesium.Credit('Roads and tree locations © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> · ODbL',true));
@@ -36,6 +53,7 @@ function install(viewer,Cesium,mobile){
   return [Cesium.Math.toDegrees(c.longitude),Cesium.Math.toDegrees(c.latitude)];
  }
  async function update(force=false){
+  if(disposed)return;
   const c=viewer.camera.positionCartographic,ground=viewer.scene.globe.getHeight(c)||0,altitude=Math.max(0,c.height-ground),focus=focusPoint();
   if(altitude>=5000||distanceMeters(focus,[-122.349,47.6205])>4000){if(layer)layer.show=false;lastFocus=null;info.textContent='Roads & foliage: Seattle Center pilot · zoom closer to load';return;}
   if(!data){
@@ -44,12 +62,12 @@ function install(viewer,Cesium,mobile){
    loading=fetch('data/seattle-ground-pilot.geojson',{signal:AbortSignal.timeout(12000)}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();});
    try{data=await loading;if(!Array.isArray(data.features)||!data.metadata?.counts)throw Error('Invalid ground data');}
    catch(e){data=null;retryAfter=Date.now()+30000;info.textContent='Seattle ground detail unavailable; terrain and buildings remain usable.';console.warn('Ground pilot',e);return;}
-   finally{loading=null;}return update(true);
+   finally{loading=null;}if(disposed)return;return update(true);
   }
-  if(!force&&lastFocus&&distanceMeters(focus,lastFocus)<100&&detailBudget(altitude,mobile).trees===detailBudget(lastAltitude,mobile).trees)return;
+  if(!force&&lastFocus&&distanceMeters(focus,lastFocus)<30&&detailBudget(altitude,mobile).trees===detailBudget(lastAltitude,mobile).trees)return;
   lastFocus=focus;lastAltitude=altitude;
-  if(!layer){layer=new Cesium.CustomDataSource('Seattle mapped ground pilot');await viewer.dataSources.add(layer);return update(true);}
-  const selected=selectFeatures(data.features,focus,altitude,mobile),wanted=new Set(selected.map(f=>String(f.id)));
+  if(!layer){layer=new Cesium.CustomDataSource('Seattle mapped ground pilot');await viewer.dataSources.add(layer);if(disposed){viewer.dataSources.remove(layer,true);return;}return update(true);}
+  const selected=selectFeatures(data.features,focus,altitude,mobile,new Set(rows.keys())),wanted=new Set(selected.map(f=>String(f.id)));
   for(const [id,entities] of rows){if(!wanted.has(id)){entities.forEach(e=>layer.entities.remove(e));rows.delete(id);}}
   for(const f of selected){
    const id=String(f.id),p=f.properties;if(rows.has(id))continue;const entities=[];
@@ -64,8 +82,11 @@ function install(viewer,Cesium,mobile){
   layer.show=true;const trees=selected.filter(f=>f.properties.kind==='tree').length;
   info.textContent=selected.length-trees+' mapped road ways · '+trees+' nearby tree proxies · widths/heights estimated where absent';viewer.scene.requestRender();
  }
- viewer.camera.moveEnd.addEventListener(()=>update().catch(e=>console.warn('Ground detail update',e)));
- update().catch(e=>console.warn(e));return {refresh:()=>update(true)};
+ const refresh=()=>update().catch(e=>console.warn('Ground detail update',e));
+ const onMovement=()=>{const now=Date.now();if(now-lastMovementUpdate<350)return;lastMovementUpdate=now;refresh();};
+ const removeEnd=viewer.camera.moveEnd.addEventListener(refresh);
+ const removeChanged=viewer.camera.changed?.addEventListener(onMovement);
+ update().catch(e=>console.warn(e));return {refresh:()=>update(true),destroy:()=>{disposed=true;removeEnd?.();removeChanged?.();if(layer)viewer.dataSources.remove(layer,true);rows.clear();info.remove?.();}};
 }
-const api={distanceMeters,detailBudget,surfaceColor,treeAppearance,selectFeatures,install};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ConvergenceGroundDetail=api;
+const api={distanceMeters,featureDistance,detailBudget,surfaceColor,treeAppearance,selectFeatures,install};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ConvergenceGroundDetail=api;
 })(typeof window!=='undefined'?window:globalThis);
