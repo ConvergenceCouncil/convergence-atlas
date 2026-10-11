@@ -1,13 +1,13 @@
 # CONVERGENCE Earth — world asset progress
 
-Updated 10 October 2026.
+Updated 11 October 2026.
 
 The saved World Atlas, original atlas page and ten-tab geographic workbook were read before this work. The approved 82-site Guild network, civilian jurisdiction, permanent Gate-less Santiago and immutable real-Earth baseline remain the planning foundation.
 
 ## Available work
 
 - **Seattle Center terrain pilot:** approximately 804 × 742 meters of sourced ground shape. A 505 × 505 16-bit landscape heightmap includes UTM Zone 10N bounds, UE5 X/Y/Z scales and actor elevation offset. Blender and GLB previews are generated from the same data. Source-grid resampling does not create additional geographic detail.
-- **Knossos Throne Room review:** source MD5 `d73acfdb906ca7ecda4452936050a57f` verified in GitHub builds. The geometry-preserving pipeline resizes the packed source texture and enforces a 2048-pixel/60-MB review budget. It rejects a changed triangle count before automatic publication. The published GLB is 17,319,384 bytes with all 260678 source triangles and a 2048 × 2048 texture. This is one source sector, not the entire reconstructed city or palace.
+- **Knossos Throne Room review:** source MD5 `d73acfdb906ca7ecda4452936050a57f` verified in GitHub builds. The geometry-preserving pipeline resizes the packed source texture and enforces a 4096-pixel/60-MB review budget. It rejects a changed triangle count before automatic publication. The published GLB is 20,062,732 bytes with all 260678 source triangles and a 4096 × 4096 texture. This is one source sector, not the entire reconstructed city or palace.
 - **Earth vectors:** nine files / 1642 features validate. One empty Loire geometry was excluded with its original index and reason preserved; no replacement geometry invented.
 - **Atlas access:** terrain and architecture reviews are linked from Earth Progress. Knossos also has a review link in its globe marker description.
 
@@ -26,3 +26,9 @@ Neither pilot is approved gameplay architecture. `data/architectural-models.json
 Local unit tests and globe registry checks pass, with the Rasterio-specific local test skipped where that dependency is absent. GitHub's terrain smoke workflow independently passed raster CRS, heightmap bit-depth and metric-scale checks. Browser/iPhone and UE5 runtime testing are not represented as completed.
 
 Verified delivery build: https://github.com/ConvergenceCouncil/convergence-atlas/actions/runs/38092330462
+
+## Seattle roads and foliage pilot
+
+The globe now has a bounded Seattle Center ground-detail layer sourced from OpenStreetMap: 2,902 mapped road/path ways and 1,737 mapped tree locations, exported 11 October 2026. Nearby ground corridors distinguish roads from pedestrian paths and use mapped widths when available; otherwise widths are estimates. Bridges, tunnels and elevated ways are excluded from the ground overlay. Generic original broadleaf GLB proxies use mapped tree locations and heights where available, otherwise an 8m estimate. They are not species reconstructions or surveyed canopy shapes.
+
+Phone rendering is limited to the nearest 100 road ways and 120 trees. The layer loads only near Seattle Center; trees stop above 1.4km camera clearance and roads stop above 5km. Attribution and ODbL provenance are included with the cached GeoJSON. No collision or continuous walking/navigation mesh has been added. Code, data and asset checks pass; actual iPhone FPS and visual ground alignment still require device verification because the available browser has WebGL disabled.
