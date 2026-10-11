@@ -16,10 +16,26 @@ viewer.scene.highDynamicRange=true;
 viewer.scene.globe.enableLighting=false;
 const mobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 let quality='balanced';
+function globeDetailPolicy(altitude,high,mobile,width,height,dpr){
+ const lod=altitude<1200?'street':altitude<12000?'near':altitude<180000?'regional':'far';
+ const terrain={far:7,regional:3,near:1.6,street:1.2}[lod]*(high?.75:1);
+ const buildings={far:24,regional:14,near:8,street:5}[lod]*(high?.75:1);
+ const close=lod==='street'||lod==='near';
+ const desired=close?(high?2:1.5):(high?1.5:1);
+ const pixels=mobile?2400000:4000000;
+ const resolution=Math.min(dpr||1,desired,Math.sqrt(pixels/Math.max(1,width*height)));
+ return {lod,terrain,buildings,resolution};
+}
+function inspectionOffset(aboveGround){
+ const height=Math.max(20,aboveGround);
+ const pitchDegrees=height<=100?-16:height<=800?-32:-60;
+ return {pitchDegrees,range:height/Math.sin(Math.abs(pitchDegrees)*Math.PI/180)};
+}
+
 function applyQuality(mode){
  quality=mode;
  const detailed=mode==='high';
- viewer.resolutionScale=detailed?Math.min(window.devicePixelRatio||1,mobile?1.5:2):1;
+ viewer.useBrowserRecommendedResolution=true;
  viewer.scene.fxaa=true;
  viewer.scene.globe.maximumScreenSpaceError=detailed?1.5:3;
  viewer.scene.globe.tileCacheSize=detailed?180:90;
@@ -54,15 +70,15 @@ function updateZoomLod(){
  const cart=viewer.camera.positionCartographic;
  if(!cart)return;
  const altitude=Math.max(0,cart.height);
- const next=altitude<1200?'street':altitude<12000?'near':altitude<180000?'regional':'far';
+ const policy=globeDetailPolicy(altitude,quality==='high',mobile,innerWidth,innerHeight,window.devicePixelRatio);
+ viewer.resolutionScale=policy.resolution;
+ const next=policy.lod;
  if(next===currentLod)return;
  currentLod=next;
  const high=quality==='high';
- const terrainErrors={far:7,regional:3,near:1.6,street:1.2};
- const buildingErrors={far:24,regional:14,near:8,street:5};
- viewer.scene.globe.maximumScreenSpaceError=terrainErrors[next]*(high?.75:1);
+ viewer.scene.globe.maximumScreenSpaceError=policy.terrain;
  viewer.scene.globe.tileCacheSize=next==='street'?(high?220:130):next==='near'?140:next==='regional'?100:65;
- if(globalBuildings)globalBuildings.maximumScreenSpaceError=buildingErrors[next]*(high?.75:1);
+ if(globalBuildings)globalBuildings.maximumScreenSpaceError=policy.buildings;
  const lodStatus=document.getElementById('lod-status');
  if(lodStatus)lodStatus.textContent='Detail: '+next+' · adaptive terrain and buildings';
 }
@@ -75,12 +91,13 @@ function adaptBuildingBudget(){
  const altitude=viewer.camera.positionCartographic.height;
  const near=altitude<3000;
  const high=quality==='high';
- globalBuildings.maximumScreenSpaceError=near?(high?5:8):altitude<15000?(high?7:11):altitude<180000?16:26;
+ globalBuildings.maximumScreenSpaceError=globeDetailPolicy(altitude,high,mobile,innerWidth,innerHeight,window.devicePixelRatio).buildings;
  globalBuildings.cacheBytes=(mobile?(high?240:160):(high?512:320))*1024*1024;globalBuildings.maximumCacheOverflowBytes=(mobile?64:128)*1024*1024;
  const pressure=near?'close':'normal';
  if(pressure!==lastTilePressure){lastTilePressure=pressure;console.info('Building tile LOD',pressure);}
 }
 viewer.camera.moveEnd.addEventListener(adaptBuildingBudget);
+window.addEventListener('resize',updateZoomLod);
 // Prefer progressive tile refinement: avoid briefly drawing a coarse parent tile
 // on top of a sharper child when navigating close to a building.
 function configureTileRefinement(tileset){
@@ -417,9 +434,9 @@ async function inspectAtHeight(aboveGround){
   }
  }catch(e){console.warn('Ground elevation sampling unavailable',e);}
  if(target!==currentTarget)return;
- const altitude=Math.max(ground+aboveGround,ground+20);
- const pitch=aboveGround<=100?Cesium.Math.toRadians(-16):aboveGround<=800?Cesium.Math.toRadians(-32):Cesium.Math.toRadians(-60);
- viewer.camera.flyTo({destination:Cesium.Cartesian3.fromDegrees(target.lon,target.lat,altitude),orientation:{heading:0,pitch,roll:0},duration:1.8});
+ const offset=inspectionOffset(aboveGround);
+ const center=Cesium.Cartesian3.fromDegrees(target.lon,target.lat,ground);
+ viewer.camera.flyToBoundingSphere(new Cesium.BoundingSphere(center,1),{offset:new Cesium.HeadingPitchRange(0,Cesium.Math.toRadians(offset.pitchDegrees),offset.range),duration:1.8});
  status.textContent=target.name+' · '+Math.round(aboveGround)+' m above sampled terrain. This is a camera view, not a claim that the landmark has a finished 3D model.';
 }
 document.querySelectorAll('[data-inspect-height]').forEach(button=>button.onclick=()=>inspectAtHeight(Number(button.dataset.inspectHeight)));
