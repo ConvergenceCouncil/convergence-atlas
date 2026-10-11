@@ -72,6 +72,9 @@ function install(viewer,Cesium,mobile){
   lastFocus=focus;lastAltitude=altitude;
   if(!layer){layer=new Cesium.CustomDataSource('Seattle mapped ground pilot');await viewer.dataSources.add(layer);if(disposed){viewer.dataSources.remove(layer,true);return;}return update(true);}
   const selected=selectFeatures(data.features,focus,altitude,mobile,new Set(rows.keys())),wanted=new Set(selected.map(f=>String(f.id)));
+  // One collection notification per refresh, rather than one per road segment/tree.
+  layer.entities.suspendEvents();
+  try{
   for(const [id,entities] of rows){if(!wanted.has(id)){entities.forEach(e=>layer.entities.remove(e));rows.delete(id);}}
   for(const f of selected){
    const id=String(f.id),p=f.properties;if(rows.has(id))continue;const entities=[];
@@ -83,6 +86,7 @@ function install(viewer,Cesium,mobile){
     entities.push(layer.entities.add({id:'ground-'+id,name:p.name||'Mapped tree · generic foliage proxy',position,properties:p,orientation:Cesium.Transforms.headingPitchRollQuaternion(position,new Cesium.HeadingPitchRoll(appearance.heading,0,0)),model:{uri:appearance.uri,scale:p.height_m/8,minimumPixelSize:0,heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,shadows:Cesium.ShadowMode.DISABLED,distanceDisplayCondition:new Cesium.DistanceDisplayCondition(0,1700)}}));
    }rows.set(id,entities);
   }
+  }finally{layer.entities.resumeEvents();}
   layer.show=true;const trees=selected.filter(f=>f.properties.kind==='tree').length;
   info.textContent=selected.length-trees+' mapped road ways · '+trees+' nearby tree proxies · widths/heights estimated where absent';viewer.scene.requestRender();
  }

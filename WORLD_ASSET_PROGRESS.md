@@ -52,3 +52,9 @@ Removed country polygon fill and limited country outlines to camera heights at o
 ### Loading and rendering overhead pass
 
 Enabled Cesium request-render mode with time-only redraws disabled; camera movement and loaded tiles still trigger frames, and manually changed overlay/imagery/ground visibility explicitly requests rendering. Hidden tabs pause the render loop and request a fresh frame on return. Frame targets are 30 on phones and 60 on desktops, not measured FPS guarantees. Terrain metadata, building tileset metadata and five location datasets start concurrently; optional country outlines load in the background and no longer block startup. Phones avoid sibling-terrain preloads and HDR, retaining existing nearby resolution and geometry budgets. Tests cover pending startup requests, tab resume, registry failure handling, and existing detail/ground policies. Actual GPU performance and elapsed device loading times remain unverified.
+
+
+### Ground update batching — speed7 (2026-10-11)
+- Road-segment and tree entity changes now suspend/resume Cesium collection events as a batch, with `finally` restoring delivery after errors.
+- Regression fixture: 120 tree additions emit one collection notification; 120 removals emit one; unchanged entities emit none. Nearby budgets, geometry and image resolution are unchanged.
+- All five local globe test suites pass. This verifies event overhead reduction, not measured phone FPS; actual-device rendering still needs measurement.
