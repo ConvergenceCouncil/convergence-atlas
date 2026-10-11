@@ -1,0 +1,40 @@
+name: Publish verified Knossos 4K review
+on:
+  push:
+    paths:
+      - '.github/workflows/knossos-4k-publish.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        with:
+          name: knossos-throne-browser-glb
+          run-id: 38092330462
+          github-token: ${{ github.token }}
+          path: verified-browser
+      - name: Compact and validate verified 4K review
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends gltfpack python3-pil
+          gltfpack -i verified-browser/knossos-throne-browser.glb -o assets/review/knossos/knossos-throne-review.glb -noq
+          /usr/bin/python3 tools/validate_review_glb.py assets/review/knossos/knossos-throne-review.glb --texture-max 4096 > assets/review/knossos/build-report.json
+          /usr/bin/python3 tools/audit_architecture.py assets/review/knossos/knossos-throne-review.glb > assets/review/knossos/knossos-throne-audit.json
+          /usr/bin/python3 -c "import json; r=json.load(open('assets/review/knossos/build-report.json')); assert r['textureSizes']==[[4096,4096]]; print(r)"
+      - name: Publish sharper review model
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/review/knossos/knossos-throne-review.glb assets/review/knossos/build-report.json assets/review/knossos/knossos-throne-audit.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish checksum-sourced Knossos 4K review texture"
+          git pull --rebase origin main
+          git push origin HEAD:main
